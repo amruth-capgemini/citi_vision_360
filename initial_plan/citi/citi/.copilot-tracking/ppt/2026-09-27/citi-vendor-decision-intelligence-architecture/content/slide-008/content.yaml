@@ -1,0 +1,210 @@
+slide: 8
+title: "Security, Governance, and Operations Control Plane"
+section: "Control Plane"
+layout: "content"
+background:
+  fill: "#F5F8FC"
+elements:
+  - type: shape
+    shape: rectangle
+    left: 0.5
+    top: 0.5
+    width: 12.333
+    height: 0.08
+    fill: "#0B1F3A"
+  - type: textbox
+    left: 0.6
+    top: 0.7
+    width: 9.4
+    height: 0.38
+    text: "Security, Governance, and Operations Control Plane"
+    font: "Segoe UI"
+    font_size: 21
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: textbox
+    left: 0.6
+    top: 1.1
+    width: 11.9
+    height: 0.26
+    text: "Target capabilities and controls spanning data, AI, runtime reliability, audit, and human accountability."
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#46586C"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 1.58
+    width: 2.32
+    height: 3.85
+    fill: "#FFFFFF"
+    line_color: "#00A6B2"
+    line_width: 1.25
+  - type: textbox
+    left: 0.8
+    top: 1.8
+    width: 1.92
+    height: 0.26
+    text: "SECURITY / IDENTITY"
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: textbox
+    left: 0.84
+    top: 2.26
+    width: 1.84
+    height: 2.6
+    text: "- RBAC / ABAC\n- Session and policy decision controls\n- Row, attribute, document, and index controls\n- Encryption and key / secrets management\n- Tool allow lists and content controls"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#1F2D3D"
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.05
+    top: 1.58
+    width: 2.32
+    height: 3.85
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1.25
+  - type: textbox
+    left: 3.25
+    top: 1.8
+    width: 1.92
+    height: 0.26
+    text: "DATA GOVERNANCE"
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: textbox
+    left: 3.29
+    top: 2.26
+    width: 1.84
+    height: 2.6
+    text: "- Data classification and retention\n- Quality and freshness controls\n- Entity mastering and reconciliation\n- Metadata, catalog, and lineage\n- Metric definitions and semantic governance"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#1F2D3D"
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.5
+    top: 1.58
+    width: 2.32
+    height: 3.85
+    fill: "#FFFFFF"
+    line_color: "#E56A20"
+    line_width: 1.25
+  - type: textbox
+    left: 5.7
+    top: 1.8
+    width: 1.92
+    height: 0.26
+    text: "AI GOVERNANCE"
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#A54412"
+    font_bold: true
+    alignment: center
+  - type: textbox
+    left: 5.74
+    top: 2.26
+    width: 1.84
+    height: 2.6
+    text: "- Prompt, model, and version management\n- Eval, red team, and grounding checks\n- Model gateway and prompt guardrails\n- Tool policy and output controls\n- Traceable evidence and limitations"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#1F2D3D"
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.95
+    top: 1.58
+    width: 2.32
+    height: 3.85
+    fill: "#FFFFFF"
+    line_color: "#00A6B2"
+    line_width: 1.25
+  - type: textbox
+    left: 8.15
+    top: 1.8
+    width: 1.92
+    height: 0.26
+    text: "RELIABILITY / OPS"
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: textbox
+    left: 8.19
+    top: 2.26
+    width: 1.84
+    height: 2.6
+    text: "- SIEM, monitoring, and alerts\n- SLOs and explicit failure modes\n- Capacity, latency, and freshness monitoring\n- Incident, problem, and change control\n- Operational runbooks and escalation"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#1F2D3D"
+  - type: shape
+    shape: rounded_rectangle
+    left: 10.4
+    top: 1.58
+    width: 2.32
+    height: 3.85
+    fill: "#FFFFFF"
+    line_color: "#E56A20"
+    line_width: 1.25
+  - type: textbox
+    left: 10.6
+    top: 1.8
+    width: 1.92
+    height: 0.26
+    text: "AUDIT / HUMAN CONTROL"
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#A54412"
+    font_bold: true
+    alignment: center
+  - type: textbox
+    left: 10.64
+    top: 2.26
+    width: 1.84
+    height: 2.6
+    text: "- Traces, audit evidence, decision records\n- Request, data, tool, and response provenance\n- Human approval and operational workflow\n- Segregation of duties\n- No agent writeback to systems of record"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#1F2D3D"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 5.82
+    width: 12.12
+    height: 0.58
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "CROSS-CUTTING CONTROL LOOP: policy and entitlements constrain retrieval; telemetry, evaluation, and evidence records inform monitored human oversight and controlled change."
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 6.62
+    width: 12.12
+    height: 0.36
+    fill: "#0B1F3A"
+    text: "All labels describe target capabilities or controls; deployment and product selection remain subject to Citi governance and approval."
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#FFFFFF"
+    text_bold: true
+    
+speaker_notes: |
+  This control plane is a target-state set of capabilities, not a claim that particular products are deployed.
+  Security begins with identity, RBAC or ABAC, and fine-grained data and retrieval controls. Data governance covers classification, quality, freshness, lineage, and semantic definitions.
+  AI governance adds model and prompt lifecycle management, evaluation, red teaming, grounding, and allowed tool controls. Operations maintains SLOs, monitoring, incident management, and controlled change.
+  Audit evidence and human approval establish accountability. The architecture has no agent writeback path; operational actions stay within separately authorized human workflows.

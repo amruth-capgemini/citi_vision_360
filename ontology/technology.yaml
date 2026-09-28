@@ -1,0 +1,181 @@
+module: technology
+description: >
+  Services, applications, configuration items, business processes and their directed
+  dependencies (source class 05_service_dependencies). Graph connectivity is never proof of
+  causality. USES_PORTAL (enabling use) never counts as SUPPORTS (operational support).
+
+  Assertion metadata that the source register records on every relationship (verification
+  status, effective_from/to, last_verified, evidence document/page/section) is common to all
+  relations and is stored with each relation assertion (Phase 2), not declared per relation.
+  The register's dependency_type is implied by the relation ID: USES_PORTAL is
+  "Enabling only", every other relation is "Direct".
+
+classes:
+  - id: Service
+    label: Contracted service
+    key: service_id
+    id_pattern: "^SVC-\\d{3}$"
+    definition: >
+      A service a vendor delivers to the buyer under a statement of work. The unit that
+      supports applications or processes and is measured by SLAs.
+    synonyms: [Vendor service, Managed service]
+    properties:
+      - id: service_id
+        datatype: identifier
+        required: true
+        description: Stable service key.
+      - id: service_name
+        datatype: string
+        required: true
+        description: Display name of the service.
+      - id: recovery_time_target_minutes
+        datatype: integer
+        description: Recovery time objective (RTO) for the service.
+      - id: recovery_point_target_minutes
+        datatype: integer
+        description: Recovery point objective (RPO) for the service.
+
+  - id: Application
+    label: Application
+    key: application_id
+    id_pattern: "^APP-\\d{3}$"
+    definition: A buyer application in the portfolio catalog, with a criticality rating.
+    synonyms: [System, Business application, Portal]
+    properties:
+      - id: application_id
+        datatype: identifier
+        required: true
+        description: Stable application key.
+      - id: name
+        datatype: string
+        required: true
+        description: Display name of the application.
+      - id: criticality
+        datatype: string
+        required: true
+        enum: [Critical, Standard]
+        description: Business criticality; Critical applications drive concentration and renewal priority.
+      - id: recovery_target_minutes
+        datatype: integer
+        description: Application recovery time objective.
+      - id: recovery_point_minutes
+        datatype: integer
+        description: Application recovery point objective.
+
+  - id: ConfigurationItem
+    label: Configuration item
+    key: ci_id
+    id_pattern: "^CI-\\d{3}-\\d+$"
+    definition: A technical asset (runtime, endpoint) that a service depends on.
+    synonyms: [CI, Technical asset]
+    properties:
+      - id: ci_id
+        datatype: identifier
+        required: true
+        description: Stable configuration item key.
+      - id: ci_type
+        datatype: string
+        required: true
+        enum: [Service runtime, Monitoring endpoint]
+        description: Type of technical asset.
+        synonyms: [type]
+      - id: region
+        datatype: string
+        description: Hosting region of the asset.
+
+  - id: BusinessProcess
+    label: Business process
+    key: process_id
+    id_pattern: "^PROC-\\d{3}$"
+    definition: A buyer business process supported by a (typically non-technical) service.
+    properties:
+      - id: process_id
+        datatype: identifier
+        required: true
+        description: Stable business process key.
+      - id: name
+        datatype: string
+        required: true
+        description: Display name of the process.
+
+  - id: DependencyRegisterDocument
+    label: Dependency register document
+    parent: Document
+    id_pattern: "^V-\\d{3}_dependency_register$"
+    definition: >
+      The original service dependency register (PDF with an equivalent Markdown rendition).
+      Evidence source for dependency relationships.
+
+relations:
+  - id: PROVIDES
+    label: Provides
+    source: Vendor
+    target: Service
+    cardinality: one_to_many
+    description: The vendor delivers the service.
+
+  - id: SUPPORTS
+    label: Supports
+    source: Service
+    target: Application
+    cardinality: many_to_many
+    description: >
+      The service operationally supports (runs, maintains or fixes) the application. Only
+      SUPPORTS counts toward critical-application concentration.
+    disjoint_with: [USES_PORTAL]
+
+  - id: USES_PORTAL
+    label: Uses portal
+    source: Service
+    target: Application
+    cardinality: many_to_many
+    description: >
+      The service uses the application as an enabling portal (e.g. a facilities vendor
+      logging tickets). Consuming an application is not operating it; never counts as
+      SUPPORTS.
+    disjoint_with: [SUPPORTS]
+
+  - id: DEPENDS_ON
+    label: Depends on
+    source: Service
+    target: ConfigurationItem
+    cardinality: one_to_many
+    description: The service depends on the technical asset to operate.
+
+  - id: SUPPORTS_PROCESS
+    label: Supports process
+    source: Service
+    target: BusinessProcess
+    cardinality: many_to_many
+    description: The service supports the buyer business process.
+
+  - id: DELIVERED_AT
+    label: Delivered at
+    source: Service
+    target: Site
+    cardinality: many_to_many
+    description: The service is physically delivered at the site.
+
+  - id: ENABLES
+    label: Enables
+    source: Application
+    target: Product
+    cardinality: many_to_one
+    description: The application enables the buyer business product.
+
+  - id: POTENTIAL_ALTERNATIVE_TO
+    label: Potential alternative to
+    source: Vendor
+    target: Vendor
+    cardinality: many_to_many
+    description: >
+      The source vendor has been named as a possible alternative to the target vendor. A
+      candidate only; replacement requires validated capacity, a current risk assessment
+      and no blocking issues.
+    properties:
+      - id: validation_status
+        datatype: string
+        required: true
+        enum: [Unvalidated, Not assessed, Validated]
+        description: Whether the alternative capacity has been validated.
+        synonyms: [alternative_capacity_status]

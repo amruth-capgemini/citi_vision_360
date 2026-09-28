@@ -1,0 +1,364 @@
+slide: 7
+title: "Detailed Agent and Decision Runtime"
+section: "Agent Runtime"
+layout: "content"
+background:
+  fill: "#F5F8FC"
+elements:
+  - type: shape
+    shape: rectangle
+    left: 0.5
+    top: 0.5
+    width: 12.333
+    height: 0.08
+    fill: "#0B1F3A"
+  - type: textbox
+    left: 0.6
+    top: 0.7
+    width: 8.7
+    height: 0.38
+    text: "Detailed Agent and Decision Runtime"
+    font: "Segoe UI"
+    font_size: 21
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: textbox
+    left: 0.6
+    top: 1.1
+    width: 11.9
+    height: 0.26
+    text: "A bounded decision-support runtime: evidence in, validated brief out, human authority retained."
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#46586C"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 1.55
+    width: 2.22
+    height: 0.72
+    fill: "#FFFFFF"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Experience / API gateway\nAuthorized request entry"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.0
+    top: 1.55
+    width: 2.22
+    height: 0.72
+    fill: "#FFFFFF"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Identity / session\nAuthenticated context"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.4
+    top: 1.55
+    width: 2.35
+    height: 0.72
+    fill: "#FFF0E7"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Entitlement / policy decision point\nControls before retrieval"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#A54412"
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.93
+    top: 1.55
+    width: 2.22
+    height: 0.72
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Request classifier\nIntent + scope routing"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: connector
+    connector_type: straight
+    begin_x: 2.82
+    begin_y: 1.91
+    end_x: 3.0
+    end_y: 1.91
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: connector
+    connector_type: straight
+    begin_x: 5.22
+    begin_y: 1.91
+    end_x: 5.4
+    end_y: 1.91
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: connector
+    connector_type: straight
+    begin_x: 7.75
+    begin_y: 1.91
+    end_x: 7.93
+    end_y: 1.91
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: shape
+    shape: rounded_rectangle
+    left: 10.35
+    top: 1.55
+    width: 2.37
+    height: 0.72
+    fill: "#0B1F3A"
+    text: "Decision supervisor\nAllow-listed task plan only"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#FFFFFF"
+    text_bold: true
+  - type: connector
+    connector_type: straight
+    begin_x: 10.15
+    begin_y: 1.91
+    end_x: 10.35
+    end_y: 1.91
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: shape
+    shape: rounded_rectangle
+    left: 4.3
+    top: 2.62
+    width: 2.45
+    height: 0.62
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Task planner: bounded scope, approved specialist + tool selection"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: connector
+    connector_type: straight
+    begin_x: 11.53
+    begin_y: 2.27
+    end_x: 6.75
+    end_y: 2.62
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: textbox
+    left: 0.6
+    top: 3.53
+    width: 3.0
+    height: 0.2
+    text: "DOMAIN SPECIALISTS (approved task plan only)"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 3.82
+    width: 2.75
+    height: 0.58
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+    text: "Vendor / commercial specialist"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 4.52
+    width: 2.75
+    height: 0.58
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+    text: "Risk / controls specialist"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 5.22
+    width: 2.75
+    height: 0.58
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+    text: "Relationship / dependency specialist"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 5.92
+    width: 2.75
+    height: 0.58
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+    text: "Document / policy specialist"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.74
+    top: 3.82
+    width: 2.55
+    height: 1.98
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1.25
+    text: "SHARED EVIDENCE CONTRACT\n\nSource + record / excerpt\nDate + calculation\nConfidence + limitation\nPolicy scope + tool trace"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 6.68
+    top: 3.82
+    width: 2.55
+    height: 1.1
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Validation / reconciliation\nCoverage, freshness, conflicts, policy, calculation checks"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 6.68
+    top: 5.1
+    width: 2.55
+    height: 0.7
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Explanation / synthesis\nEvidence with limitations"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 9.62
+    top: 3.82
+    width: 3.1
+    height: 0.85
+    fill: "#FFFFFF"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Recommendation / decision brief\nOptions, rationale, uncertainty, evidence"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#A54412"
+  - type: shape
+    shape: rounded_rectangle
+    left: 9.62
+    top: 4.87
+    width: 3.1
+    height: 0.7
+    fill: "#FFF0E7"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Human review\nNamed decision authority"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#A54412"
+    text_bold: true
+  - type: textbox
+    left: 9.62
+    top: 5.86
+    width: 3.1
+    height: 0.2
+    text: "TOOL ADAPTERS: specialists cannot call unapproved tools"
+    font: "Segoe UI"
+    font_size: 9
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: shape
+    shape: rounded_rectangle
+    left: 9.62
+    top: 6.1
+    width: 0.7
+    height: 0.38
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "SQL / semantic"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 10.42
+    top: 6.1
+    width: 0.7
+    height: 0.38
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Graph traversal"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 11.22
+    top: 6.1
+    width: 0.7
+    height: 0.38
+    fill: "#FFF0E7"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Document retrieval"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#A54412"
+  - type: shape
+    shape: rounded_rectangle
+    left: 12.02
+    top: 6.1
+    width: 0.7
+    height: 0.38
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Temporal / scenario"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.74
+    top: 6.12
+    width: 5.49
+    height: 0.36
+    fill: "#0B1F3A"
+    text: "NO-WRITEBACK BOUNDARY: runtime reads governed evidence and calculates scenarios only."
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#FFFFFF"
+    text_bold: true
+speaker_notes: |
+  The runtime begins with an authenticated request and evaluates entitlement and policy before any tool use.
+  The decision supervisor produces an allow-listed task plan. Specialists are limited to the plan and cannot invoke unapproved tools.
+  Every specialist returns the shared evidence contract. Validation and reconciliation occur before explanation and the decision brief.
+  The human reviewer remains the decision authority. The runtime is read and calculate only; it has no writeback path to systems of record.

@@ -1,0 +1,47 @@
+{
+  "retrieved_on": "2026-09-28",
+  "source_use": "Patterns only. No downloaded source text, source contract, real party identity or real pricing is included. Fictional commitments are deliberately distinct.",
+  "uploaded_reference": "User-supplied redacted SOW reviewed locally for framework/order/SOW hierarchy, service scope, deliverables, resources, charges, change control and approval structure. Pricing was redacted, SLA schedule absent and personnel counts inconsistent across sections; none were inferred or copied as fact.",
+  "deck_traceability": "Reviewed the supplied vendor decision architecture deck, source domains slide 6, and the 12-slide business story, connected evidence slide 3. Six classes group identity/ownership together and retain history as version metadata across all classes.",
+  "web_sources": [
+    {
+      "id": "WEB-01",
+      "url": "https://aws.amazon.com/compute/sla/",
+      "used_for": "Measurement windows, explicit exclusions, claim evidence and credit-basis concepts. Numeric commitments and clauses were invented."
+    },
+    {
+      "id": "WEB-02",
+      "url": "https://www.gov.uk/government/publications/the-model-services-contract-schedules-england-wales",
+      "used_for": "Separate service schedules alongside core commercial terms. No schedule wording reproduced."
+    },
+    {
+      "id": "WEB-03",
+      "url": "https://www.servicenow.com/docs/r/servicenow-platform/dependency-views/c_BusinesssServiceManagementMaps.html",
+      "used_for": "Configuration-item and application/service dependency separation. Invented IDs and relationships."
+    },
+    {
+      "id": "WEB-04",
+      "url": "https://csrc.nist.gov/pubs/sp/800/34/r1/upd1/final",
+      "used_for": "Business impact and continuity planning concepts. Fictional recovery targets and procedures."
+    }
+  ],
+  "format_research": [
+    {
+      "url": "https://www.acquisition.gov/far/subpart-16.2",
+      "concept": "Fixed-price scope and allocation of delivery cost risk; no regulatory applicability asserted"
+    },
+    {
+      "url": "https://www.acquisition.gov/far/16.601",
+      "concept": "Hourly role rates, evidence and ceiling controls for T&M"
+    },
+    {
+      "url": "https://www.gov.uk/government/publications/the-digital-data-and-technology-playbook/contracting-for-agile-guidance-note-html",
+      "concept": "Backlog evolution, sprint acceptance and commercial alignment"
+    },
+    {
+      "url": "https://www.gov.uk/government/collections/model-services-contract",
+      "concept": "Front sheet, core terms and modular service schedules"
+    }
+  ],
+  "adaptation_note": "Reference SOW is inspiration only. Ten fictional document families combine researched commercial structures with original SaaS, research, unit-service and training adaptations. No claim that every family reproduces an official template."
+}

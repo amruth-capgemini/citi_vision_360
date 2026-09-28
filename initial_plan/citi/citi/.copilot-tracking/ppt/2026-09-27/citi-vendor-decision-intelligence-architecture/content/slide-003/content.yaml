@@ -1,0 +1,284 @@
+slide: 3
+title: "Layered Semi-Agentic Architecture"
+section: "Architecture"
+layout: "content"
+background:
+  fill: "#F5F8FC"
+elements:
+  - type: shape
+    shape: rectangle
+    left: 0
+    top: 0
+    width: 13.333
+    height: 0.1
+    fill: "#0B1F3A"
+  - type: textbox
+    left: 0.55
+    top: 0.28
+    width: 8.3
+    height: 0.4
+    text: "Layered Semi-Agentic Architecture"
+    font: "Segoe UI"
+    font_size: 22
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: textbox
+    left: 0.57
+    top: 0.74
+    width: 11.8
+    height: 0.28
+    text: "All investigations are governed by entitlement, shared evidence, validation, explanation, and human accountability."
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#607389"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.55
+    top: 1.18
+    width: 2.15
+    height: 0.66
+    fill: "#0B1F3A"
+    text: "AUTHORIZED USERS\nDecision experience"
+    text_font: "Segoe UI"
+    text_size: 11
+    text_color: "#FFFFFF"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 2.92
+    top: 1.18
+    width: 3.0
+    height: 0.66
+    fill: "#D9F2F3"
+    text: "IDENTITY + ENTITLEMENTS\nBefore retrieval"
+    text_font: "Segoe UI"
+    text_size: 11
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 6.14
+    top: 1.18
+    width: 2.45
+    height: 0.66
+    fill: "#0B1F3A"
+    text: "DECISION SUPERVISOR\nScope + task policy"
+    text_font: "Segoe UI"
+    text_size: 11
+    text_color: "#FFFFFF"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 8.8
+    top: 1.18
+    width: 1.78
+    height: 0.66
+    fill: "#D9F2F3"
+    text: "HUMAN\nAPPROVAL"
+    text_font: "Segoe UI"
+    text_size: 11
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: connector
+    connector_type: straight
+    begin_x: 2.7
+    begin_y: 1.51
+    end_x: 2.92
+    end_y: 1.51
+    line_color: "#00A6B2"
+    line_width: 2
+    head_end: arrow
+  - type: connector
+    connector_type: straight
+    begin_x: 5.92
+    begin_y: 1.51
+    end_x: 6.14
+    end_y: 1.51
+    line_color: "#00A6B2"
+    line_width: 2
+    head_end: arrow
+  - type: connector
+    connector_type: straight
+    begin_x: 8.59
+    begin_y: 1.51
+    end_x: 8.8
+    end_y: 1.51
+    line_color: "#00A6B2"
+    line_width: 2
+    head_end: arrow
+  - type: shape
+    shape: rectangle
+    left: 0.55
+    top: 2.08
+    width: 12.23
+    height: 0.32
+    fill: "#E5ECF5"
+    text: "BOUNDED SPECIALIST INVESTIGATIONS"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: card
+    left: 0.55
+    top: 2.53
+    width: 2.82
+    height: 0.84
+    title: "COMMERCIAL"
+    title_color: "#0B1F3A"
+    title_size: 11
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Contracts, renewals, obligations"
+        color: "#46586C"
+  - type: card
+    left: 3.48
+    top: 2.53
+    width: 2.82
+    height: 0.84
+    title: "FINANCIAL"
+    title_color: "#0B1F3A"
+    title_size: 11
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Spend, forecast, scenarios"
+        color: "#46586C"
+  - type: card
+    left: 6.41
+    top: 2.53
+    width: 2.82
+    height: 0.84
+    title: "DEPENDENCY / RISK"
+    title_color: "#0B1F3A"
+    title_size: 11
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Relationships, concentration, TPRM"
+        color: "#46586C"
+  - type: card
+    left: 9.34
+    top: 2.53
+    width: 2.82
+    height: 0.84
+    title: "SOURCING"
+    title_color: "#0B1F3A"
+    title_size: 11
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Overlap, alternatives, consolidation"
+        color: "#46586C"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.55
+    top: 3.66
+    width: 5.84
+    height: 0.72
+    fill: "#D9F2F3"
+    text: "SHARED EVIDENCE CONTRACT\nSource | value or excerpt | as-of date | calculation | confidence | limitation"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 6.6
+    top: 3.66
+    width: 5.56
+    height: 0.72
+    fill: "#FFF0E7"
+    text: "VALIDATION + EXPLANATION\nCoverage, policy, freshness, contradiction, data quality, rationale"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#A54412"
+    text_bold: true
+  - type: shape
+    shape: rectangle
+    left: 0.55
+    top: 4.74
+    width: 12.23
+    height: 0.32
+    fill: "#E5ECF5"
+    text: "GOVERNED DATA AND CALCULATION SERVICES"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.55
+    top: 5.17
+    width: 2.32
+    height: 0.62
+    fill: "#FFFFFF"
+    text: "Approved SQL\n& metric service"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 2.99
+    top: 5.17
+    width: 2.32
+    height: 0.62
+    fill: "#FFFFFF"
+    text: "Governed\nrelationship graph"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.43
+    top: 5.17
+    width: 2.32
+    height: 0.62
+    fill: "#FFFFFF"
+    text: "Entitled document\nretrieval"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.87
+    top: 5.17
+    width: 2.32
+    height: 0.62
+    fill: "#FFFFFF"
+    text: "Temporal\ncomparison"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 10.31
+    top: 5.17
+    width: 1.85
+    height: 0.62
+    fill: "#FFFFFF"
+    text: "Scenario\nengine"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.55
+    top: 6.12
+    width: 12.23
+    height: 0.62
+    fill: "#0B1F3A"
+    text: "DATA FOUNDATION: governed definitions, entity resolution, data quality, lineage, curated analytics, graph projection, document index"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#FFFFFF"
+    text_bold: true
+speaker_notes: |
+  This slide makes the architecture layers explicit. Entitlements are enforced before retrieval.
+  The supervisor delegates only approved work to four domain specialists. Specialists return findings through one evidence contract.
+  Validation and explanation are mandatory before a decision brief reaches a human approver.
+  Data services are governed and scenarios are non-destructive. The data foundation retains definitions, lineage, entity resolution, and quality context.

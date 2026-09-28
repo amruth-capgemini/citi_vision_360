@@ -1,0 +1,242 @@
+module: commercial
+description: >
+  Vendor identity and ownership (source class 01_vendor_ownership) and financial records
+  (source class 03_spend_forecast). Amounts are integer minor units (USD cents). FY2025
+  actuals, forecasts and 2026 forward commitments are distinct classes and must never be
+  summed together.
+
+classes:
+  - id: Vendor
+    label: Vendor
+    parent: LegalEntity
+    key: vendor_id
+    id_pattern: "^V-\\d{3}$"
+    definition: >
+      A third-party legal entity that supplies services to the buyer. Identified by a
+      stable vendor ID; source-system IDs are recorded for identity resolution and outrank
+      name matches.
+    synonyms: [Supplier, Third party, Provider]
+    properties:
+      - id: vendor_id
+        datatype: identifier
+        required: true
+        description: Stable canonical vendor key.
+      - id: vendor_type
+        datatype: string
+        required: true
+        enum: [Technical, Non-technical]
+        description: Whether the vendor delivers technology services or non-technical services.
+      - id: category
+        datatype: string
+        description: Procurement category of the vendor's work (e.g. Payments, Facilities).
+      - id: status
+        datatype: string
+        required: true
+        enum: [Active, Inactive]
+        description: Relationship status in the vendor master.
+      - id: country
+        datatype: string
+        pattern: "^[A-Z]{2}$"
+        description: ISO 3166-1 alpha-2 country of the contracting entity.
+      - id: aliases
+        datatype: string
+        cardinality: many
+        description: Alternate names and legacy supplier codes used in source systems.
+      - id: capabilities
+        datatype: string
+        cardinality: many
+        description: >
+          Declared capability keywords. Keyword overlap alone never establishes that one
+          vendor can replace another.
+      - id: clm_source_id
+        datatype: identifier
+        description: Vendor key in the contract lifecycle management system.
+      - id: erp_source_id
+        datatype: identifier
+        description: Vendor key in the ERP / accounts payable system.
+        synonyms: [source_vendor_code]
+      - id: wfm_source_id
+        datatype: identifier
+        description: Vendor key in the workforce management system.
+      - id: tprm_source_id
+        datatype: identifier
+        description: Vendor key in the third-party risk management system.
+
+  - id: ParentEntity
+    label: Vendor parent group
+    parent: LegalEntity
+    key: parent_vendor_id
+    id_pattern: "^PARENT-\\d{2}$"
+    definition: >
+      The ultimate parent legal entity of one or more vendors. Shared parents indicate
+      related suppliers and concentration.
+    synonyms: [Parent company, Holding company]
+    properties:
+      - id: parent_vendor_id
+        datatype: identifier
+        required: true
+        description: Stable parent group key.
+
+  - id: Invoice
+    label: Invoice
+    key: invoice_id
+    id_pattern: "^INV-\\d{3}-\\d{6}$"
+    definition: >
+      A vendor invoice header for one billing period. Amounts live on invoice lines.
+    synonyms: [Bill]
+    properties:
+      - id: invoice_id
+        datatype: identifier
+        required: true
+        description: Stable invoice key.
+      - id: period
+        datatype: year_month
+        required: true
+        description: Billing period covered by the invoice.
+      - id: currency
+        datatype: string
+        required: true
+        enum: [USD]
+        description: Billing currency.
+      - id: status
+        datatype: string
+        required: true
+        enum: [Posted]
+        description: Accounting status of the invoice.
+
+  - id: InvoiceLine
+    label: Invoice line
+    kind: fact
+    key: invoice_line_id
+    id_pattern: "^INV-\\d{3}-\\d{6}-\\d{2}$"
+    definition: >
+      One posted invoice line with its approved forecast allocation for the same
+      vendor/month. Spend is summed once per invoice line. Variance equals actual minus
+      forecast and reconciles to the three variance drivers.
+    properties:
+      - id: invoice_line_id
+        datatype: identifier
+        required: true
+        description: Stable invoice line key; the grain for spend aggregation.
+      - id: period
+        datatype: year_month
+        required: true
+        description: Reporting month of the line.
+      - id: currency
+        datatype: string
+        required: true
+        enum: [USD]
+        description: Currency of all amounts on the line.
+      - id: actual_usd_cents
+        datatype: money_cents
+        required: true
+        description: Posted actual spend.
+      - id: forecast_usd_cents
+        datatype: money_cents
+        required: true
+        description: Approved forecast allocated to the same month.
+      - id: variance_usd_cents
+        datatype: money_cents
+        required: true
+        description: Actual minus forecast.
+      - id: volume_change_usd_cents
+        datatype: money_cents
+        description: Variance driver attributable to volume change.
+        synonyms: [variance_drivers_usd_cents.volume_change]
+      - id: rate_mix_usd_cents
+        datatype: money_cents
+        description: Variance driver attributable to rate or mix.
+        synonyms: [variance_drivers_usd_cents.rate_mix]
+      - id: scope_change_usd_cents
+        datatype: money_cents
+        description: Variance driver attributable to scope change.
+        synonyms: [variance_drivers_usd_cents.scope_change]
+      - id: forecast_version
+        datatype: string
+        required: true
+        description: Forecast version the allocation was taken from.
+      - id: adjustment_approval_id
+        datatype: identifier
+        description: Change control approval that authorises a positive adjustment.
+
+  - id: PurchaseCommitment
+    label: Open purchase commitment
+    kind: fact
+    key: purchase_order_id
+    id_pattern: "^PO-\\d{3}-\\d{4}$"
+    definition: >
+      A forward purchase-order commitment. It is not spend and is never added to closed-year
+      actuals.
+    synonyms: [Purchase order, Open PO, Commitment]
+    properties:
+      - id: purchase_order_id
+        datatype: identifier
+        required: true
+        description: Stable purchase order key.
+      - id: period
+        datatype: year_month
+        required: true
+        description: Month at which the commitment is stated.
+      - id: currency
+        datatype: string
+        required: true
+        enum: [USD]
+        description: Commitment currency.
+      - id: open_commitment_usd_cents
+        datatype: money_cents
+        required: true
+        description: Remaining committed amount.
+
+  - id: CostCenter
+    label: Cost center
+    key: cost_center_id
+    id_pattern: "^CC-\\d{2}$"
+    definition: A buyer cost center to which vendor spend is charged.
+    properties:
+      - id: cost_center_id
+        datatype: identifier
+        required: true
+        description: Stable cost center key.
+
+relations:
+  - id: SUBSIDIARY_OF
+    label: Subsidiary of
+    source: Vendor
+    target: ParentEntity
+    cardinality: many_to_one
+    description: The vendor is owned by the parent group.
+
+  - id: ISSUED_BY
+    label: Issued by
+    source: Invoice
+    target: Vendor
+    cardinality: many_to_one
+    description: The vendor that issued the invoice.
+
+  - id: BILLED_UNDER
+    label: Billed under
+    source: Invoice
+    target: Contract
+    cardinality: many_to_one
+    description: The contract whose terms the invoice is billed against.
+
+  - id: HAS_LINE
+    label: Has line
+    source: Invoice
+    target: InvoiceLine
+    cardinality: one_to_many
+    description: The invoice contains this line.
+
+  - id: CHARGED_TO
+    label: Charged to
+    source: InvoiceLine
+    target: CostCenter
+    cardinality: many_to_one
+    description: The cost center that bears the line's spend.
+
+  - id: COMMITTED_UNDER
+    label: Committed under
+    source: PurchaseCommitment
+    target: Contract
+    cardinality: many_to_one
+    description: The contract the forward commitment is raised against.

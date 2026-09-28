@@ -1,0 +1,104 @@
+{
+  "synthetic": true,
+  "source_system": "SYN-WFM",
+  "as_of": "2026-09-28",
+  "vendor_id": "V-010",
+  "billable_count": 4,
+  "shadow_count": 0,
+  "total_active_assignments": 4,
+  "rate_basis": "Allocated monthly service fee, not employee salary; includes overhead and service costs.",
+  "assignments": [
+    {
+      "assignment_id": "ASN-010-001",
+      "vendor_id": "V-010",
+      "contract_id": "CTR-010",
+      "sow_id": "SOW-010",
+      "service_id": "SVC-010",
+      "worker_alias": "Synthetic resource 010-001",
+      "role": "Tenant administrator",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2291667,
+      "location": "US-East",
+      "team_id": "TEAM-010",
+      "application_id": "APP-010",
+      "start_date": "2025-01-01",
+      "end_date": "2027-02-25",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-010-002",
+      "vendor_id": "V-010",
+      "contract_id": "CTR-010",
+      "sow_id": "SOW-010",
+      "service_id": "SVC-010",
+      "worker_alias": "Synthetic resource 010-002",
+      "role": "Workflow configurator",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2291667,
+      "location": "India-West",
+      "team_id": "TEAM-010",
+      "application_id": "APP-010",
+      "start_date": "2025-01-01",
+      "end_date": "2027-02-25",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-010-003",
+      "vendor_id": "V-010",
+      "contract_id": "CTR-010",
+      "sow_id": "SOW-010",
+      "service_id": "SVC-010",
+      "worker_alias": "Synthetic resource 010-003",
+      "role": "Integration specialist",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2291666,
+      "location": "UK-South",
+      "team_id": "TEAM-010",
+      "application_id": "APP-010",
+      "start_date": "2025-01-01",
+      "end_date": "2027-02-25",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-010-004",
+      "vendor_id": "V-010",
+      "contract_id": "CTR-010",
+      "sow_id": "SOW-010",
+      "service_id": "SVC-010",
+      "worker_alias": "Synthetic resource 010-004",
+      "role": "Tenant administrator",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2291666,
+      "location": "US-East",
+      "team_id": "TEAM-010",
+      "application_id": "APP-010",
+      "start_date": "2025-01-01",
+      "end_date": "2027-02-25",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    }
+  ]
+}

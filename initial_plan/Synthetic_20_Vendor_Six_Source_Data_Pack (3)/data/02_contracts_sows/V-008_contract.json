@@ -1,0 +1,107 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-008",
+      "sow_id": "SOW-008",
+      "vendor_id": "V-008",
+      "framework_id": "FA-008",
+      "order_id": "ORD-008",
+      "service_id": "SVC-008",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2027-06-25",
+      "days_to_expiry": 270,
+      "notice_days": 90,
+      "notice_deadline": "2027-03-27",
+      "automatic_renewal": true,
+      "renewal_extension_months": 12,
+      "termination_convenience_days": 90,
+      "early_exit_fee_months": 0,
+      "payment_terms_days": 60,
+      "pricing_model": "Stage-gated fixed research budget",
+      "annual_base_fee_usd_cents": 280000000,
+      "approved_2025_adjustment_usd_cents": 20000000,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 10,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-008",
+      "scope": "Develop and validate a vendor anomaly model; maintain pilot monitoring and validation checks",
+      "out_of_scope": "Automated vendor decisions or production deployment without model-risk approval",
+      "source_document_id": "V-008_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 2,
+          "section": "Research scope and acceptance"
+        },
+        "charges": {
+          "page": 3,
+          "section": "Research pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Research stage-gate SOW",
+      "billing_rule": "Three annual research gates release 20%, 40%, 40% of the approved budget. Monthly progress instalments are paid only within a released gate. A no-go stops unstarted work; model success is not guaranteed.",
+      "format_outline": "Research hypothesis; experiment protocol; independent validation; go/no-go funding",
+      "deliverables": [
+        {
+          "id": "SOW-008-D1",
+          "output": "Feasibility and data study",
+          "acceptance_test": "Leakage checks pass; 24-month synthetic training set and exclusions documented",
+          "acceptance_owner_id": "OWN-008"
+        },
+        {
+          "id": "SOW-008-D2",
+          "output": "Vendor anomaly model",
+          "acceptance_test": "Holdout precision >=80% at recall >=70%; temporal split independently reproduced",
+          "acceptance_owner_id": "OWN-008"
+        },
+        {
+          "id": "SOW-008-D3",
+          "output": "Model validation dossier",
+          "acceptance_test": "Model card, bias slices, explainability and drift thresholds approved before pilot",
+          "acceptance_owner_id": "OWN-008"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly progress instalments",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0",
+      "milestones": [
+        {
+          "deliverable_id": "SOW-008-D1",
+          "target_week": 6,
+          "budget_percent": 20,
+          "budget_usd_cents": 56000000,
+          "approval_required": true
+        },
+        {
+          "deliverable_id": "SOW-008-D2",
+          "target_week": 18,
+          "budget_percent": 40,
+          "budget_usd_cents": 112000000,
+          "approval_required": true
+        },
+        {
+          "deliverable_id": "SOW-008-D3",
+          "target_week": 30,
+          "budget_percent": 40,
+          "budget_usd_cents": 112000000,
+          "approval_required": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-PORTFOLIO",
+  "records": [
+    {
+      "application_id": "APP-001",
+      "name": "Payment Routing",
+      "criticality": "Critical",
+      "product_id": "PROD-01",
+      "owner_id": "OWN-APP-001",
+      "recovery_target_minutes": 60,
+      "recovery_point_minutes": 15,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-002",
+      "name": "Card Authorization",
+      "criticality": "Critical",
+      "product_id": "PROD-02",
+      "owner_id": "OWN-APP-002",
+      "recovery_target_minutes": 60,
+      "recovery_point_minutes": 15,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-003",
+      "name": "Fraud Review",
+      "criticality": "Critical",
+      "product_id": "PROD-03",
+      "owner_id": "OWN-APP-003",
+      "recovery_target_minutes": 60,
+      "recovery_point_minutes": 15,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-004",
+      "name": "Settlement Control",
+      "criticality": "Critical",
+      "product_id": "PROD-04",
+      "owner_id": "OWN-APP-004",
+      "recovery_target_minutes": 60,
+      "recovery_point_minutes": 15,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-005",
+      "name": "Cloud Control",
+      "criticality": "Critical",
+      "product_id": "PROD-01",
+      "owner_id": "OWN-APP-005",
+      "recovery_target_minutes": 60,
+      "recovery_point_minutes": 15,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-006",
+      "name": "Identity Gateway",
+      "criticality": "Critical",
+      "product_id": "PROD-02",
+      "owner_id": "OWN-APP-006",
+      "recovery_target_minutes": 60,
+      "recovery_point_minutes": 15,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-007",
+      "name": "Security Analytics",
+      "criticality": "Standard",
+      "product_id": "PROD-03",
+      "owner_id": "OWN-APP-007",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-008",
+      "name": "Reporting Hub",
+      "criticality": "Standard",
+      "product_id": "PROD-04",
+      "owner_id": "OWN-APP-008",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-009",
+      "name": "Data Ingestion",
+      "criticality": "Standard",
+      "product_id": "PROD-01",
+      "owner_id": "OWN-APP-009",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-010",
+      "name": "Case Workflow",
+      "criticality": "Standard",
+      "product_id": "PROD-02",
+      "owner_id": "OWN-APP-010",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-011",
+      "name": "Release Console",
+      "criticality": "Standard",
+      "product_id": "PROD-03",
+      "owner_id": "OWN-APP-011",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-012",
+      "name": "Customer Reporting",
+      "criticality": "Standard",
+      "product_id": "PROD-04",
+      "owner_id": "OWN-APP-012",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-013",
+      "name": "Batch Scheduler",
+      "criticality": "Standard",
+      "product_id": "PROD-01",
+      "owner_id": "OWN-APP-013",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-014",
+      "name": "Test Portal",
+      "criticality": "Standard",
+      "product_id": "PROD-02",
+      "owner_id": "OWN-APP-014",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-015",
+      "name": "Document Index",
+      "criticality": "Standard",
+      "product_id": "PROD-03",
+      "owner_id": "OWN-APP-015",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-016",
+      "name": "Insights Workspace",
+      "criticality": "Standard",
+      "product_id": "PROD-04",
+      "owner_id": "OWN-APP-016",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-017",
+      "name": "Procurement Portal",
+      "criticality": "Standard",
+      "product_id": "PROD-01",
+      "owner_id": "OWN-APP-017",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-018",
+      "name": "Learning Portal",
+      "criticality": "Standard",
+      "product_id": "PROD-02",
+      "owner_id": "OWN-APP-018",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-019",
+      "name": "Facilities Portal",
+      "criticality": "Standard",
+      "product_id": "PROD-03",
+      "owner_id": "OWN-APP-019",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    },
+    {
+      "application_id": "APP-020",
+      "name": "Logistics Portal",
+      "criticality": "Standard",
+      "product_id": "PROD-04",
+      "owner_id": "OWN-APP-020",
+      "recovery_target_minutes": 480,
+      "recovery_point_minutes": 240,
+      "synthetic": true
+    }
+  ]
+}

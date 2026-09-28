@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-011",
+      "legal_name": "Caldris Recovery Services",
+      "vendor_type": "Technical",
+      "category": "Recovery",
+      "status": "Active",
+      "parent_vendor_id": null,
+      "aliases": [
+        "Caldris Recovery Services",
+        "Caldris Recovery",
+        "SUP-1011"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-011",
+      "organization_id": "ORG-03",
+      "source_ids": {
+        "CLM": "CLM-SUP-011",
+        "ERP": "ERP-1011",
+        "WFM": "WFM-011",
+        "TPRM": "RISK-SUP-011"
+      },
+      "capabilities": [
+        "Backup verification",
+        "restore testing",
+        "recovery coordination"
+      ],
+      "service_id": "SVC-011",
+      "contract_id": "CTR-011",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-015",
+      "legal_name": "Elowyn Language Bureau",
+      "vendor_type": "Non-technical",
+      "category": "Language services",
+      "status": "Active",
+      "parent_vendor_id": null,
+      "aliases": [
+        "Elowyn Language Bureau",
+        "SUP-1015"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-015",
+      "organization_id": "ORG-03",
+      "source_ids": {
+        "CLM": "CLM-SUP-015",
+        "ERP": "ERP-1015",
+        "WFM": "WFM-015",
+        "TPRM": "RISK-SUP-015"
+      },
+      "capabilities": [
+        "Translation",
+        "editorial quality checks",
+        "terminology"
+      ],
+      "service_id": "SVC-015",
+      "contract_id": "CTR-015",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

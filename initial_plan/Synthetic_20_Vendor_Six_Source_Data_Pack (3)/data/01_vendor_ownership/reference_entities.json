@@ -1,0 +1,338 @@
+{
+  "synthetic": true,
+  "buyer": "Meridian Vale Financial Group",
+  "organizations": [
+    {
+      "organization_id": "ORG-01",
+      "name": "Payments"
+    },
+    {
+      "organization_id": "ORG-02",
+      "name": "Technology Operations"
+    },
+    {
+      "organization_id": "ORG-03",
+      "name": "Corporate Services"
+    },
+    {
+      "organization_id": "ORG-04",
+      "name": "Transformation"
+    }
+  ],
+  "products": [
+    {
+      "product_id": "PROD-01",
+      "name": "Transaction Services",
+      "organization_id": "ORG-01"
+    },
+    {
+      "product_id": "PROD-02",
+      "name": "Shared Platforms",
+      "organization_id": "ORG-02"
+    },
+    {
+      "product_id": "PROD-03",
+      "name": "Workplace Services",
+      "organization_id": "ORG-03"
+    },
+    {
+      "product_id": "PROD-04",
+      "name": "Enterprise Change",
+      "organization_id": "ORG-04"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "OWN-001",
+      "role": "Payment service manager",
+      "email": "owner-001@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-002",
+      "role": "Cloud platform owner",
+      "email": "owner-002@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-003",
+      "role": "Security operations owner",
+      "email": "owner-003@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-004",
+      "role": "Data platform owner",
+      "email": "owner-004@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-005",
+      "role": "Identity product owner",
+      "email": "owner-005@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-006",
+      "role": "Network service owner",
+      "email": "owner-006@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-007",
+      "role": "Quality engineering owner",
+      "email": "owner-007@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-008",
+      "role": "Model risk and analytics owner",
+      "email": "owner-008@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-009",
+      "role": "Application portfolio owner",
+      "email": "owner-009@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-010",
+      "role": "Workflow product owner",
+      "email": "owner-010@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-011",
+      "role": "Resilience owner",
+      "email": "owner-011@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-012",
+      "role": "Analytics owner",
+      "email": "owner-012@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-013",
+      "role": "Facilities owner",
+      "email": "owner-013@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-014",
+      "role": "Physical security owner",
+      "email": "owner-014@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-015",
+      "role": "Communications owner",
+      "email": "owner-015@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-016",
+      "role": "Records owner",
+      "email": "owner-016@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-017",
+      "role": "Learning owner",
+      "email": "owner-017@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-018",
+      "role": "Transformation owner",
+      "email": "owner-018@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-019",
+      "role": "Logistics owner",
+      "email": "owner-019@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-020",
+      "role": "Workplace services owner",
+      "email": "owner-020@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-001",
+      "role": "Payment Routing owner",
+      "email": "own-app-001@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-002",
+      "role": "Card Authorization owner",
+      "email": "own-app-002@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-003",
+      "role": "Fraud Review owner",
+      "email": "own-app-003@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-004",
+      "role": "Settlement Control owner",
+      "email": "own-app-004@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-005",
+      "role": "Cloud Control owner",
+      "email": "own-app-005@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-006",
+      "role": "Identity Gateway owner",
+      "email": "own-app-006@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-007",
+      "role": "Security Analytics owner",
+      "email": "own-app-007@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-008",
+      "role": "Reporting Hub owner",
+      "email": "own-app-008@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-009",
+      "role": "Data Ingestion owner",
+      "email": "own-app-009@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-010",
+      "role": "Case Workflow owner",
+      "email": "own-app-010@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-011",
+      "role": "Release Console owner",
+      "email": "own-app-011@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-012",
+      "role": "Customer Reporting owner",
+      "email": "own-app-012@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-013",
+      "role": "Batch Scheduler owner",
+      "email": "own-app-013@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-014",
+      "role": "Test Portal owner",
+      "email": "own-app-014@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-015",
+      "role": "Document Index owner",
+      "email": "own-app-015@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-016",
+      "role": "Insights Workspace owner",
+      "email": "own-app-016@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-017",
+      "role": "Procurement Portal owner",
+      "email": "own-app-017@example.com",
+      "organization_id": "ORG-01",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-018",
+      "role": "Learning Portal owner",
+      "email": "own-app-018@example.com",
+      "organization_id": "ORG-02",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-019",
+      "role": "Facilities Portal owner",
+      "email": "own-app-019@example.com",
+      "organization_id": "ORG-03",
+      "synthetic": true
+    },
+    {
+      "owner_id": "OWN-APP-020",
+      "role": "Logistics Portal owner",
+      "email": "own-app-020@example.com",
+      "organization_id": "ORG-04",
+      "synthetic": true
+    }
+  ],
+  "parent_entities": [
+    {
+      "parent_vendor_id": "PARENT-01",
+      "name": "Veylora Aurelix Holdings",
+      "synthetic": true
+    },
+    {
+      "parent_vendor_id": "PARENT-02",
+      "name": "Mirelune Workplace Holdings",
+      "synthetic": true
+    }
+  ]
+}

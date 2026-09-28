@@ -1,0 +1,158 @@
+module: core
+description: >
+  Shared abstractions and buyer-side reference entities (organizations, products, owners,
+  sites) plus the abstract Document root. Source class 01_vendor_ownership
+  (reference_entities.json) and the document catalog.
+
+classes:
+  - id: LegalEntity
+    label: Legal entity
+    abstract: true
+    kind: entity
+    definition: >
+      A legally recognised party that can enter into agreements. Abstract root for the
+      buyer, vendors and vendor parent groups.
+    fibo_uri: https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegalEntity
+    properties:
+      - id: legal_name
+        datatype: string
+        required: true
+        description: Registered legal name of the entity.
+        synonyms: [name]
+
+  - id: Buyer
+    label: Buyer
+    parent: LegalEntity
+    key: legal_name
+    definition: >
+      The customer legal entity that procures from vendors (Meridian Vale Financial Group
+      in the synthetic pack). Has no enterprise ID in the source data, so the legal name is
+      the key.
+    synonyms: [Customer, Client]
+
+  - id: OrganizationUnit
+    label: Organization unit
+    key: organization_id
+    id_pattern: "^ORG-\\d{2}$"
+    definition: >
+      An internal business division of the buyer that owns products, people and vendor
+      relationships.
+    synonyms: [Business unit, Organization]
+    properties:
+      - id: organization_id
+        datatype: identifier
+        required: true
+        description: Stable organization key.
+      - id: name
+        datatype: string
+        required: true
+        description: Display name of the organization unit.
+
+  - id: Product
+    label: Business product
+    key: product_id
+    id_pattern: "^PROD-\\d{2}$"
+    definition: >
+      A buyer business product or product line that applications enable and spend is
+      attributed to.
+    properties:
+      - id: product_id
+        datatype: identifier
+        required: true
+        description: Stable product key.
+      - id: name
+        datatype: string
+        required: true
+        description: Display name of the product.
+
+  - id: Owner
+    label: Accountable owner
+    key: owner_id
+    id_pattern: "^OWN-(APP-)?\\d{3}$"
+    definition: >
+      A named accountable role on the buyer side (service, application, risk or acceptance
+      owner). Represents a role holder, not an HR record.
+    synonyms: [Business owner, Risk owner, Acceptance owner]
+    properties:
+      - id: owner_id
+        datatype: identifier
+        required: true
+        description: Stable owner key.
+        synonyms: [primary_owner_id, risk_owner_id, acceptance_owner_id]
+      - id: role
+        datatype: string
+        required: true
+        description: Role title of the accountable owner.
+      - id: email
+        datatype: string
+        pii: true
+        description: Contact address for the owner.
+
+  - id: Site
+    label: Delivery site
+    key: site_id
+    id_pattern: "^SITE-\\d{2}$"
+    definition: A physical buyer facility where a vendor service is delivered.
+    synonyms: [Facility, Location]
+    properties:
+      - id: site_id
+        datatype: identifier
+        required: true
+        description: Stable site key.
+        synonyms: [facility_id]
+
+  - id: Document
+    label: Source document
+    abstract: true
+    kind: document
+    key: document_id
+    definition: >
+      An original source document with a stable document ID. PDF and Markdown files are
+      renditions of the same document; exactly one rendition is indexed.
+    properties:
+      - id: document_id
+        datatype: identifier
+        required: true
+        description: Stable document catalog key.
+        synonyms: [source_document_id, evidence_document_id]
+      - id: pdf_path
+        datatype: string
+        description: Relative path of the PDF rendition.
+        synonyms: [path]
+      - id: markdown_path
+        datatype: string
+        description: Relative path of the Markdown rendition.
+      - id: pages_expected
+        datatype: integer
+        description: Page count of the PDF rendition.
+      - id: acl_roles
+        datatype: string
+        cardinality: many
+        description: Roles entitled to retrieve this document.
+
+relations:
+  - id: BELONGS_TO
+    label: Belongs to
+    source: [Product, Owner, Vendor, Service, CostCenter]
+    target: OrganizationUnit
+    cardinality: many_to_one
+    description: >
+      The subject is organised under or accountable to this buyer organization unit.
+
+  - id: OWNED_BY
+    label: Owned by
+    source: [Vendor, Contract, Service, Application, ConfigurationItem, BusinessProcess, RiskAssessment, RiskIssue]
+    target: Owner
+    cardinality: many_to_one
+    description: >
+      The accountable buyer owner of the subject. Accountability only; it does not imply
+      operation or delivery.
+
+  - id: EVIDENCED_BY
+    label: Evidenced by
+    source: [Contract, Clause, Service, ServiceLevelAgreement, RiskAssessment, PerformanceMeasurement]
+    target: Document
+    cardinality: many_to_many
+    description: >
+      The source document that evidences the subject. Page, section and quote belong to the
+      evidence record, not the edge.

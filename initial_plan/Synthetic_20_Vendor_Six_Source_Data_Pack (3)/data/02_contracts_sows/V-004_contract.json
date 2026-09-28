@@ -1,0 +1,107 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-004",
+      "sow_id": "SOW-004",
+      "vendor_id": "V-004",
+      "framework_id": "FA-004",
+      "order_id": "ORD-004",
+      "service_id": "SVC-004",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2027-05-26",
+      "days_to_expiry": 240,
+      "notice_days": 60,
+      "notice_deadline": "2027-03-27",
+      "automatic_renewal": true,
+      "renewal_extension_months": 12,
+      "termination_convenience_days": 90,
+      "early_exit_fee_months": 0,
+      "payment_terms_days": 45,
+      "pricing_model": "Fixed price with acceptance gates",
+      "annual_base_fee_usd_cents": 420000000,
+      "approved_2025_adjustment_usd_cents": 60000000,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 16,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-004",
+      "scope": "Migrate 36 ETL jobs across 12 feeds; reconcile transformations; support scheduled loads",
+      "out_of_scope": "Upstream source correction and analytical model approval",
+      "source_document_id": "V-004_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 2,
+          "section": "Fixed-price scope and acceptance"
+        },
+        "charges": {
+          "page": 3,
+          "section": "Fixed-price pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Fixed-price delivery SOW",
+      "billing_rule": "Annual delivery-wave price is fixed for the stated outputs; monthly progress instalments total that price. Final acceptance remains mandatory; failed outputs are corrected at supplier cost. No automatic hourly overrun billing.",
+      "format_outline": "Output specification; acceptance matrix; milestone plan; fixed-price schedule",
+      "deliverables": [
+        {
+          "id": "SOW-004-D1",
+          "output": "Source-to-target mapping",
+          "acceptance_test": "12 feeds and 180 fields mapped; data stewards sign every transformation",
+          "acceptance_owner_id": "OWN-004"
+        },
+        {
+          "id": "SOW-004-D2",
+          "output": "ETL migration waves",
+          "acceptance_test": "36 jobs reconcile record counts exactly and monetary totals within $0.01",
+          "acceptance_owner_id": "OWN-004"
+        },
+        {
+          "id": "SOW-004-D3",
+          "output": "Parallel run and handover",
+          "acceptance_test": "20 consecutive business-day loads complete by 06:00 UTC; restart is idempotent",
+          "acceptance_owner_id": "OWN-004"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly progress instalments",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0",
+      "milestones": [
+        {
+          "deliverable_id": "SOW-004-D1",
+          "target_week": 4,
+          "budget_percent": 20,
+          "budget_usd_cents": 84000000,
+          "approval_required": true
+        },
+        {
+          "deliverable_id": "SOW-004-D2",
+          "target_week": 16,
+          "budget_percent": 50,
+          "budget_usd_cents": 210000000,
+          "approval_required": true
+        },
+        {
+          "deliverable_id": "SOW-004-D3",
+          "target_week": 24,
+          "budget_percent": 30,
+          "budget_usd_cents": 126000000,
+          "approval_required": true
+        }
+      ]
+    }
+  ]
+}

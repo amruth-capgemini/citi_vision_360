@@ -1,0 +1,176 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-REFERENCE-DATA",
+  "records": [
+    {
+      "from_id": "APP-001",
+      "relationship": "ENABLES",
+      "to_id": "PROD-01",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-002",
+      "relationship": "ENABLES",
+      "to_id": "PROD-02",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-003",
+      "relationship": "ENABLES",
+      "to_id": "PROD-03",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-004",
+      "relationship": "ENABLES",
+      "to_id": "PROD-04",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-005",
+      "relationship": "ENABLES",
+      "to_id": "PROD-01",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-006",
+      "relationship": "ENABLES",
+      "to_id": "PROD-02",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-007",
+      "relationship": "ENABLES",
+      "to_id": "PROD-03",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-008",
+      "relationship": "ENABLES",
+      "to_id": "PROD-04",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-009",
+      "relationship": "ENABLES",
+      "to_id": "PROD-01",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-010",
+      "relationship": "ENABLES",
+      "to_id": "PROD-02",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-011",
+      "relationship": "ENABLES",
+      "to_id": "PROD-03",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-012",
+      "relationship": "ENABLES",
+      "to_id": "PROD-04",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-013",
+      "relationship": "ENABLES",
+      "to_id": "PROD-01",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-014",
+      "relationship": "ENABLES",
+      "to_id": "PROD-02",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-015",
+      "relationship": "ENABLES",
+      "to_id": "PROD-03",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-016",
+      "relationship": "ENABLES",
+      "to_id": "PROD-04",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-017",
+      "relationship": "ENABLES",
+      "to_id": "PROD-01",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-018",
+      "relationship": "ENABLES",
+      "to_id": "PROD-02",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-019",
+      "relationship": "ENABLES",
+      "to_id": "PROD-03",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "APP-020",
+      "relationship": "ENABLES",
+      "to_id": "PROD-04",
+      "evidence": "application_catalog.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "PROD-01",
+      "relationship": "BELONGS_TO",
+      "to_id": "ORG-01",
+      "evidence": "reference_entities.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "PROD-02",
+      "relationship": "BELONGS_TO",
+      "to_id": "ORG-02",
+      "evidence": "reference_entities.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "PROD-03",
+      "relationship": "BELONGS_TO",
+      "to_id": "ORG-03",
+      "evidence": "reference_entities.json",
+      "synthetic": true
+    },
+    {
+      "from_id": "PROD-04",
+      "relationship": "BELONGS_TO",
+      "to_id": "ORG-04",
+      "evidence": "reference_entities.json",
+      "synthetic": true
+    }
+  ]
+}

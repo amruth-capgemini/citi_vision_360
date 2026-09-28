@@ -1,0 +1,38 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-013",
+      "legal_name": "Mirelune Facilities",
+      "vendor_type": "Non-technical",
+      "category": "Facilities",
+      "status": "Active",
+      "parent_vendor_id": "PARENT-02",
+      "aliases": [
+        "Mirelune Facilities",
+        "SUP-1013"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-013",
+      "organization_id": "ORG-01",
+      "source_ids": {
+        "CLM": "CLM-SUP-013",
+        "ERP": "ERP-1013",
+        "WFM": "WFM-013",
+        "TPRM": "RISK-SUP-013"
+      },
+      "capabilities": [
+        "Facilities inspection",
+        "work-order coordination"
+      ],
+      "service_id": "SVC-013",
+      "contract_id": "CTR-013",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "synthetic": true,
+  "version": "DEMO-RULES-1",
+  "as_of": "2026-09-28",
+  "reporting_period": "FY2025 closed year",
+  "spend": "Sum actual_usd_cents once per invoice_line_id; do not add forward commitments.",
+  "variance": "Sum actual minus forecast for the same year, vendor, currency and version. Drivers reconcile per row.",
+  "renewal_priority": "High when expiry is within 120 days AND supported critical-app count > 0; otherwise Review when expiry is within 120 days; otherwise Monitor. This is an illustrative rule, not a client-approved policy.",
+  "concentration": "Distinct supported critical application IDs divided by six critical apps in the selected synthetic portfolio. USES_PORTAL never counts as SUPPORTS.",
+  "risk_freshness_days": 365,
+  "semantic_layer_note": "These are source fixtures plus a definition catalog. They are not a running warehouse, graph database, semantic service or embedding index.",
+  "scenario": "Preserve baseline. Calculate selected scope gross saving minus transition and retained cost; validate capacity and contract constraints.",
+  "sources_with_independent_periods": {
+    "finance": "2025 calendar year",
+    "performance": "2026-06 to 2026-08",
+    "workforce_and_dependencies": "2026-09-28 active snapshot",
+    "commitments": "2026-09"
+  }
+}

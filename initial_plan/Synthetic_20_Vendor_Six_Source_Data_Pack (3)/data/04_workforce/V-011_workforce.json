@@ -1,0 +1,150 @@
+{
+  "synthetic": true,
+  "source_system": "SYN-WFM",
+  "as_of": "2026-09-28",
+  "vendor_id": "V-011",
+  "billable_count": 6,
+  "shadow_count": 0,
+  "total_active_assignments": 6,
+  "rate_basis": "Allocated monthly service fee, not employee salary; includes overhead and service costs.",
+  "assignments": [
+    {
+      "assignment_id": "ASN-011-001",
+      "vendor_id": "V-011",
+      "contract_id": "CTR-011",
+      "sow_id": "SOW-011",
+      "service_id": "SVC-011",
+      "worker_alias": "Synthetic resource 011-001",
+      "role": "Recovery lead",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2777778,
+      "location": "US-East",
+      "team_id": "TEAM-011",
+      "application_id": "APP-001",
+      "start_date": "2025-01-01",
+      "end_date": "2027-04-26",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-011-002",
+      "vendor_id": "V-011",
+      "contract_id": "CTR-011",
+      "sow_id": "SOW-011",
+      "service_id": "SVC-011",
+      "worker_alias": "Synthetic resource 011-002",
+      "role": "Backup engineer",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2777778,
+      "location": "India-West",
+      "team_id": "TEAM-011",
+      "application_id": "APP-002",
+      "start_date": "2025-01-01",
+      "end_date": "2027-04-26",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-011-003",
+      "vendor_id": "V-011",
+      "contract_id": "CTR-011",
+      "sow_id": "SOW-011",
+      "service_id": "SVC-011",
+      "worker_alias": "Synthetic resource 011-003",
+      "role": "Restore analyst",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2777778,
+      "location": "UK-South",
+      "team_id": "TEAM-011",
+      "application_id": "APP-004",
+      "start_date": "2025-01-01",
+      "end_date": "2027-04-26",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-011-004",
+      "vendor_id": "V-011",
+      "contract_id": "CTR-011",
+      "sow_id": "SOW-011",
+      "service_id": "SVC-011",
+      "worker_alias": "Synthetic resource 011-004",
+      "role": "Recovery lead",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2777778,
+      "location": "US-East",
+      "team_id": "TEAM-011",
+      "application_id": "APP-005",
+      "start_date": "2025-01-01",
+      "end_date": "2027-04-26",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-011-005",
+      "vendor_id": "V-011",
+      "contract_id": "CTR-011",
+      "sow_id": "SOW-011",
+      "service_id": "SVC-011",
+      "worker_alias": "Synthetic resource 011-005",
+      "role": "Backup engineer",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2777777,
+      "location": "India-West",
+      "team_id": "TEAM-011",
+      "application_id": "APP-001",
+      "start_date": "2025-01-01",
+      "end_date": "2027-04-26",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "assignment_id": "ASN-011-006",
+      "vendor_id": "V-011",
+      "contract_id": "CTR-011",
+      "sow_id": "SOW-011",
+      "service_id": "SVC-011",
+      "worker_alias": "Synthetic resource 011-006",
+      "role": "Restore analyst",
+      "billable": true,
+      "fte": 1.0,
+      "monthly_allocated_service_fee_usd_cents": 2777777,
+      "location": "UK-South",
+      "team_id": "TEAM-011",
+      "application_id": "APP-002",
+      "start_date": "2025-01-01",
+      "end_date": "2027-04-26",
+      "record_as_of": "2026-09-28",
+      "acl_roles": [
+        "procurement_reviewer",
+        "workforce_reviewer"
+      ],
+      "synthetic": true
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+module: workforce
+description: >
+  Minimised vendor workforce assignments (source class 04_workforce). Worker identity is an
+  alias only; allocated fees are cost attribution, not salaries or rate cards.
+
+classes:
+  - id: Assignment
+    label: Workforce assignment
+    key: assignment_id
+    id_pattern: "^ASN-\\d{3}-\\d{3}$"
+    definition: >
+      One active vendor resource assignment under a statement of work, including
+      non-billable shadow assignments.
+    synonyms: [Resource assignment, Vendor resource, Headcount]
+    properties:
+      - id: assignment_id
+        datatype: identifier
+        required: true
+        description: Stable assignment key.
+      - id: worker_alias
+        datatype: string
+        pii: true
+        description: Pseudonymous worker reference; never a real name.
+      - id: role
+        datatype: string
+        required: true
+        description: Delivery role of the assignment.
+      - id: billable
+        datatype: boolean
+        required: true
+        description: False for non-billable shadow assignments.
+      - id: fte
+        datatype: decimal
+        description: Full-time-equivalent allocation.
+      - id: monthly_allocated_service_fee_usd_cents
+        datatype: money_cents
+        description: >
+          Monthly service fee allocated to the assignment for cost attribution. Includes
+          overhead; not an employee salary.
+      - id: location
+        datatype: string
+        description: Delivery region of the assignment.
+      - id: team_id
+        datatype: identifier
+        description: Vendor delivery team key.
+      - id: start_date
+        datatype: date
+        description: Assignment start date.
+      - id: end_date
+        datatype: date
+        description: Assignment end date.
+
+relations:
+  - id: STAFFED_BY
+    label: Staffed by
+    source: StatementOfWork
+    target: Assignment
+    cardinality: one_to_many
+    description: The assignment delivers work under the statement of work.
+
+  - id: WORKS_ON
+    label: Works on
+    source: Assignment
+    target: Application
+    cardinality: many_to_one
+    description: >
+      The application the assignment is allocated to. Reducing spend does not imply removing
+      the assignment or the application.

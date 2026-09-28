@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-009",
+      "legal_name": "Veylora Application Services",
+      "vendor_type": "Technical",
+      "category": "Application maintenance",
+      "status": "Active",
+      "parent_vendor_id": "PARENT-01",
+      "aliases": [
+        "Veylora Application Services",
+        "Veylora Application",
+        "SUP-1009"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-009",
+      "organization_id": "ORG-01",
+      "source_ids": {
+        "CLM": "CLM-SUP-009",
+        "ERP": "ERP-1009",
+        "WFM": "WFM-009",
+        "TPRM": "RISK-SUP-009"
+      },
+      "capabilities": [
+        "Java",
+        "SQL",
+        "web application maintenance"
+      ],
+      "service_id": "SVC-009",
+      "contract_id": "CTR-009",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

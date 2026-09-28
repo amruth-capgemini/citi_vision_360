@@ -1,0 +1,70 @@
+[
+  {
+    "class": "01_vendor_ownership",
+    "deck_domain": "Vendor identity and ownership",
+    "source_family": "Vendor master / enterprise reference data",
+    "holds": "Legal entities, aliases, source IDs, parents, products, organizations and owners",
+    "target": "Canonical dimensions and selected graph identity/ownership nodes",
+    "agents": [
+      "Supervisor",
+      "Sourcing",
+      "All specialists via canonical IDs"
+    ]
+  },
+  {
+    "class": "02_contracts_sows",
+    "deck_domain": "Commercial",
+    "source_family": "CLM / contract repository",
+    "holds": "20 structured contracts and 20 PDF SOWs with scope, resources, charges, notices and exit terms",
+    "target": "Contract SQL; validated relationship edges; entitled clause retrieval; original document viewer",
+    "agents": [
+      "Commercial",
+      "Sourcing"
+    ]
+  },
+  {
+    "class": "03_spend_forecast",
+    "deck_domain": "Financial",
+    "source_family": "Finance / procurement / planning",
+    "holds": "240 monthly actual/forecast records, reconciling variance drivers and 20 forward commitments",
+    "target": "SQL facts and governed spend/variance definitions; not bulk graph or vector storage",
+    "agents": [
+      "Financial",
+      "Sourcing"
+    ]
+  },
+  {
+    "class": "04_workforce",
+    "deck_domain": "People",
+    "source_family": "Workforce management",
+    "holds": "Assignment IDs, roles, location, contract/service references and allocated fees",
+    "target": "Minimized workforce facts and evidenced assignment links",
+    "agents": [
+      "Dependency / risk",
+      "Financial"
+    ]
+  },
+  {
+    "class": "05_service_dependencies",
+    "deck_domain": "Technology and service dependencies",
+    "source_family": "CMDB / portfolio / service and process registers",
+    "holds": "Technical assets, business processes, enabling portals, recovery objectives and 20 dependency PDFs",
+    "target": "Governed graph projection, criticality definitions and original dependency evidence",
+    "agents": [
+      "Dependency / risk",
+      "Sourcing"
+    ]
+  },
+  {
+    "class": "06_risk_sla_performance",
+    "deck_domain": "Risk and performance",
+    "source_family": "TPRM / SLA / performance records",
+    "holds": "20 SLA/risk PDFs, 60 measured results, risks, issues, credit estimates and explicit gaps",
+    "target": "Risk/performance SQL, risk associations and entitled report passages",
+    "agents": [
+      "Dependency / risk",
+      "Commercial",
+      "Financial"
+    ]
+  }
+]

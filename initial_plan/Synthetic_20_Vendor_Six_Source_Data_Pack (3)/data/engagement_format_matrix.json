@@ -1,0 +1,525 @@
+{
+  "synthetic": true,
+  "records": [
+    {
+      "vendor_id": "V-001",
+      "format": "Capacity support schedule",
+      "pricing": "Fixed capacity retainer",
+      "outline": "Service boundaries; coverage roster; incident operations; fee and exit schedule",
+      "deliverables": [
+        {
+          "id": "SOW-001-D1",
+          "output": "L3 incident resolution",
+          "acceptance_test": "100% of P1 records include diagnosis, approved fix and rollback evidence",
+          "acceptance_owner_id": "OWN-001"
+        },
+        {
+          "id": "SOW-001-D2",
+          "output": "Payment regression suite",
+          "acceptance_test": "All 120 critical payment scenarios pass before release",
+          "acceptance_owner_id": "OWN-001"
+        },
+        {
+          "id": "SOW-001-D3",
+          "output": "Support handover",
+          "acceptance_test": "40 billable roles and one shadow have named backup coverage",
+          "acceptance_owner_id": "OWN-001"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-002",
+      "format": "Managed service agreement",
+      "pricing": "Fixed managed service fee",
+      "outline": "Service catalog; operational responsibility matrix; measurement schedule; continuity and exit",
+      "deliverables": [
+        {
+          "id": "SOW-002-D1",
+          "output": "Platform baseline",
+          "acceptance_test": "All 60 cluster configurations match the approved baseline",
+          "acceptance_owner_id": "OWN-002"
+        },
+        {
+          "id": "SOW-002-D2",
+          "output": "Patch service",
+          "acceptance_test": "95% of eligible nodes patched within 14 days",
+          "acceptance_owner_id": "OWN-002"
+        },
+        {
+          "id": "SOW-002-D3",
+          "output": "Capacity report",
+          "acceptance_test": "Compute allocation reconciles to all 60 clusters; unused capacity flagged",
+          "acceptance_owner_id": "OWN-002"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-003",
+      "format": "Managed service agreement",
+      "pricing": "Fixed managed service fee",
+      "outline": "Service catalog; operational responsibility matrix; measurement schedule; continuity and exit",
+      "deliverables": [
+        {
+          "id": "SOW-003-D1",
+          "output": "Alert triage",
+          "acceptance_test": "All critical alerts have an owner and evidence-linked disposition",
+          "acceptance_owner_id": "OWN-003"
+        },
+        {
+          "id": "SOW-003-D2",
+          "output": "Detection tuning",
+          "acceptance_test": "20 detection rules pass replay tests with no loss of seeded critical events",
+          "acceptance_owner_id": "OWN-003"
+        },
+        {
+          "id": "SOW-003-D3",
+          "output": "Investigation package",
+          "acceptance_test": "Timeline and evidence hashes supplied for every P1 investigation",
+          "acceptance_owner_id": "OWN-003"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-004",
+      "format": "Fixed-price delivery SOW",
+      "pricing": "Fixed price with acceptance gates",
+      "outline": "Output specification; acceptance matrix; milestone plan; fixed-price schedule",
+      "deliverables": [
+        {
+          "id": "SOW-004-D1",
+          "output": "Source-to-target mapping",
+          "acceptance_test": "12 feeds and 180 fields mapped; data stewards sign every transformation",
+          "acceptance_owner_id": "OWN-004"
+        },
+        {
+          "id": "SOW-004-D2",
+          "output": "ETL migration waves",
+          "acceptance_test": "36 jobs reconcile record counts exactly and monetary totals within $0.01",
+          "acceptance_owner_id": "OWN-004"
+        },
+        {
+          "id": "SOW-004-D3",
+          "output": "Parallel run and handover",
+          "acceptance_test": "20 consecutive business-day loads complete by 06:00 UTC; restart is idempotent",
+          "acceptance_owner_id": "OWN-004"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-005",
+      "format": "Capped T&M work order",
+      "pricing": "Capped time and materials",
+      "outline": "Labor authorization; role rate card; timesheet evidence; ceiling and stop-work control",
+      "deliverables": [
+        {
+          "id": "SOW-005-D1",
+          "output": "Federation adapters",
+          "acceptance_test": "Eight relying-party integrations pass signed SAML/OIDC test cases",
+          "acceptance_owner_id": "OWN-005"
+        },
+        {
+          "id": "SOW-005-D2",
+          "output": "Access remediation",
+          "acceptance_test": "All 40 approved exceptions closed with reviewer evidence",
+          "acceptance_owner_id": "OWN-005"
+        },
+        {
+          "id": "SOW-005-D3",
+          "output": "Privileged access tests",
+          "acceptance_test": "Negative tests deny all unauthorized roles; security owner signs results",
+          "acceptance_owner_id": "OWN-005"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-006",
+      "format": "Managed service agreement",
+      "pricing": "Fixed managed service fee",
+      "outline": "Service catalog; operational responsibility matrix; measurement schedule; continuity and exit",
+      "deliverables": [
+        {
+          "id": "SOW-006-D1",
+          "output": "Link monitoring",
+          "acceptance_test": "All 120 links emit telemetry and alerts are routed to named owners",
+          "acceptance_owner_id": "OWN-006"
+        },
+        {
+          "id": "SOW-006-D2",
+          "output": "Configuration baseline",
+          "acceptance_test": "All 80 devices backed up and compared with approved configurations",
+          "acceptance_owner_id": "OWN-006"
+        },
+        {
+          "id": "SOW-006-D3",
+          "output": "Failover drill",
+          "acceptance_test": "Four designated paths fail over within 60 seconds with packet-loss evidence",
+          "acceptance_owner_id": "OWN-006"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-007",
+      "format": "Agile delivery work order",
+      "pricing": "Fixed price per sprint",
+      "outline": "Product backlog; definition of ready/done; sprint reviews; per-sprint charges",
+      "deliverables": [
+        {
+          "id": "SOW-007-D1",
+          "output": "Regression backlog",
+          "acceptance_test": "300 prioritized cases have agreed ready/done criteria",
+          "acceptance_owner_id": "OWN-007"
+        },
+        {
+          "id": "SOW-007-D2",
+          "output": "Automation increments",
+          "acceptance_test": "24 two-week sprints demonstrate accepted scripts in version control",
+          "acceptance_owner_id": "OWN-007"
+        },
+        {
+          "id": "SOW-007-D3",
+          "output": "Release quality gate",
+          "acceptance_test": "Zero unresolved severity-1 defects and p95 response below 2 seconds at 500 users",
+          "acceptance_owner_id": "OWN-007"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-008",
+      "format": "Research stage-gate SOW",
+      "pricing": "Stage-gated fixed research budget",
+      "outline": "Research hypothesis; experiment protocol; independent validation; go/no-go funding",
+      "deliverables": [
+        {
+          "id": "SOW-008-D1",
+          "output": "Feasibility and data study",
+          "acceptance_test": "Leakage checks pass; 24-month synthetic training set and exclusions documented",
+          "acceptance_owner_id": "OWN-008"
+        },
+        {
+          "id": "SOW-008-D2",
+          "output": "Vendor anomaly model",
+          "acceptance_test": "Holdout precision >=80% at recall >=70%; temporal split independently reproduced",
+          "acceptance_owner_id": "OWN-008"
+        },
+        {
+          "id": "SOW-008-D3",
+          "output": "Model validation dossier",
+          "acceptance_test": "Model card, bias slices, explainability and drift thresholds approved before pilot",
+          "acceptance_owner_id": "OWN-008"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-009",
+      "format": "Capacity support schedule",
+      "pricing": "Fixed capacity retainer",
+      "outline": "Service boundaries; coverage roster; incident operations; fee and exit schedule",
+      "deliverables": [
+        {
+          "id": "SOW-009-D1",
+          "output": "Maintenance releases",
+          "acceptance_test": "Six interfaces pass integration and backward-compatibility checks",
+          "acceptance_owner_id": "OWN-009"
+        },
+        {
+          "id": "SOW-009-D2",
+          "output": "Defect backlog burn-down",
+          "acceptance_test": "All accepted P2 items resolved within 10 business days",
+          "acceptance_owner_id": "OWN-009"
+        },
+        {
+          "id": "SOW-009-D3",
+          "output": "Application runbooks",
+          "acceptance_test": "Four application runbooks independently rehearsed by successor team",
+          "acceptance_owner_id": "OWN-009"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-010",
+      "format": "SaaS subscription order",
+      "pricing": "Named-seat subscription",
+      "outline": "Order form; entitlements; support policy; data export and exit",
+      "deliverables": [
+        {
+          "id": "SOW-010-D1",
+          "output": "Tenant provisioning",
+          "acceptance_test": "2,000 named seats provisioned with SSO and role restrictions",
+          "acceptance_owner_id": "OWN-010"
+        },
+        {
+          "id": "SOW-010-D2",
+          "output": "Workflow configuration",
+          "acceptance_test": "Six workflows pass 30 buyer-approved routing scenarios",
+          "acceptance_owner_id": "OWN-010"
+        },
+        {
+          "id": "SOW-010-D3",
+          "output": "Export and deletion test",
+          "acceptance_test": "Full tenant export is readable; deletion evidence delivered after authorized exit",
+          "acceptance_owner_id": "OWN-010"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-011",
+      "format": "Managed service agreement",
+      "pricing": "Fixed managed service fee",
+      "outline": "Service catalog; operational responsibility matrix; measurement schedule; continuity and exit",
+      "deliverables": [
+        {
+          "id": "SOW-011-D1",
+          "output": "Backup verification",
+          "acceptance_test": "Daily checks cover all 40 protected workloads",
+          "acceptance_owner_id": "OWN-011"
+        },
+        {
+          "id": "SOW-011-D2",
+          "output": "Restore exercises",
+          "acceptance_test": "Quarterly sample of 10 workloads restores within 60 minutes",
+          "acceptance_owner_id": "OWN-011"
+        },
+        {
+          "id": "SOW-011-D3",
+          "output": "Recovery evidence",
+          "acceptance_test": "Checksum comparison passes; achieved recovery point <=15 minutes",
+          "acceptance_owner_id": "OWN-011"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-012",
+      "format": "Fixed-price delivery SOW",
+      "pricing": "Fixed price with acceptance gates",
+      "outline": "Output specification; acceptance matrix; milestone plan; fixed-price schedule",
+      "deliverables": [
+        {
+          "id": "SOW-012-D1",
+          "output": "KPI semantic model",
+          "acceptance_test": "25 measures have signed definitions, grain and source lineage",
+          "acceptance_owner_id": "OWN-012"
+        },
+        {
+          "id": "SOW-012-D2",
+          "output": "Executive dashboards",
+          "acceptance_test": "12 dashboards reconcile to approved finance totals within $1",
+          "acceptance_owner_id": "OWN-012"
+        },
+        {
+          "id": "SOW-012-D3",
+          "output": "Security and refresh handover",
+          "acceptance_test": "All eight role personas pass access tests; refresh completes by 07:00 UTC",
+          "acceptance_owner_id": "OWN-012"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-013",
+      "format": "Managed service agreement",
+      "pricing": "Fixed managed service fee",
+      "outline": "Service catalog; operational responsibility matrix; measurement schedule; continuity and exit",
+      "deliverables": [
+        {
+          "id": "SOW-013-D1",
+          "output": "Preventive maintenance",
+          "acceptance_test": "All 200 monthly tasks evidence inspection and completion",
+          "acceptance_owner_id": "OWN-013"
+        },
+        {
+          "id": "SOW-013-D2",
+          "output": "Repair service",
+          "acceptance_test": "Priority repairs made safe within two hours",
+          "acceptance_owner_id": "OWN-013"
+        },
+        {
+          "id": "SOW-013-D3",
+          "output": "Site compliance pack",
+          "acceptance_test": "Checklists cover all six sites with corrective-action ownership",
+          "acceptance_owner_id": "OWN-013"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-014",
+      "format": "Unit-rate service order",
+      "pricing": "Measured unit rates",
+      "outline": "Service catalog; unit rate card; delivery receipts; reconciliation and disputes",
+      "deliverables": [
+        {
+          "id": "SOW-014-D1",
+          "output": "Guard coverage",
+          "acceptance_test": "All 18 contracted posts covered for approved shift hours",
+          "acceptance_owner_id": "OWN-014"
+        },
+        {
+          "id": "SOW-014-D2",
+          "output": "Visitor screening",
+          "acceptance_test": "100% of sampled visitor entries have authorization and sign-out",
+          "acceptance_owner_id": "OWN-014"
+        },
+        {
+          "id": "SOW-014-D3",
+          "output": "Incident reporting",
+          "acceptance_test": "Every incident entered within 30 minutes with escalation evidence",
+          "acceptance_owner_id": "OWN-014"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-015",
+      "format": "Unit-rate service order",
+      "pricing": "Measured unit rates",
+      "outline": "Service catalog; unit rate card; delivery receipts; reconciliation and disputes",
+      "deliverables": [
+        {
+          "id": "SOW-015-D1",
+          "output": "Translation batches",
+          "acceptance_test": "Eight language pairs use the signed glossary; zero critical mistranslations",
+          "acceptance_owner_id": "OWN-015"
+        },
+        {
+          "id": "SOW-015-D2",
+          "output": "Independent review",
+          "acceptance_test": "100% of regulated-content batches receive second-linguist review",
+          "acceptance_owner_id": "OWN-015"
+        },
+        {
+          "id": "SOW-015-D3",
+          "output": "Terminology handover",
+          "acceptance_test": "500 approved glossary entries exported with version history",
+          "acceptance_owner_id": "OWN-015"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-016",
+      "format": "Unit-rate service order",
+      "pricing": "Measured unit rates",
+      "outline": "Service catalog; unit rate card; delivery receipts; reconciliation and disputes",
+      "deliverables": [
+        {
+          "id": "SOW-016-D1",
+          "output": "Inventory intake",
+          "acceptance_test": "50,000 boxes have unique barcodes and custody acknowledgements",
+          "acceptance_owner_id": "OWN-016"
+        },
+        {
+          "id": "SOW-016-D2",
+          "output": "Authorized retrieval",
+          "acceptance_test": "Each request includes verified requester and delivery receipt",
+          "acceptance_owner_id": "OWN-016"
+        },
+        {
+          "id": "SOW-016-D3",
+          "output": "Retention control",
+          "acceptance_test": "No destruction without buyer-signed batch authorization",
+          "acceptance_owner_id": "OWN-016"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-017",
+      "format": "Training call-off order",
+      "pricing": "Fixed price per cohort",
+      "outline": "Course catalog; cohort schedule; attendance acceptance; cancellation and charges",
+      "deliverables": [
+        {
+          "id": "SOW-017-D1",
+          "output": "Learning modules",
+          "acceptance_test": "Eight modules pass accessibility and content-owner review",
+          "acceptance_owner_id": "OWN-017"
+        },
+        {
+          "id": "SOW-017-D2",
+          "output": "Cohort delivery",
+          "acceptance_test": "24 cohorts of up to 25 learners receive scheduled sessions",
+          "acceptance_owner_id": "OWN-017"
+        },
+        {
+          "id": "SOW-017-D3",
+          "output": "Learning evidence",
+          "acceptance_test": "Attendance and anonymized pre/post assessments delivered within five days",
+          "acceptance_owner_id": "OWN-017"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-018",
+      "format": "Advisory milestone agreement",
+      "pricing": "Fixed advisory milestones",
+      "outline": "Terms of reference; workshop plan; decision deliverables; acceptance and fees",
+      "deliverables": [
+        {
+          "id": "SOW-018-D1",
+          "output": "Current-state diagnostic",
+          "acceptance_test": "15 processes evidenced by interviews and source artifacts",
+          "acceptance_owner_id": "OWN-018"
+        },
+        {
+          "id": "SOW-018-D2",
+          "output": "Target operating model",
+          "acceptance_test": "RACI covers all 15 processes; 12 stakeholder owners resolve review comments",
+          "acceptance_owner_id": "OWN-018"
+        },
+        {
+          "id": "SOW-018-D3",
+          "output": "Business case and roadmap",
+          "acceptance_test": "Three options show assumptions, sensitivity and accountable decision owners",
+          "acceptance_owner_id": "OWN-018"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-019",
+      "format": "Unit-rate service order",
+      "pricing": "Measured unit rates",
+      "outline": "Service catalog; unit rate card; delivery receipts; reconciliation and disputes",
+      "deliverables": [
+        {
+          "id": "SOW-019-D1",
+          "output": "Route service",
+          "acceptance_test": "Six approved routes meet daily collection windows",
+          "acceptance_owner_id": "OWN-019"
+        },
+        {
+          "id": "SOW-019-D2",
+          "output": "Custody evidence",
+          "acceptance_test": "Every sealed package has pickup and recipient scans",
+          "acceptance_owner_id": "OWN-019"
+        },
+        {
+          "id": "SOW-019-D3",
+          "output": "Exception handling",
+          "acceptance_test": "Unreceived parcels escalated within 30 minutes; no unattended delivery",
+          "acceptance_owner_id": "OWN-019"
+        }
+      ]
+    },
+    {
+      "vendor_id": "V-020",
+      "format": "Unit-rate service order",
+      "pricing": "Measured unit rates",
+      "outline": "Service catalog; unit rate card; delivery receipts; reconciliation and disputes",
+      "deliverables": [
+        {
+          "id": "SOW-020-D1",
+          "output": "Meal service",
+          "acceptance_test": "3,000 meals per month served within agreed site windows",
+          "acceptance_owner_id": "OWN-020"
+        },
+        {
+          "id": "SOW-020-D2",
+          "output": "Allergen controls",
+          "acceptance_test": "Every menu and batch has signed allergen and cross-contact checks",
+          "acceptance_owner_id": "OWN-020"
+        },
+        {
+          "id": "SOW-020-D3",
+          "output": "Food safety records",
+          "acceptance_test": "All sampled temperature logs satisfy buyer-approved safety limits",
+          "acceptance_owner_id": "OWN-020"
+        }
+      ]
+    }
+  ]
+}

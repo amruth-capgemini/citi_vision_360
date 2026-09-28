@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-012",
+      "legal_name": "Avendryl Analytics Studio",
+      "vendor_type": "Technical",
+      "category": "BI and dashboards",
+      "status": "Active",
+      "parent_vendor_id": null,
+      "aliases": [
+        "Avendryl Analytics Studio",
+        "SUP-1012"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-012",
+      "organization_id": "ORG-04",
+      "source_ids": {
+        "CLM": "CLM-SUP-012",
+        "ERP": "ERP-1012",
+        "WFM": "WFM-012",
+        "TPRM": "RISK-SUP-012"
+      },
+      "capabilities": [
+        "SQL",
+        "BI dashboards",
+        "semantic measures"
+      ],
+      "service_id": "SVC-012",
+      "contract_id": "CTR-012",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

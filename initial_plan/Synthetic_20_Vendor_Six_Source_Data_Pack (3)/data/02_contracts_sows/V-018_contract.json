@@ -1,0 +1,107 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-018",
+      "sow_id": "SOW-018",
+      "vendor_id": "V-018",
+      "framework_id": "FA-018",
+      "order_id": "ORD-018",
+      "service_id": "SVC-018",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2026-10-28",
+      "days_to_expiry": 30,
+      "notice_days": 30,
+      "notice_deadline": "2026-09-28",
+      "automatic_renewal": true,
+      "renewal_extension_months": 12,
+      "termination_convenience_days": 60,
+      "early_exit_fee_months": 0,
+      "payment_terms_days": 30,
+      "pricing_model": "Fixed advisory milestones",
+      "annual_base_fee_usd_cents": 140000000,
+      "approved_2025_adjustment_usd_cents": 16000000,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 10,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-018",
+      "scope": "Run workshops; assess processes; deliver operating-model recommendations",
+      "out_of_scope": "Legal advice, audit opinion and execution of recommendations",
+      "source_document_id": "V-018_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 2,
+          "section": "Advisory scope and acceptance"
+        },
+        "charges": {
+          "page": 3,
+          "section": "Advisory pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Advisory milestone agreement",
+      "billing_rule": "Three annual deliverables carry 30%, 40%, 30% of the price. Monthly progress instalments are credited against accepted milestones. Advice does not authorize implementation.",
+      "format_outline": "Terms of reference; workshop plan; decision deliverables; acceptance and fees",
+      "deliverables": [
+        {
+          "id": "SOW-018-D1",
+          "output": "Current-state diagnostic",
+          "acceptance_test": "15 processes evidenced by interviews and source artifacts",
+          "acceptance_owner_id": "OWN-018"
+        },
+        {
+          "id": "SOW-018-D2",
+          "output": "Target operating model",
+          "acceptance_test": "RACI covers all 15 processes; 12 stakeholder owners resolve review comments",
+          "acceptance_owner_id": "OWN-018"
+        },
+        {
+          "id": "SOW-018-D3",
+          "output": "Business case and roadmap",
+          "acceptance_test": "Three options show assumptions, sensitivity and accountable decision owners",
+          "acceptance_owner_id": "OWN-018"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly progress instalments",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0",
+      "milestones": [
+        {
+          "deliverable_id": "SOW-018-D1",
+          "target_week": 4,
+          "budget_percent": 30,
+          "budget_usd_cents": 42000000,
+          "approval_required": true
+        },
+        {
+          "deliverable_id": "SOW-018-D2",
+          "target_week": 16,
+          "budget_percent": 40,
+          "budget_usd_cents": 56000000,
+          "approval_required": true
+        },
+        {
+          "deliverable_id": "SOW-018-D3",
+          "target_week": 24,
+          "budget_percent": 30,
+          "budget_usd_cents": 42000000,
+          "approval_required": true
+        }
+      ]
+    }
+  ]
+}

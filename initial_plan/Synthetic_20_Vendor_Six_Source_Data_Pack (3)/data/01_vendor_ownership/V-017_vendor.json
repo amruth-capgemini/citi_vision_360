@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-017",
+      "legal_name": "Pelvanta Learning Partners",
+      "vendor_type": "Non-technical",
+      "category": "Learning",
+      "status": "Active",
+      "parent_vendor_id": null,
+      "aliases": [
+        "Pelvanta Learning Partners",
+        "SUP-1017"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-017",
+      "organization_id": "ORG-01",
+      "source_ids": {
+        "CLM": "CLM-SUP-017",
+        "ERP": "ERP-1017",
+        "WFM": "WFM-017",
+        "TPRM": "RISK-SUP-017"
+      },
+      "capabilities": [
+        "Course delivery",
+        "scheduling",
+        "attendance reporting"
+      ],
+      "service_id": "SVC-017",
+      "contract_id": "CTR-017",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

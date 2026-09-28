@@ -1,0 +1,33 @@
+dimensions:
+  width_inches: 13.333
+  height_inches: 7.5
+  format: "16:9"
+metadata:
+  title: "Citi Vendor Decision Intelligence - Semi-Agentic Solution Architecture"
+  author: "Citi Vendor Decision Intelligence"
+  subject: "Governed decision support with human accountability"
+  keywords: "vendor decision intelligence, governed AI, semi-agentic architecture"
+  category: "Solution Architecture"
+defaults:
+  title_bar:
+    height_inches: 0.08
+    color: "#0B1F3A"
+  accent_bar:
+    height_inches: 0.04
+    color: "#00A6B2"
+  card:
+    fill: "#FFFFFF"
+    corner_radius_inches: 0.06
+    border_color: "#B8C7D9"
+    border_width_pt: 1
+  speaker_notes_required: true
+themes:
+  - name: "operational-light"
+    slides: [1, 2, 3, 4, 5]
+    colors:
+      background: "#F5F8FC"
+      navy: "#0B1F3A"
+      cyan: "#00A6B2"
+      teal: "#007C83"
+      orange: "#E56A20"
+      text: "#1F2D3D"

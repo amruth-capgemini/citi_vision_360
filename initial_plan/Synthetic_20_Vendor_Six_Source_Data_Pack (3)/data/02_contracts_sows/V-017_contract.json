@@ -1,0 +1,91 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-017",
+      "sow_id": "SOW-017",
+      "vendor_id": "V-017",
+      "framework_id": "FA-017",
+      "order_id": "ORD-017",
+      "service_id": "SVC-017",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2027-11-02",
+      "days_to_expiry": 400,
+      "notice_days": 90,
+      "notice_deadline": "2027-08-04",
+      "automatic_renewal": false,
+      "renewal_extension_months": 0,
+      "termination_convenience_days": 60,
+      "early_exit_fee_months": 0,
+      "payment_terms_days": 60,
+      "pricing_model": "Fixed price per cohort",
+      "annual_base_fee_usd_cents": 50000000,
+      "approved_2025_adjustment_usd_cents": 0,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 6,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-017",
+      "scope": "Deliver agreed courses; capture attendance; collect learner feedback",
+      "out_of_scope": "Employee performance decisions and production system access",
+      "source_document_id": "V-017_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 3,
+          "section": "Training scope and acceptance"
+        },
+        "charges": {
+          "page": 2,
+          "section": "Training pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Training call-off order",
+      "billing_rule": "24 cohorts per annual call-off, maximum 25 learners each. Invoice at delivery; cancellation more than ten business days before delivery costs zero, later cancellation costs 25% of the cohort price.",
+      "format_outline": "Course catalog; cohort schedule; attendance acceptance; cancellation and charges",
+      "deliverables": [
+        {
+          "id": "SOW-017-D1",
+          "output": "Learning modules",
+          "acceptance_test": "Eight modules pass accessibility and content-owner review",
+          "acceptance_owner_id": "OWN-017"
+        },
+        {
+          "id": "SOW-017-D2",
+          "output": "Cohort delivery",
+          "acceptance_test": "24 cohorts of up to 25 learners receive scheduled sessions",
+          "acceptance_owner_id": "OWN-017"
+        },
+        {
+          "id": "SOW-017-D3",
+          "output": "Learning evidence",
+          "acceptance_test": "Attendance and anonymized pre/post assessments delivered within five days",
+          "acceptance_owner_id": "OWN-017"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly in arrears",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0",
+      "unit_rate_card": {
+        "unit": "cohort",
+        "forecast_annual_quantity": 24,
+        "unit_price_usd_cents": 2083333,
+        "remainder_usd_cents": 8,
+        "note": "Any indivisible-cent remainder is reconciled on the final annual invoice."
+      }
+    }
+  ]
+}

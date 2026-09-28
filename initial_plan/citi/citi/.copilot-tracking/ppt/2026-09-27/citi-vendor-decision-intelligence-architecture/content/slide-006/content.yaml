@@ -1,0 +1,413 @@
+slide: 6
+title: "Detailed Data, Semantic, Graph, and Retrieval Architecture"
+section: "Detailed Architecture"
+layout: "content"
+background:
+  fill: "#F5F8FC"
+elements:
+  - type: shape
+    shape: rectangle
+    left: 0.5
+    top: 0.5
+    width: 12.333
+    height: 0.08
+    fill: "#0B1F3A"
+  - type: textbox
+    left: 0.6
+    top: 0.7
+    width: 9.4
+    height: 0.38
+    text: "Detailed Data, Semantic, Graph, and Retrieval Architecture"
+    font: "Segoe UI"
+    font_size: 21
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: textbox
+    left: 0.6
+    top: 1.1
+    width: 9.4
+    height: 0.26
+    text: "Governed transformation from source domains to approved analytics, graph, and document retrieval."
+    font: "Segoe UI"
+    font_size: 11
+    font_color: "#46586C"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 1.5
+    width: 2.0
+    height: 2.25
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+  - type: textbox
+    left: 0.78
+    top: 1.67
+    width: 1.64
+    height: 0.25
+    text: "SOURCE DOMAINS"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.78
+    top: 2.04
+    width: 1.64
+    height: 0.46
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Procurement / ERP"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.78
+    top: 2.61
+    width: 1.64
+    height: 0.46
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "TPRM / CMDB / HR"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.78
+    top: 3.18
+    width: 1.64
+    height: 0.36
+    fill: "#FFF0E7"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Contracts / documents"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#A54412"
+  - type: shape
+    shape: rounded_rectangle
+    left: 2.85
+    top: 1.5
+    width: 2.0
+    height: 2.25
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+  - type: textbox
+    left: 3.02
+    top: 1.67
+    width: 1.66
+    height: 0.25
+    text: "INGEST / PROCESS"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.03
+    top: 2.04
+    width: 1.64
+    height: 0.46
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Connectors: CDC / API / file"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.03
+    top: 2.61
+    width: 1.64
+    height: 0.46
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Schema mapping + data contracts"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.03
+    top: 3.18
+    width: 1.64
+    height: 0.36
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "DQ + reconciliation"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.1
+    top: 1.5
+    width: 2.0
+    height: 2.25
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+  - type: textbox
+    left: 5.28
+    top: 1.67
+    width: 1.64
+    height: 0.25
+    text: "CANONICAL MODEL"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.28
+    top: 2.04
+    width: 1.64
+    height: 0.52
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Vendor identity resolution / mastering"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.28
+    top: 2.69
+    width: 1.64
+    height: 0.52
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Vendor, contract, service, risk, control entities"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.28
+    top: 3.32
+    width: 1.64
+    height: 0.24
+    fill: "#FFF0E7"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Metadata / catalog / lineage"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#A54412"
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.35
+    top: 1.5
+    width: 2.45
+    height: 2.25
+    fill: "#FFFFFF"
+    line_color: "#B8C7D9"
+    line_width: 1
+  - type: textbox
+    left: 7.53
+    top: 1.67
+    width: 2.09
+    height: 0.25
+    text: "SEMANTIC + METRICS"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#0B1F3A"
+    font_bold: true
+    alignment: center
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.53
+    top: 2.04
+    width: 2.09
+    height: 0.48
+    fill: "#E6F6F7"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Business glossary + metric definitions"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.53
+    top: 2.65
+    width: 2.09
+    height: 0.48
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Semantic query / metrics API (approved SQL)"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.53
+    top: 3.25
+    width: 2.09
+    height: 0.32
+    fill: "#FFF0E7"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Temporal comparison + scenarios (non-destructive)"
+    text_font: "Segoe UI"
+    text_size: 9
+    text_color: "#A54412"
+  - type: connector
+    connector_type: straight
+    begin_x: 2.6
+    begin_y: 2.62
+    end_x: 2.84
+    end_y: 2.62
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: connector
+    connector_type: straight
+    begin_x: 4.85
+    begin_y: 2.62
+    end_x: 5.09
+    end_y: 2.62
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: connector
+    connector_type: straight
+    begin_x: 7.1
+    begin_y: 2.62
+    end_x: 7.34
+    end_y: 2.62
+    line_color: "#00A6B2"
+    line_width: 1.5
+    head_end: arrow
+  - type: textbox
+    left: 0.6
+    top: 4.02
+    width: 9.2
+    height: 0.24
+    text: "SERVING STORES: access is entitlement-aware before retrieval; graph and document tools are governed."
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 4.36
+    width: 2.15
+    height: 1.2
+    fill: "#FFFFFF"
+    line_color: "#00A6B2"
+    line_width: 1
+    text: "Curated relational analytics store\nApproved SQL / governed metrics"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 2.96
+    top: 4.36
+    width: 2.15
+    height: 1.2
+    fill: "#FFFFFF"
+    line_color: "#007C83"
+    line_width: 1
+    text: "Graph projection + relationship graph database\nGoverned traversal"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 5.32
+    top: 4.36
+    width: 2.15
+    height: 1.2
+    fill: "#FFFFFF"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Document / object store\nEntitled document retrieval"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 7.68
+    top: 4.36
+    width: 2.15
+    height: 1.2
+    fill: "#FFFFFF"
+    line_color: "#E56A20"
+    line_width: 1
+    text: "Entitlement-aware vector / retrieval index\nScoped retrieval"
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#0B1F3A"
+  - type: shape
+    shape: rounded_rectangle
+    left: 10.12
+    top: 1.5
+    width: 2.6
+    height: 4.06
+    fill: "#FFFFFF"
+    line_color: "#E56A20"
+    line_width: 1.25
+  - type: textbox
+    left: 10.3
+    top: 1.7
+    width: 2.24
+    height: 0.4
+    text: "IMPLEMENTATION CHOICES TO CONFIRM"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#A54412"
+    font_bold: true
+    alignment: center
+  - type: textbox
+    left: 10.35
+    top: 2.22
+    width: 2.14
+    height: 2.15
+    text: "- Managed relational warehouse / lakehouse\n- Property graph database\n- Vector search service\n- Catalog / lineage platform\n- Stream / batch orchestration"
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#1F2D3D"
+  - type: textbox
+    left: 10.35
+    top: 4.55
+    width: 2.14
+    height: 0.7
+    text: "Options, not recommendations. Select only approved Citi platform services after NFR, data classification, scale, latency, and operability assessment."
+    font: "Segoe UI"
+    font_size: 9
+    font_color: "#46586C"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.6
+    top: 5.94
+    width: 12.12
+    height: 0.62
+    fill: "#0B1F3A"
+    text: "CONTROLLED ACCESS PATTERN: identity and entitlement controls are evaluated before SQL, graph, or document retrieval; scenarios calculate on governed inputs without writeback."
+    text_font: "Segoe UI"
+    text_size: 10
+    text_color: "#FFFFFF"
+    text_bold: true
+speaker_notes: |
+  This target architecture separates source ingestion, canonical mastering, semantic meaning, and serving stores.
+  Vendor identity resolution, data quality, reconciliation, metadata, catalog, and lineage create the governed foundation.
+  The semantic layer exposes approved metrics and SQL. Graph and document retrieval remain governed and entitlement-aware. Scenario calculations are non-destructive and do not write back to systems of record.
+  The right panel deliberately presents implementation options rather than product recommendations; platform selection follows Citi approval, NFR, data classification, scale, latency, and operability assessment.

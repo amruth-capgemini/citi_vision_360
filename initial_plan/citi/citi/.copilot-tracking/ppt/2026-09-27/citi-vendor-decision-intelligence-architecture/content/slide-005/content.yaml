@@ -1,0 +1,133 @@
+slide: 5
+title: "Governance and Control Model"
+section: "Governance"
+layout: "content"
+background:
+  fill: "#F5F8FC"
+elements:
+  - type: shape
+    shape: rectangle
+    left: 0
+    top: 0
+    width: 13.333
+    height: 0.1
+    fill: "#0B1F3A"
+  - type: textbox
+    left: 0.7
+    top: 0.42
+    width: 8.5
+    height: 0.45
+    text: "Governance and Control Model"
+    font: "Segoe UI"
+    font_size: 25
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: textbox
+    left: 0.72
+    top: 0.96
+    width: 11.2
+    height: 0.34
+    text: "Controls are embedded in retrieval, investigation, evidence, recommendation, and review."
+    font: "Segoe UI"
+    font_size: 14
+    font_color: "#46586C"
+  - type: card
+    left: 0.72
+    top: 1.65
+    width: 3.75
+    height: 1.35
+    title: "ENTITLEMENTS BEFORE RETRIEVAL"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Identity, session, role, row, attribute, document, and index controls"
+        color: "#46586C"
+  - type: card
+    left: 4.79
+    top: 1.65
+    width: 3.75
+    height: 1.35
+    title: "SHARED EVIDENCE CONTRACT"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Source, record, excerpt or value, dates, calculation, confidence, limitation"
+        color: "#46586C"
+  - type: card
+    left: 8.86
+    top: 1.65
+    width: 3.75
+    height: 1.35
+    title: "MANDATORY VALIDATION + EXPLANATION"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#E56A20"
+    content:
+      - bullet: "Coverage, freshness, reconciliation, policy, conflicts, rationale"
+        color: "#46586C"
+  - type: card
+    left: 0.72
+    top: 3.55
+    width: 3.75
+    height: 1.35
+    title: "TRACES AND AUDIT"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "User, scope, agent, tool, source, validation, response, human decision"
+        color: "#46586C"
+  - type: card
+    left: 4.79
+    top: 3.55
+    width: 3.75
+    height: 1.35
+    title: "NON-DESTRUCTIVE SCENARIOS"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Baseline, lever, assumption, time horizon, and impact are explicit"
+        color: "#46586C"
+  - type: card
+    left: 8.86
+    top: 3.55
+    width: 3.75
+    height: 1.35
+    title: "HUMAN APPROVAL"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#E56A20"
+    content:
+      - bullet: "Decision authority and downstream action remain with named human owners"
+        color: "#46586C"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.72
+    top: 5.58
+    width: 11.88
+    height: 0.72
+    fill: "#0B1F3A"
+    text: "CONTROL OUTCOME: the system shows evidence and limitations together, degrades visibly when evidence is inadequate, and never turns advice into approval."
+    text_font: "Segoe UI"
+    text_size: 12
+    text_color: "#FFFFFF"
+    text_bold: true
+speaker_notes: |
+  The control model is designed into every layer rather than added after generated content.
+  Entitlements happen before retrieval. Findings use one shared evidence contract. Validation and explanation are mandatory.
+  The trace records the complete investigation. Scenarios are non-destructive. A named human owner remains accountable for the decision and any authorized downstream action.

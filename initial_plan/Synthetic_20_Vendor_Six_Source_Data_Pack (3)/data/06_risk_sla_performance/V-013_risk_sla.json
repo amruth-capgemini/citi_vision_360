@@ -1,0 +1,127 @@
+{
+  "synthetic": true,
+  "source_system": "SYN-TPRM-PERFORMANCE",
+  "as_of": "2026-09-28",
+  "vendor_id": "V-013",
+  "sla": {
+    "sla_id": "SLA-013",
+    "vendor_id": "V-013",
+    "service_id": "SVC-013",
+    "metric": "On-time service completion",
+    "target_percent": 98.0,
+    "formula": "100 * (eligible_units - failed_units) / eligible_units",
+    "measurement_window": "Calendar month",
+    "exclusions": "Only customer-approved planned exclusions recorded before measurement; the supplied observations contain zero excluded units.",
+    "priority_1_response_minutes": 60,
+    "priority_1_restoration_target_minutes": 240,
+    "commercial_invoice_accuracy_target_percent": 99.0,
+    "credit_bands": [
+      {
+        "shortfall_lt_percentage_points": 1,
+        "credit_percent": 3
+      },
+      {
+        "shortfall_gte_percentage_points": 1,
+        "credit_percent": 7
+      }
+    ],
+    "monthly_credit_cap_percent": 15,
+    "claim_deadline_days_after_month_end": 45,
+    "credit_basis": "Affected monthly service fee; estimates require validation and are not posted finance actuals.",
+    "synthetic": true
+  },
+  "risk_assessment": {
+    "assessment_id": "RA-013",
+    "vendor_id": "V-013",
+    "assessed_entity_id": "SVC-013",
+    "assessment_date": "2026-08-15",
+    "status": "Current",
+    "risk_tier": "Low",
+    "validity_days": 365,
+    "risk_owner_id": "OWN-013",
+    "data_classification": "Internal synthetic",
+    "source_document_id": "V-013_sla_risk_pack",
+    "synthetic": true
+  },
+  "issues": [
+    {
+      "issue_id": "ISSUE-013",
+      "vendor_id": "V-013",
+      "assessment_id": "RA-013",
+      "affected_entity_id": "SVC-013",
+      "finding": "Alternate staffing evidence incomplete",
+      "status": "Open",
+      "severity": "Medium",
+      "due_date": "2026-10-28",
+      "closed_date": null,
+      "owner_id": "OWN-013",
+      "control_id": "CTRL-013",
+      "synthetic": true
+    }
+  ],
+  "performance": [
+    {
+      "metric_record_id": "MET-013-06",
+      "vendor_id": "V-013",
+      "contract_id": "CTR-013",
+      "service_id": "SVC-013",
+      "period": "2026-06",
+      "metric_name": "On-time service completion",
+      "unit": "percent",
+      "target": 98.0,
+      "eligible_units": 200,
+      "failed_units": 2,
+      "measurement_unit": "service orders",
+      "actual": 99.0,
+      "breach": false,
+      "service_fee_basis_usd_cents": 12500000,
+      "estimated_credit_percent": 0,
+      "estimated_credit_usd_cents": 0,
+      "credit_status": "Not applicable",
+      "source_document_id": "V-013_sla_risk_pack",
+      "synthetic": true
+    },
+    {
+      "metric_record_id": "MET-013-07",
+      "vendor_id": "V-013",
+      "contract_id": "CTR-013",
+      "service_id": "SVC-013",
+      "period": "2026-07",
+      "metric_name": "On-time service completion",
+      "unit": "percent",
+      "target": 98.0,
+      "eligible_units": 200,
+      "failed_units": 2,
+      "measurement_unit": "service orders",
+      "actual": 99.0,
+      "breach": false,
+      "service_fee_basis_usd_cents": 12500000,
+      "estimated_credit_percent": 0,
+      "estimated_credit_usd_cents": 0,
+      "credit_status": "Not applicable",
+      "source_document_id": "V-013_sla_risk_pack",
+      "synthetic": true
+    },
+    {
+      "metric_record_id": "MET-013-08",
+      "vendor_id": "V-013",
+      "contract_id": "CTR-013",
+      "service_id": "SVC-013",
+      "period": "2026-08",
+      "metric_name": "On-time service completion",
+      "unit": "percent",
+      "target": 98.0,
+      "eligible_units": 200,
+      "failed_units": 7,
+      "measurement_unit": "service orders",
+      "actual": 96.5,
+      "breach": true,
+      "service_fee_basis_usd_cents": 12500000,
+      "estimated_credit_percent": 7,
+      "estimated_credit_usd_cents": 875000,
+      "credit_status": "Claim review required",
+      "source_document_id": "V-013_sla_risk_pack",
+      "synthetic": true
+    }
+  ]
+}

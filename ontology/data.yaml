@@ -1,0 +1,107 @@
+module: data
+description: >
+  Data-layer metadata: source systems, the datasets they publish, dataset fields and
+  governed metric definitions. Phase 3 bindings map DataField -> ontology property;
+  catalogs and metric rules are metadata, never business facts.
+
+classes:
+  - id: SourceSystem
+    label: Source system
+    key: source_system_id
+    id_pattern: "^SYN-[A-Z-]+$"
+    definition: An operational system of record that exports source data (CLM, ERP, WFM, TPRM ...).
+    properties:
+      - id: source_system_id
+        datatype: identifier
+        required: true
+        description: Stable source system key.
+        synonyms: [source_system]
+      - id: source_class
+        datatype: string
+        enum:
+          - 01_vendor_ownership
+          - 02_contracts_sows
+          - 03_spend_forecast
+          - 04_workforce
+          - 05_service_dependencies
+          - 06_risk_sla_performance
+        description: Source class the system feeds.
+
+  - id: Dataset
+    label: Dataset
+    key: dataset_id
+    definition: A structured export (file or table) published by a source system at a stated grain.
+    synonyms: [Table, Source file]
+    properties:
+      - id: dataset_id
+        datatype: identifier
+        required: true
+        description: Stable dataset key.
+      - id: grain
+        datatype: text
+        required: true
+        description: What one record represents.
+      - id: as_of
+        datatype: date
+        description: Snapshot date of the export.
+
+  - id: DataField
+    label: Data field
+    key: field_id
+    definition: A field (column / JSON path) within a dataset; the unit of structured binding.
+    synonyms: [Column, Attribute]
+    properties:
+      - id: field_id
+        datatype: identifier
+        required: true
+        description: Stable field key (dataset_id + field path).
+      - id: path
+        datatype: string
+        required: true
+        description: Column name or JSON path within the dataset.
+      - id: source_datatype
+        datatype: string
+        description: Datatype as declared by the source.
+
+  - id: MetricDefinition
+    label: Metric definition
+    key: metric_id
+    definition: >
+      A governed business metric with an approved calculation rule and reporting period
+      (spend, variance, concentration, renewal priority, risk freshness).
+    synonyms: [Metric, KPI, Measure]
+    properties:
+      - id: metric_id
+        datatype: identifier
+        required: true
+        description: Stable metric key.
+      - id: name
+        datatype: string
+        required: true
+        description: Business name of the metric.
+      - id: calculation
+        datatype: text
+        required: true
+        description: Approved calculation rule.
+      - id: reporting_period
+        datatype: string
+        description: Period the metric is defined over.
+      - id: policy_version
+        datatype: string
+        required: true
+        description: Version of the definition catalog.
+
+relations:
+  - id: PUBLISHES
+    label: Publishes
+    source: SourceSystem
+    target: Dataset
+    cardinality: one_to_many
+    description: The source system produces the dataset.
+
+  - id: HAS_FIELD
+    label: Has field
+    source: Dataset
+    target: DataField
+    cardinality: one_to_many
+    description: The field belongs to the dataset.

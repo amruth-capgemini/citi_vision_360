@@ -1,0 +1,271 @@
+module: contracts
+description: >
+  Agreements, statements of work, deliverables and the clause hierarchy (source class
+  02_contracts_sows). Contract is a business agreement, NOT a document class: the SOW PDF /
+  Markdown is a ContractDocument that EVIDENCES the contract. Clause terms are extracted
+  from the ContractDocument with page/quote evidence and attached with HAS_CLAUSE.
+
+classes:
+  - id: Contract
+    label: Contract
+    key: contract_id
+    id_pattern: "^CTR-\\d{3}$"
+    definition: >
+      A binding commercial agreement between the buyer and a vendor, with a term, a
+      commercial model and clause-level obligations.
+    synonyms: [Agreement, Master agreement, Order form]
+    properties:
+      - id: contract_id
+        datatype: identifier
+        required: true
+        description: Stable contract key.
+      - id: framework_id
+        datatype: identifier
+        description: Framework agreement the contract is called off from.
+      - id: order_id
+        datatype: identifier
+        description: Order under the framework agreement.
+      - id: start_date
+        datatype: date
+        required: true
+        description: Commencement date of the current term.
+      - id: end_date
+        datatype: date
+        required: true
+        description: Expiry date of the current term.
+      - id: pricing_model
+        datatype: string
+        required: true
+        enum:
+          - Fixed capacity retainer
+          - Fixed managed service fee
+          - Fixed price with acceptance gates
+          - Capped time and materials
+          - Fixed price per sprint
+          - Stage-gated fixed research budget
+          - Named-seat subscription
+          - Measured unit rates
+          - Fixed price per cohort
+          - Fixed advisory milestones
+        description: Commercial model that determines how charges accrue.
+      - id: document_format
+        datatype: string
+        enum:
+          - Capacity support schedule
+          - Managed service agreement
+          - Fixed-price delivery SOW
+          - Capped T&M work order
+          - Agile delivery work order
+          - Research stage-gate SOW
+          - SaaS subscription order
+          - Unit-rate service order
+          - Training call-off order
+          - Advisory milestone agreement
+        description: Contract family / document template.
+      - id: annual_base_fee_usd_cents
+        datatype: money_cents
+        description: >
+          Annual commercial baseline or quantity forecast. Not a guaranteed minimum and not
+          total multi-year contract value.
+      - id: approved_adjustment_usd_cents
+        datatype: money_cents
+        description: Approved uplift ceiling above the annual baseline for the reporting year.
+        synonyms: [approved_2025_adjustment_usd_cents]
+      - id: annual_ceiling_usd_cents
+        datatype: money_cents
+        description: Hard annual spend ceiling for capped time-and-materials contracts.
+      - id: billable_assignments
+        datatype: integer
+        description: Contracted count of billable workforce assignments.
+      - id: shadow_assignments
+        datatype: integer
+        description: Contracted count of non-billable shadow assignments.
+      - id: scope
+        datatype: text
+        description: In-scope services.
+      - id: out_of_scope
+        datatype: text
+        description: Explicitly excluded services.
+      - id: billing_rule
+        datatype: text
+        description: Rule that determines what charges are payable.
+      - id: budget_basis
+        datatype: text
+        description: How the annual budget figure should be interpreted.
+      - id: delivery_cycle
+        datatype: text
+        description: Delivery cadence within the term.
+      - id: format_outline
+        datatype: text
+        description: Section outline of the contract family's document template.
+      - id: version
+        datatype: string
+        description: Contract document version.
+
+  - id: StatementOfWork
+    label: Statement of work
+    key: sow_id
+    id_pattern: "^SOW-\\d{3}$"
+    definition: >
+      The work description under a contract that defines deliverables, acceptance and the
+      services it funds.
+    synonyms: [SOW, Work order, Schedule]
+    properties:
+      - id: sow_id
+        datatype: identifier
+        required: true
+        description: Stable statement of work key.
+
+  - id: Deliverable
+    label: Deliverable
+    key: deliverable_id
+    id_pattern: "^SOW-\\d{3}-D\\d+$"
+    definition: A contracted output with a specific acceptance test and acceptance owner.
+    properties:
+      - id: deliverable_id
+        datatype: identifier
+        required: true
+        description: Stable deliverable key.
+        synonyms: [id]
+      - id: output
+        datatype: string
+        required: true
+        description: Name of the contracted output.
+      - id: acceptance_test
+        datatype: text
+        required: true
+        description: Objective test the output must pass to be accepted.
+
+  - id: ContractDocument
+    label: Contract / SOW document
+    parent: Document
+    id_pattern: "^V-\\d{3}_contract_sow$"
+    definition: >
+      The original contract / SOW document (PDF with an equivalent Markdown rendition).
+      Evidence source for contract clauses.
+
+  - id: Clause
+    label: Contract clause
+    abstract: true
+    kind: clause
+    definition: >
+      A provision of a contract. Clause values are extracted from a ContractDocument and
+      each present value carries chunk/page/quote evidence.
+    synonyms: [Provision, Term]
+    properties:
+      - id: section_title
+        datatype: string
+        description: Heading of the document section that contains the clause.
+
+  - id: RenewalClause
+    label: Renewal clause
+    parent: Clause
+    definition: >
+      Governs whether and how the contract renews at expiry, including the notice period
+      and the date by which notice must be given.
+    synonyms: [Auto-renewal clause, Evergreen clause, Renewal notice]
+    properties:
+      - id: automatic_renewal
+        datatype: boolean
+        required: true
+        description: True when the contract renews automatically unless notice is given.
+      - id: renewal_extension_months
+        datatype: integer
+        description: Length of each automatic renewal period in months (0 when none).
+      - id: notice_days
+        datatype: integer
+        required: true
+        description: Calendar days of notice required before expiry.
+      - id: notice_deadline
+        datatype: date
+        description: Last date on which renewal / non-renewal notice may be given.
+      - id: renewal_mechanism
+        datatype: text
+        description: Stated renewal mechanism wording (e.g. explicit written renewal required).
+
+  - id: TerminationClause
+    label: Termination clause
+    parent: Clause
+    definition: >
+      Governs termination for convenience, early-exit charges and exit / transition
+      obligations.
+    synonyms: [Exit clause, Termination for convenience]
+    properties:
+      - id: termination_convenience_days
+        datatype: integer
+        description: Calendar days of written notice to terminate for convenience.
+      - id: early_exit_fee_months
+        datatype: decimal
+        description: Early-exit fee expressed as a number of monthly base fees.
+      - id: exit_terms
+        datatype: text
+        description: Transition and exit obligations wording.
+
+  - id: PaymentTermsClause
+    label: Payment terms clause
+    parent: Clause
+    definition: Governs invoicing frequency, currency, schedule and payment due period.
+    synonyms: [Payment clause, Charges and payment]
+    properties:
+      - id: payment_terms_days
+        datatype: integer
+        required: true
+        description: Days after invoice by which payment is due (net days).
+      - id: payment_schedule
+        datatype: string
+        enum: [Monthly in arrears, Monthly progress instalments]
+        description: When charges are invoiced relative to delivery.
+      - id: invoice_frequency
+        datatype: string
+        enum: [Monthly, Quarterly, Annually]
+        description: How often invoices are raised.
+      - id: billing_currency
+        datatype: string
+        enum: [USD]
+        description: Contract billing currency.
+
+relations:
+  - id: PARTY_TO
+    label: Party to
+    source: [Vendor, Buyer]
+    target: Contract
+    cardinality: many_to_many
+    description: >
+      The legal entity is a contracting party to the contract. Direction is party ->
+      contract; the source relationship HAS_CONTRACT (vendor -> contract) maps to this.
+    synonyms: [HAS_CONTRACT]
+
+  - id: HAS_SOW
+    label: Has statement of work
+    source: Contract
+    target: StatementOfWork
+    cardinality: one_to_many
+    description: The statement of work is issued under the contract.
+
+  - id: HAS_CLAUSE
+    label: Has clause
+    source: Contract
+    target: Clause
+    cardinality: one_to_many
+    description: The clause is a provision of the contract.
+
+  - id: HAS_DELIVERABLE
+    label: Has deliverable
+    source: StatementOfWork
+    target: Deliverable
+    cardinality: one_to_many
+    description: The deliverable is contracted under the statement of work.
+
+  - id: ACCEPTED_BY
+    label: Accepted by
+    source: Deliverable
+    target: Owner
+    cardinality: many_to_one
+    description: The buyer owner who accepts the deliverable.
+
+  - id: FUNDS
+    label: Funds
+    source: StatementOfWork
+    target: Service
+    cardinality: one_to_many
+    description: The statement of work commercially funds the service.

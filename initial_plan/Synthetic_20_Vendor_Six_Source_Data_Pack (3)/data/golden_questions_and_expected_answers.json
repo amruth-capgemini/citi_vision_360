@@ -1,0 +1,102 @@
+{
+  "synthetic": true,
+  "as_of": "2026-09-28",
+  "golden_questions": [
+    {
+      "question": "Which technical vendor has a renewal in 90 days and supports critical payment apps?",
+      "expected_vendor_id": "V-001",
+      "contract_id": "CTR-001",
+      "days": 90,
+      "notice_deadline": "2026-10-28",
+      "evidence": [
+        "02_contracts_sows/V-001_contract_sow.pdf#page=1",
+        "05_service_dependencies/V-001_dependency_register.pdf#page=1"
+      ]
+    },
+    {
+      "question": "Explain V-001 FY2025 spend variance.",
+      "actual_usd_cents": 1200000000,
+      "forecast_usd_cents": 1000000000,
+      "variance_usd_cents": 200000000,
+      "driver_totals_usd_cents": {
+        "volume_change": 100000004,
+        "rate_mix": 50000004,
+        "scope_change": 49999992
+      },
+      "source": "03_spend_forecast/V-001_finance.json"
+    },
+    {
+      "question": "What is V-001 critical-app concentration?",
+      "numerator": 4,
+      "denominator": 6,
+      "percentage": 66.6667,
+      "source": "05_service_dependencies/V-001_dependencies.json"
+    },
+    {
+      "question": "Can V-009 immediately replace V-001?",
+      "expected": "No automatic conclusion. Java/application capability overlap exists, but capacity is unvalidated, V-009 assessment is stale and its issue is overdue.",
+      "source_ids": [
+        "V-001",
+        "V-009"
+      ]
+    },
+    {
+      "question": "Which vendor has missing risk assessment evidence?",
+      "expected_vendor_id": "V-017",
+      "expected_tier": null
+    },
+    {
+      "question": "Does the facilities vendor operate the portal software it uses?",
+      "expected_vendor_id": "V-013",
+      "expected": "No. USES_PORTAL is an enabling dependency, not application support ownership."
+    },
+    {
+      "question": "What is V-001 August 2026 service credit estimate?",
+      "expected_metric": {
+        "metric_record_id": "MET-001-08",
+        "vendor_id": "V-001",
+        "contract_id": "CTR-001",
+        "service_id": "SVC-001",
+        "period": "2026-08",
+        "metric_name": "Service availability",
+        "unit": "percent",
+        "target": 99.9,
+        "eligible_units": 44640,
+        "failed_units": 90,
+        "measurement_unit": "minutes",
+        "actual": 99.7984,
+        "breach": true,
+        "service_fee_basis_usd_cents": 83333333,
+        "estimated_credit_percent": 3,
+        "estimated_credit_usd_cents": 2500000,
+        "credit_status": "Claim review required",
+        "source_document_id": "V-001_sla_risk_pack",
+        "synthetic": true
+      },
+      "warning": "Estimate requires claim review and is not posted FY2025 spend."
+    },
+    {
+      "question": "What would a hypothetical 25% reduction of V-001 FY2025 annual baseline imply?",
+      "baseline_usd_cents": 1200000000,
+      "scope_percent": 25,
+      "gross_usd_cents": 300000000,
+      "transition_assumption_usd_cents": 50000000,
+      "retained_cost_assumption_usd_cents": 25000000,
+      "net_estimated_saving_usd_cents": 225000000,
+      "modeled_annual_cost_usd_cents": 975000000,
+      "status": "Illustrative assumptions only; no selected application or workforce cut is inferred."
+    },
+    {
+      "question": "Which contracts have already passed their renewal notice deadline?",
+      "expected_contract_ids": [
+        "CTR-005"
+      ]
+    },
+    {
+      "question": "How many V-001 assignments are billable versus shadow?",
+      "billable": 40,
+      "shadow": 1,
+      "total": 41
+    }
+  ]
+}

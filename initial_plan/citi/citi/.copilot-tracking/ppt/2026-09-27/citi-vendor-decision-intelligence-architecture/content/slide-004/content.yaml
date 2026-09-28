@@ -1,0 +1,113 @@
+slide: 4
+title: "Controlled Investigation Flow"
+section: "Investigation Flow"
+layout: "content"
+background:
+  fill: "#F5F8FC"
+elements:
+  - type: shape
+    shape: rectangle
+    left: 0
+    top: 0
+    width: 13.333
+    height: 0.1
+    fill: "#0B1F3A"
+  - type: textbox
+    left: 0.7
+    top: 0.42
+    width: 8.5
+    height: 0.45
+    text: "Controlled Investigation Flow"
+    font: "Segoe UI"
+    font_size: 25
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: textbox
+    left: 0.72
+    top: 0.96
+    width: 11.2
+    height: 0.34
+    text: "A bounded path from a governed question to a reviewable decision brief."
+    font: "Segoe UI"
+    font_size: 14
+    font_color: "#46586C"
+  - type: numbered_step
+    left: 0.72
+    top: 1.65
+    width: 5.7
+    height: 0.64
+    number: 1
+    label: "User request"
+    description: "Question or prioritization workflow starts an investigation."
+    accent_color: "#0B1F3A"
+  - type: numbered_step
+    left: 6.9
+    top: 1.65
+    width: 5.7
+    height: 0.64
+    number: 2
+    label: "Entitlement gate"
+    description: "Identity, role, and row, attribute, document, and index scope are checked before retrieval."
+    accent_color: "#00A6B2"
+  - type: numbered_step
+    left: 0.72
+    top: 2.75
+    width: 5.7
+    height: 0.64
+    number: 3
+    label: "Bounded plan and specialists"
+    description: "Supervisor selects only relevant approved tools and domain specialists."
+    accent_color: "#0B1F3A"
+  - type: numbered_step
+    left: 6.9
+    top: 2.75
+    width: 5.7
+    height: 0.64
+    number: 4
+    label: "Evidence-bearing findings"
+    description: "Each finding includes source, time context, calculation, assumptions, confidence, and limitations."
+    accent_color: "#00A6B2"
+  - type: numbered_step
+    left: 0.72
+    top: 3.85
+    width: 5.7
+    height: 0.64
+    number: 5
+    label: "Validation and explanation"
+    description: "Coverage, freshness, reconciliation, data quality, contradictions, and policy constraints are checked."
+    accent_color: "#0B1F3A"
+  - type: numbered_step
+    left: 6.9
+    top: 3.85
+    width: 5.7
+    height: 0.64
+    number: 6
+    label: "Human review and approval"
+    description: "Decision owner evaluates options, evidence, limitations, and required approvals."
+    accent_color: "#00A6B2"
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.72
+    top: 5.25
+    width: 11.88
+    height: 0.76
+    fill: "#FFF0E7"
+    text: "NO WRITEBACK: no agent changes procurement, contract, ERP, workforce, TPRM, or CMDB systems. Execution requires a separately authorized, human-initiated workflow."
+    text_font: "Segoe UI"
+    text_size: 12
+    text_color: "#A54412"
+    text_bold: true
+  - type: textbox
+    left: 0.75
+    top: 6.38
+    width: 11.7
+    height: 0.28
+    text: "Trace retained: user, scope, selected agent, tool calls, source references, validations, response, and human decision."
+    font: "Segoe UI"
+    font_size: 10
+    font_color: "#607389"
+    alignment: center
+speaker_notes: |
+  The flow begins with an authorized request and applies entitlement checks before any retrieval.
+  The supervisor creates a bounded plan, specialists produce evidence-bearing findings, and validation checks whether the investigation is fit for presentation.
+  The result is a decision brief for human review. No agent writes to a system of record; downstream execution is a separate human-initiated process.

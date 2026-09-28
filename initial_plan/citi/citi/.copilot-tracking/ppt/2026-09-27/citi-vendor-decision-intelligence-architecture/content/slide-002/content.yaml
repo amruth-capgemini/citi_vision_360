@@ -1,0 +1,147 @@
+slide: 2
+title: "Architecture Position"
+section: "Operating Principle"
+layout: "content"
+background:
+  fill: "#F5F8FC"
+elements:
+  - type: shape
+    shape: rectangle
+    left: 0
+    top: 0
+    width: 13.333
+    height: 0.1
+    fill: "#0B1F3A"
+  - type: textbox
+    left: 0.7
+    top: 0.42
+    width: 8.0
+    height: 0.45
+    text: "Architecture Position"
+    font: "Segoe UI"
+    font_size: 25
+    font_color: "#0B1F3A"
+    font_bold: true
+  - type: textbox
+    left: 0.72
+    top: 0.95
+    width: 11.5
+    height: 0.36
+    text: "Semi-agentic decision support: bounded investigations, evidence-bearing findings, and human accountability."
+    font: "Segoe UI"
+    font_size: 14
+    font_color: "#46586C"
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.98
+    top: 1.62
+    width: 5.35
+    height: 0.92
+    fill: "#0B1F3A"
+    text: "DECISION SUPERVISOR\nPlans scope, selects approved specialists, enforces guardrails"
+    text_font: "Segoe UI"
+    text_size: 14
+    text_color: "#FFFFFF"
+    text_bold: true
+  - type: connector
+    connector_type: straight
+    begin_x: 6.65
+    begin_y: 2.54
+    end_x: 6.65
+    end_y: 3.02
+    line_color: "#00A6B2"
+    line_width: 2
+    head_end: arrow
+  - type: card
+    left: 0.72
+    top: 3.08
+    width: 2.78
+    height: 1.56
+    title: "COMMERCIAL"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Contracts and renewals"
+        color: "#46586C"
+  - type: card
+    left: 3.55
+    top: 3.08
+    width: 2.78
+    height: 1.56
+    title: "FINANCIAL"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Spend and scenarios"
+        color: "#46586C"
+  - type: card
+    left: 6.38
+    top: 3.08
+    width: 2.78
+    height: 1.56
+    title: "DEPENDENCY / RISK"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Exposure and relationships"
+        color: "#46586C"
+  - type: card
+    left: 9.21
+    top: 3.08
+    width: 2.78
+    height: 1.56
+    title: "SOURCING"
+    title_color: "#0B1F3A"
+    title_size: 12
+    title_bold: true
+    accent_bar: true
+    accent_color: "#00A6B2"
+    content:
+      - bullet: "Overlap and alternatives"
+        color: "#46586C"
+  - type: connector
+    connector_type: straight
+    begin_x: 6.65
+    begin_y: 4.65
+    end_x: 6.65
+    end_y: 5.05
+    line_color: "#00A6B2"
+    line_width: 2
+    head_end: arrow
+  - type: shape
+    shape: rounded_rectangle
+    left: 3.25
+    top: 5.1
+    width: 6.8
+    height: 0.75
+    fill: "#D9F2F3"
+    text: "VALIDATED EVIDENCE + EXPLANATION - HUMAN REVIEW AND APPROVAL"
+    text_font: "Segoe UI"
+    text_size: 12
+    text_color: "#0B1F3A"
+    text_bold: true
+  - type: shape
+    shape: rounded_rectangle
+    left: 0.72
+    top: 6.25
+    width: 11.98
+    height: 0.48
+    fill: "#FFF0E7"
+    text: "Boundary: recommendations are options, not approvals; all downstream execution stays outside the agent boundary."
+    text_font: "Segoe UI"
+    text_size: 11
+    text_color: "#A54412"
+    text_bold: true
+speaker_notes: |
+  The design uses a supervisor to create a bounded investigation plan and delegate only to the relevant approved specialists.
+  Specialists do not approve decisions, access unrestricted data, or execute source-system actions.
+  Their output is validated evidence and explanation for a human decision owner to review.

@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-003",
+      "legal_name": "Cindervale Cyber Services",
+      "vendor_type": "Technical",
+      "category": "Security operations",
+      "status": "Active",
+      "parent_vendor_id": null,
+      "aliases": [
+        "Cindervale Cyber Services",
+        "Cindervale Cyber",
+        "SUP-1003"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-003",
+      "organization_id": "ORG-03",
+      "source_ids": {
+        "CLM": "CLM-SUP-003",
+        "ERP": "ERP-1003",
+        "WFM": "WFM-003",
+        "TPRM": "RISK-SUP-003"
+      },
+      "capabilities": [
+        "SIEM analysis",
+        "threat triage",
+        "incident coordination"
+      ],
+      "service_id": "SVC-003",
+      "contract_id": "CTR-003",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-006",
+      "legal_name": "Tervona Network Services",
+      "vendor_type": "Technical",
+      "category": "Network operations",
+      "status": "Active",
+      "parent_vendor_id": null,
+      "aliases": [
+        "Tervona Network Services",
+        "Tervona Network",
+        "SUP-1006"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-006",
+      "organization_id": "ORG-02",
+      "source_ids": {
+        "CLM": "CLM-SUP-006",
+        "ERP": "ERP-1006",
+        "WFM": "WFM-006",
+        "TPRM": "RISK-SUP-006"
+      },
+      "capabilities": [
+        "Routing",
+        "network monitoring",
+        "secure connectivity"
+      ],
+      "service_id": "SVC-006",
+      "contract_id": "CTR-006",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

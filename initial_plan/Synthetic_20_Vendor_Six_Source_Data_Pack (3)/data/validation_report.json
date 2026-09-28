@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "contract_format_count": 10,
+  "distinct_acceptance_test_count": 60,
+  "vendor_count": 20,
+  "technical_count": 12,
+  "nontechnical_count": 8,
+  "source_class_count": 6,
+  "contract_pdf_count": 20,
+  "dependency_pdf_count": 20,
+  "sla_risk_pdf_count": 20,
+  "pdf_pages": 180,
+  "finance_month_rows": 240,
+  "workforce_assignments": 283,
+  "relationships": 374,
+  "performance_rows": 60,
+  "checks": [
+    "Unique IDs and required vendor coverage in every class",
+    "Source-to-source key integrity",
+    "Closed-year spend, forecast and driver reconciliation",
+    "Separate forward commitments and service credits",
+    "Notice deadlines and expiry horizons",
+    "Workforce totals and allocated fee reconciliation",
+    "Directed relationship endpoints and non-technical portal semantics",
+    "SLA numerator, denominator, breach and credit arithmetic",
+    "Missing and stale assessment states preserved",
+    "Expected page counts and synthetic label on every PDF page",
+    "Excluded source party/project/person names absent from data and extracted PDF text",
+    "Ten contract families and sixty unique acceptance tests",
+    "Text bounds checked across all 180 pages",
+    "Rendered scope and pricing pages reviewed across all ten contract families"
+  ]
+}

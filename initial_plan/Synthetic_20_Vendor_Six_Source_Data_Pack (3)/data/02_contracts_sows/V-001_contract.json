@@ -1,0 +1,84 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-001",
+      "sow_id": "SOW-001",
+      "vendor_id": "V-001",
+      "framework_id": "FA-001",
+      "order_id": "ORD-001",
+      "service_id": "SVC-001",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2026-12-27",
+      "days_to_expiry": 90,
+      "notice_days": 60,
+      "notice_deadline": "2026-10-28",
+      "automatic_renewal": false,
+      "renewal_extension_months": 0,
+      "termination_convenience_days": 90,
+      "early_exit_fee_months": 2,
+      "payment_terms_days": 45,
+      "pricing_model": "Fixed capacity retainer",
+      "annual_base_fee_usd_cents": 1000000000,
+      "approved_2025_adjustment_usd_cents": 200000000,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 40,
+      "shadow_assignments": 1,
+      "owner_id": "OWN-001",
+      "scope": "Triage L3 defects; implement approved fixes; verify production releases",
+      "out_of_scope": "New product builds and infrastructure ownership",
+      "source_document_id": "V-001_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 2,
+          "section": "Capacity scope and acceptance"
+        },
+        "charges": {
+          "page": 3,
+          "section": "Capacity pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Capacity support schedule",
+      "billing_rule": "Retainer covers the named support roster. No implied feature-development capacity. Changes to roster or coverage require a signed change note.",
+      "format_outline": "Service boundaries; coverage roster; incident operations; fee and exit schedule",
+      "deliverables": [
+        {
+          "id": "SOW-001-D1",
+          "output": "L3 incident resolution",
+          "acceptance_test": "100% of P1 records include diagnosis, approved fix and rollback evidence",
+          "acceptance_owner_id": "OWN-001"
+        },
+        {
+          "id": "SOW-001-D2",
+          "output": "Payment regression suite",
+          "acceptance_test": "All 120 critical payment scenarios pass before release",
+          "acceptance_owner_id": "OWN-001"
+        },
+        {
+          "id": "SOW-001-D3",
+          "output": "Support handover",
+          "acceptance_test": "40 billable roles and one shadow have named backup coverage",
+          "acceptance_owner_id": "OWN-001"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly in arrears",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0"
+    }
+  ]
+}

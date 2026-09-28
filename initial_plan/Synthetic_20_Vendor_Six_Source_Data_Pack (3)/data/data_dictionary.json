@@ -1,0 +1,29 @@
+{
+  "ID_keys": {
+    "vendor_id": "V-NNN across all six classes",
+    "contract_id": "CTR-NNN; one contract per vendor",
+    "sow_id": "SOW-NNN; one SOW per vendor",
+    "service_id": "SVC-NNN; one contracted service per vendor",
+    "assignment_id": "ASN-vendor-sequence; includes non-billable shadow rows",
+    "application_id": "APP-NNN from the shared application catalog",
+    "owner_id": "Reference entity owner key",
+    "source_document_id": "Document catalog key with PDF and Markdown paths"
+  },
+  "types": {
+    "dates": "ISO 8601 date strings",
+    "*_usd_cents": "Integer US cents; divide by 100 for display",
+    "percentage": "Numeric 0-100 scale",
+    "null": "Missing or not applicable, never assumed to be zero",
+    "synthetic": "Always true"
+  },
+  "grains": {
+    "vendor": "one legal entity snapshot",
+    "contract": "one contract/SOW snapshot",
+    "finance": "one invoice line and forecast allocation per vendor/month",
+    "workforce": "one active assignment",
+    "relationship": "one directed source association",
+    "performance": "one vendor/primary-metric/month",
+    "risk": "one latest assessment state, which may be stale or missing"
+  },
+  "ingestion": "Each vendor JSON file is its class source. Shared reference JSON files provide dimensions. PDF and Markdown are equivalent renditions of the same document_id; index one rendition, not both. Catalog, golden-question and QA files are supporting metadata, not extra business facts."
+}

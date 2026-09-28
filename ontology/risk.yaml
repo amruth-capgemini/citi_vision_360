@@ -1,0 +1,232 @@
+module: risk
+description: >
+  Service levels, measured performance, third-party risk assessments and issues (source
+  class 06_risk_sla_performance). Missing and stale assessments are explicit states; a risk
+  tier is never inferred when the assessment is missing. Estimated service credits are not
+  posted finance actuals.
+
+classes:
+  - id: ServiceLevelAgreement
+    label: Service level agreement
+    key: sla_id
+    id_pattern: "^SLA-\\d{3}$"
+    definition: >
+      The contractual service-level schedule for a service: primary metric, target,
+      measurement rules and credit regime.
+    synonyms: [SLA, Service level schedule]
+    properties:
+      - id: sla_id
+        datatype: identifier
+        required: true
+        description: Stable SLA key.
+      - id: metric
+        datatype: string
+        required: true
+        description: Primary measured metric.
+      - id: target_percent
+        datatype: percentage
+        required: true
+        description: Target attainment for the primary metric.
+      - id: formula
+        datatype: text
+        description: Attainment formula.
+      - id: measurement_window
+        datatype: string
+        description: Period over which attainment is measured.
+      - id: exclusions
+        datatype: text
+        description: Permitted measurement exclusions.
+      - id: priority_1_response_minutes
+        datatype: integer
+        description: Maximum response time for priority-1 incidents.
+      - id: priority_1_restoration_target_minutes
+        datatype: integer
+        description: Target restoration time for priority-1 incidents.
+      - id: commercial_invoice_accuracy_target_percent
+        datatype: percentage
+        description: Target invoice accuracy.
+      - id: monthly_credit_cap_percent
+        datatype: percentage
+        description: Maximum service credit as a share of the monthly fee.
+      - id: claim_deadline_days_after_month_end
+        datatype: integer
+        description: Days after month end by which a credit claim must be raised.
+      - id: credit_basis
+        datatype: text
+        description: Fee basis against which credits are calculated.
+
+  - id: PerformanceMeasurement
+    label: Performance measurement
+    kind: fact
+    key: metric_record_id
+    id_pattern: "^MET-\\d{3}-\\d{2}$"
+    definition: >
+      One measured monthly result of a service's primary SLA metric, with breach flag and
+      an estimated (unposted) service credit.
+    synonyms: [SLA result, Performance record]
+    properties:
+      - id: metric_record_id
+        datatype: identifier
+        required: true
+        description: Stable measurement key.
+      - id: period
+        datatype: year_month
+        required: true
+        description: Measured month.
+      - id: metric_name
+        datatype: string
+        required: true
+        description: Name of the measured metric.
+      - id: unit
+        datatype: string
+        enum: [percent]
+        description: Unit of target and actual.
+      - id: target
+        datatype: percentage
+        required: true
+        description: Target attainment for the month.
+      - id: actual
+        datatype: percentage
+        required: true
+        description: Measured attainment for the month.
+      - id: eligible_units
+        datatype: integer
+        required: true
+        description: Denominator of the attainment formula.
+      - id: failed_units
+        datatype: integer
+        required: true
+        description: Failed units in the numerator adjustment.
+      - id: measurement_unit
+        datatype: string
+        description: What one unit measures (minutes, alerts, service orders ...).
+      - id: breach
+        datatype: boolean
+        required: true
+        description: True when actual is below target.
+      - id: service_fee_basis_usd_cents
+        datatype: money_cents
+        description: Monthly fee the credit percentage applies to.
+      - id: estimated_credit_percent
+        datatype: percentage
+        description: Estimated credit percentage from the credit bands.
+      - id: estimated_credit_usd_cents
+        datatype: money_cents
+        description: Estimated credit amount; requires claim review and is never spend.
+      - id: credit_status
+        datatype: string
+        enum: [Not applicable, Claim review required]
+        description: Claim handling status of the estimated credit.
+
+  - id: RiskAssessment
+    label: Third-party risk assessment
+    key: assessment_id
+    id_pattern: "^RA-\\d{3}$"
+    definition: >
+      The latest third-party risk assessment state for a vendor service. Status may be
+      Current, Stale (older than validity) or Missing; when Missing, risk_tier is null and
+      must not be inferred.
+    synonyms: [TPRM assessment, Vendor risk assessment]
+    properties:
+      - id: assessment_id
+        datatype: identifier
+        required: true
+        description: Stable assessment key.
+      - id: assessment_date
+        datatype: date
+        description: Date the assessment was completed; null when missing.
+      - id: status
+        datatype: string
+        required: true
+        enum: [Current, Stale, Missing]
+        description: Freshness state of the assessment.
+      - id: risk_tier
+        datatype: string
+        enum: [High, Medium, Low]
+        description: Assessed inherent risk tier; null when the assessment is missing.
+      - id: validity_days
+        datatype: integer
+        description: Days an assessment remains current.
+      - id: data_classification
+        datatype: string
+        enum: [Internal synthetic, Restricted synthetic]
+        description: Classification of the data the service handles.
+
+  - id: RiskIssue
+    label: Risk issue
+    key: issue_id
+    id_pattern: "^ISSUE-\\d{3}$"
+    definition: A control finding raised in a risk assessment, with owner, due date and status.
+    synonyms: [Finding, Control issue]
+    properties:
+      - id: issue_id
+        datatype: identifier
+        required: true
+        description: Stable issue key.
+      - id: finding
+        datatype: text
+        required: true
+        description: Description of the finding.
+      - id: status
+        datatype: string
+        required: true
+        enum: [Open, Closed]
+        description: Issue status.
+      - id: severity
+        datatype: string
+        required: true
+        enum: [High, Medium, Low]
+        description: Issue severity.
+      - id: due_date
+        datatype: date
+        description: Remediation due date.
+      - id: closed_date
+        datatype: date
+        description: Date the issue was closed; null while open.
+      - id: control_id
+        datatype: identifier
+        description: Control the finding relates to.
+
+  - id: SlaRiskPackDocument
+    label: SLA and risk pack document
+    parent: Document
+    id_pattern: "^V-\\d{3}_sla_risk_pack$"
+    definition: >
+      The original SLA and risk report pack (PDF with an equivalent Markdown rendition).
+      Evidence source for SLA terms, measurements and assessments.
+
+relations:
+  - id: HAS_SLA
+    label: Has SLA
+    source: Service
+    target: ServiceLevelAgreement
+    cardinality: one_to_many
+    description: The service is governed by the service level agreement.
+
+  - id: MEASURED_AGAINST
+    label: Measured against
+    source: PerformanceMeasurement
+    target: ServiceLevelAgreement
+    cardinality: many_to_one
+    description: The measurement reports attainment against the SLA's primary metric.
+
+  - id: ASSESSES
+    label: Assesses
+    source: RiskAssessment
+    target: [Vendor, Service]
+    cardinality: many_to_one
+    description: The entity the risk assessment covers.
+
+  - id: RAISED_IN
+    label: Raised in
+    source: RiskIssue
+    target: RiskAssessment
+    cardinality: many_to_one
+    description: The assessment in which the issue was raised.
+
+  - id: AFFECTS
+    label: Affects
+    source: RiskIssue
+    target: [Vendor, Service, Application]
+    cardinality: many_to_many
+    description: The entity whose risk posture the issue affects.

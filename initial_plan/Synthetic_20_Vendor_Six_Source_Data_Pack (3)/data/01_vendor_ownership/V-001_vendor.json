@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-001",
+      "legal_name": "Aurelix Codeworks",
+      "vendor_type": "Technical",
+      "category": "Payments",
+      "status": "Active",
+      "parent_vendor_id": "PARENT-01",
+      "aliases": [
+        "Aurelix Codeworks",
+        "SUP-1001"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-001",
+      "organization_id": "ORG-01",
+      "source_ids": {
+        "CLM": "CLM-SUP-001",
+        "ERP": "ERP-1001",
+        "WFM": "WFM-001",
+        "TPRM": "RISK-SUP-001"
+      },
+      "capabilities": [
+        "Java",
+        "event streaming",
+        "SQL"
+      ],
+      "service_id": "SVC-001",
+      "contract_id": "CTR-001",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

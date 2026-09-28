@@ -1,0 +1,84 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-003",
+      "sow_id": "SOW-003",
+      "vendor_id": "V-003",
+      "framework_id": "FA-003",
+      "order_id": "ORD-003",
+      "service_id": "SVC-003",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2027-01-26",
+      "days_to_expiry": 120,
+      "notice_days": 30,
+      "notice_deadline": "2026-12-27",
+      "automatic_renewal": false,
+      "renewal_extension_months": 0,
+      "termination_convenience_days": 90,
+      "early_exit_fee_months": 0,
+      "payment_terms_days": 30,
+      "pricing_model": "Fixed managed service fee",
+      "annual_base_fee_usd_cents": 550000000,
+      "approved_2025_adjustment_usd_cents": 50000000,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 22,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-003",
+      "scope": "Monitor security events; triage alerts; coordinate investigation evidence",
+      "out_of_scope": "Independent legal conclusions and physical guard services",
+      "source_document_id": "V-003_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 2,
+          "section": "Managed scope and acceptance"
+        },
+        "charges": {
+          "page": 3,
+          "section": "Managed pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Managed service agreement",
+      "billing_rule": "Monthly fee buys the defined service coverage. Operational reports and measured service levels support acceptance. Additional assets require a priced change.",
+      "format_outline": "Service catalog; operational responsibility matrix; measurement schedule; continuity and exit",
+      "deliverables": [
+        {
+          "id": "SOW-003-D1",
+          "output": "Alert triage",
+          "acceptance_test": "All critical alerts have an owner and evidence-linked disposition",
+          "acceptance_owner_id": "OWN-003"
+        },
+        {
+          "id": "SOW-003-D2",
+          "output": "Detection tuning",
+          "acceptance_test": "20 detection rules pass replay tests with no loss of seeded critical events",
+          "acceptance_owner_id": "OWN-003"
+        },
+        {
+          "id": "SOW-003-D3",
+          "output": "Investigation package",
+          "acceptance_test": "Timeline and evidence hashes supplied for every P1 investigation",
+          "acceptance_owner_id": "OWN-003"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly in arrears",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0"
+    }
+  ]
+}

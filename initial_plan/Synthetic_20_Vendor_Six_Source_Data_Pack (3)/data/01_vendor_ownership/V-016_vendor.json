@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-VENDOR-MASTER",
+  "records": [
+    {
+      "vendor_id": "V-016",
+      "legal_name": "Faronelle Records Services",
+      "vendor_type": "Non-technical",
+      "category": "Records",
+      "status": "Active",
+      "parent_vendor_id": null,
+      "aliases": [
+        "Faronelle Records Services",
+        "Faronelle Records",
+        "SUP-1016"
+      ],
+      "country": "US",
+      "buyer": "Meridian Vale Financial Group",
+      "primary_owner_id": "OWN-016",
+      "organization_id": "ORG-04",
+      "source_ids": {
+        "CLM": "CLM-SUP-016",
+        "ERP": "ERP-1016",
+        "WFM": "WFM-016",
+        "TPRM": "RISK-SUP-016"
+      },
+      "capabilities": [
+        "Document indexing",
+        "custody tracking",
+        "secure retrieval"
+      ],
+      "service_id": "SVC-016",
+      "contract_id": "CTR-016",
+      "as_of": "2026-09-28",
+      "synthetic": true
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "synthetic": true,
+  "source_system": "SYN-TPRM-PERFORMANCE",
+  "as_of": "2026-09-28",
+  "vendor_id": "V-007",
+  "sla": {
+    "sla_id": "SLA-007",
+    "vendor_id": "V-007",
+    "service_id": "SVC-007",
+    "metric": "Planned test executions completed",
+    "target_percent": 98.0,
+    "formula": "100 * (eligible_units - failed_units) / eligible_units",
+    "measurement_window": "Calendar month",
+    "exclusions": "Only customer-approved planned exclusions recorded before measurement; the supplied observations contain zero excluded units.",
+    "priority_1_response_minutes": 15,
+    "priority_1_restoration_target_minutes": 480,
+    "commercial_invoice_accuracy_target_percent": 99.0,
+    "credit_bands": [
+      {
+        "shortfall_lt_percentage_points": 1,
+        "credit_percent": 3
+      },
+      {
+        "shortfall_gte_percentage_points": 1,
+        "credit_percent": 7
+      }
+    ],
+    "monthly_credit_cap_percent": 15,
+    "claim_deadline_days_after_month_end": 45,
+    "credit_basis": "Affected monthly service fee; estimates require validation and are not posted finance actuals.",
+    "synthetic": true
+  },
+  "risk_assessment": {
+    "assessment_id": "RA-007",
+    "vendor_id": "V-007",
+    "assessed_entity_id": "SVC-007",
+    "assessment_date": "2026-08-15",
+    "status": "Current",
+    "risk_tier": "Low",
+    "validity_days": 365,
+    "risk_owner_id": "OWN-007",
+    "data_classification": "Internal synthetic",
+    "source_document_id": "V-007_sla_risk_pack",
+    "synthetic": true
+  },
+  "issues": [
+    {
+      "issue_id": "ISSUE-007",
+      "vendor_id": "V-007",
+      "assessment_id": "RA-007",
+      "affected_entity_id": "SVC-007",
+      "finding": "Recovery exercise evidence incomplete",
+      "status": "Closed",
+      "severity": "Medium",
+      "due_date": "2026-10-28",
+      "closed_date": "2026-09-10",
+      "owner_id": "OWN-007",
+      "control_id": "CTRL-007",
+      "synthetic": true
+    }
+  ],
+  "performance": [
+    {
+      "metric_record_id": "MET-007-06",
+      "vendor_id": "V-007",
+      "contract_id": "CTR-007",
+      "service_id": "SVC-007",
+      "period": "2026-06",
+      "metric_name": "Planned test executions completed",
+      "unit": "percent",
+      "target": 98.0,
+      "eligible_units": 600,
+      "failed_units": 6,
+      "measurement_unit": "test executions",
+      "actual": 99.0,
+      "breach": false,
+      "service_fee_basis_usd_cents": 16666666,
+      "estimated_credit_percent": 0,
+      "estimated_credit_usd_cents": 0,
+      "credit_status": "Not applicable",
+      "source_document_id": "V-007_sla_risk_pack",
+      "synthetic": true
+    },
+    {
+      "metric_record_id": "MET-007-07",
+      "vendor_id": "V-007",
+      "contract_id": "CTR-007",
+      "service_id": "SVC-007",
+      "period": "2026-07",
+      "metric_name": "Planned test executions completed",
+      "unit": "percent",
+      "target": 98.0,
+      "eligible_units": 600,
+      "failed_units": 6,
+      "measurement_unit": "test executions",
+      "actual": 99.0,
+      "breach": false,
+      "service_fee_basis_usd_cents": 16666666,
+      "estimated_credit_percent": 0,
+      "estimated_credit_usd_cents": 0,
+      "credit_status": "Not applicable",
+      "source_document_id": "V-007_sla_risk_pack",
+      "synthetic": true
+    },
+    {
+      "metric_record_id": "MET-007-08",
+      "vendor_id": "V-007",
+      "contract_id": "CTR-007",
+      "service_id": "SVC-007",
+      "period": "2026-08",
+      "metric_name": "Planned test executions completed",
+      "unit": "percent",
+      "target": 98.0,
+      "eligible_units": 600,
+      "failed_units": 6,
+      "measurement_unit": "test executions",
+      "actual": 99.0,
+      "breach": false,
+      "service_fee_basis_usd_cents": 16666666,
+      "estimated_credit_percent": 0,
+      "estimated_credit_usd_cents": 0,
+      "credit_status": "Not applicable",
+      "source_document_id": "V-007_sla_risk_pack",
+      "synthetic": true
+    }
+  ]
+}

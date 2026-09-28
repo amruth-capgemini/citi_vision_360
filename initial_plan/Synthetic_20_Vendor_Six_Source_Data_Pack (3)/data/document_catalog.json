@@ -1,0 +1,788 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-DOCUMENT-CATALOG",
+  "records": [
+    {
+      "document_id": "V-001_contract_sow",
+      "vendor_id": "V-001",
+      "path": "02_contracts_sows/V-001_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-001_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-001_dependency_register",
+      "vendor_id": "V-001",
+      "path": "05_service_dependencies/V-001_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-001_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-001_sla_risk_pack",
+      "vendor_id": "V-001",
+      "path": "06_risk_sla_performance/V-001_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-001_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-002_contract_sow",
+      "vendor_id": "V-002",
+      "path": "02_contracts_sows/V-002_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-002_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-002_dependency_register",
+      "vendor_id": "V-002",
+      "path": "05_service_dependencies/V-002_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-002_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-002_sla_risk_pack",
+      "vendor_id": "V-002",
+      "path": "06_risk_sla_performance/V-002_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-002_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-003_contract_sow",
+      "vendor_id": "V-003",
+      "path": "02_contracts_sows/V-003_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-003_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-003_dependency_register",
+      "vendor_id": "V-003",
+      "path": "05_service_dependencies/V-003_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-003_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-003_sla_risk_pack",
+      "vendor_id": "V-003",
+      "path": "06_risk_sla_performance/V-003_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-003_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-004_contract_sow",
+      "vendor_id": "V-004",
+      "path": "02_contracts_sows/V-004_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-004_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-004_dependency_register",
+      "vendor_id": "V-004",
+      "path": "05_service_dependencies/V-004_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-004_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-004_sla_risk_pack",
+      "vendor_id": "V-004",
+      "path": "06_risk_sla_performance/V-004_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-004_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-005_contract_sow",
+      "vendor_id": "V-005",
+      "path": "02_contracts_sows/V-005_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-005_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-005_dependency_register",
+      "vendor_id": "V-005",
+      "path": "05_service_dependencies/V-005_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-005_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-005_sla_risk_pack",
+      "vendor_id": "V-005",
+      "path": "06_risk_sla_performance/V-005_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-005_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-006_contract_sow",
+      "vendor_id": "V-006",
+      "path": "02_contracts_sows/V-006_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-006_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-006_dependency_register",
+      "vendor_id": "V-006",
+      "path": "05_service_dependencies/V-006_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-006_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-006_sla_risk_pack",
+      "vendor_id": "V-006",
+      "path": "06_risk_sla_performance/V-006_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-006_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-007_contract_sow",
+      "vendor_id": "V-007",
+      "path": "02_contracts_sows/V-007_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-007_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-007_dependency_register",
+      "vendor_id": "V-007",
+      "path": "05_service_dependencies/V-007_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-007_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-007_sla_risk_pack",
+      "vendor_id": "V-007",
+      "path": "06_risk_sla_performance/V-007_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-007_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-008_contract_sow",
+      "vendor_id": "V-008",
+      "path": "02_contracts_sows/V-008_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-008_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-008_dependency_register",
+      "vendor_id": "V-008",
+      "path": "05_service_dependencies/V-008_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-008_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-008_sla_risk_pack",
+      "vendor_id": "V-008",
+      "path": "06_risk_sla_performance/V-008_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-008_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-009_contract_sow",
+      "vendor_id": "V-009",
+      "path": "02_contracts_sows/V-009_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-009_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-009_dependency_register",
+      "vendor_id": "V-009",
+      "path": "05_service_dependencies/V-009_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-009_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-009_sla_risk_pack",
+      "vendor_id": "V-009",
+      "path": "06_risk_sla_performance/V-009_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-009_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-010_contract_sow",
+      "vendor_id": "V-010",
+      "path": "02_contracts_sows/V-010_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-010_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-010_dependency_register",
+      "vendor_id": "V-010",
+      "path": "05_service_dependencies/V-010_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-010_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-010_sla_risk_pack",
+      "vendor_id": "V-010",
+      "path": "06_risk_sla_performance/V-010_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-010_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-011_contract_sow",
+      "vendor_id": "V-011",
+      "path": "02_contracts_sows/V-011_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-011_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-011_dependency_register",
+      "vendor_id": "V-011",
+      "path": "05_service_dependencies/V-011_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-011_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-011_sla_risk_pack",
+      "vendor_id": "V-011",
+      "path": "06_risk_sla_performance/V-011_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-011_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-012_contract_sow",
+      "vendor_id": "V-012",
+      "path": "02_contracts_sows/V-012_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-012_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-012_dependency_register",
+      "vendor_id": "V-012",
+      "path": "05_service_dependencies/V-012_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-012_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-012_sla_risk_pack",
+      "vendor_id": "V-012",
+      "path": "06_risk_sla_performance/V-012_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-012_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-013_contract_sow",
+      "vendor_id": "V-013",
+      "path": "02_contracts_sows/V-013_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-013_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-013_dependency_register",
+      "vendor_id": "V-013",
+      "path": "05_service_dependencies/V-013_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-013_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-013_sla_risk_pack",
+      "vendor_id": "V-013",
+      "path": "06_risk_sla_performance/V-013_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-013_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-014_contract_sow",
+      "vendor_id": "V-014",
+      "path": "02_contracts_sows/V-014_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-014_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-014_dependency_register",
+      "vendor_id": "V-014",
+      "path": "05_service_dependencies/V-014_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-014_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-014_sla_risk_pack",
+      "vendor_id": "V-014",
+      "path": "06_risk_sla_performance/V-014_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-014_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-015_contract_sow",
+      "vendor_id": "V-015",
+      "path": "02_contracts_sows/V-015_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-015_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-015_dependency_register",
+      "vendor_id": "V-015",
+      "path": "05_service_dependencies/V-015_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-015_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-015_sla_risk_pack",
+      "vendor_id": "V-015",
+      "path": "06_risk_sla_performance/V-015_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-015_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-016_contract_sow",
+      "vendor_id": "V-016",
+      "path": "02_contracts_sows/V-016_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-016_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-016_dependency_register",
+      "vendor_id": "V-016",
+      "path": "05_service_dependencies/V-016_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-016_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-016_sla_risk_pack",
+      "vendor_id": "V-016",
+      "path": "06_risk_sla_performance/V-016_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-016_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-017_contract_sow",
+      "vendor_id": "V-017",
+      "path": "02_contracts_sows/V-017_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-017_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-017_dependency_register",
+      "vendor_id": "V-017",
+      "path": "05_service_dependencies/V-017_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-017_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-017_sla_risk_pack",
+      "vendor_id": "V-017",
+      "path": "06_risk_sla_performance/V-017_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-017_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-018_contract_sow",
+      "vendor_id": "V-018",
+      "path": "02_contracts_sows/V-018_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-018_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-018_dependency_register",
+      "vendor_id": "V-018",
+      "path": "05_service_dependencies/V-018_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-018_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-018_sla_risk_pack",
+      "vendor_id": "V-018",
+      "path": "06_risk_sla_performance/V-018_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-018_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-019_contract_sow",
+      "vendor_id": "V-019",
+      "path": "02_contracts_sows/V-019_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-019_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-019_dependency_register",
+      "vendor_id": "V-019",
+      "path": "05_service_dependencies/V-019_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-019_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-019_sla_risk_pack",
+      "vendor_id": "V-019",
+      "path": "06_risk_sla_performance/V-019_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-019_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-020_contract_sow",
+      "vendor_id": "V-020",
+      "path": "02_contracts_sows/V-020_contract_sow.pdf",
+      "markdown_path": "02_contracts_sows/V-020_contract_sow.md",
+      "pages_expected": 4,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-020_dependency_register",
+      "vendor_id": "V-020",
+      "path": "05_service_dependencies/V-020_dependency_register.pdf",
+      "markdown_path": "05_service_dependencies/V-020_dependency_register.md",
+      "pages_expected": 2,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    },
+    {
+      "document_id": "V-020_sla_risk_pack",
+      "vendor_id": "V-020",
+      "path": "06_risk_sla_performance/V-020_sla_risk_pack.pdf",
+      "markdown_path": "06_risk_sla_performance/V-020_sla_risk_pack.md",
+      "pages_expected": 3,
+      "acl_roles": [
+        "portfolio_reader",
+        "procurement_reviewer",
+        "risk_reviewer"
+      ],
+      "synthetic": true
+    }
+  ]
+}

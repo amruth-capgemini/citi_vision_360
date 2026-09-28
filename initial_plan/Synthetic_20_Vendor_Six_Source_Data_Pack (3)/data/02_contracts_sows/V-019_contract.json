@@ -1,0 +1,91 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-019",
+      "sow_id": "SOW-019",
+      "vendor_id": "V-019",
+      "framework_id": "FA-019",
+      "order_id": "ORD-019",
+      "service_id": "SVC-019",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2027-03-07",
+      "days_to_expiry": 160,
+      "notice_days": 60,
+      "notice_deadline": "2027-01-06",
+      "automatic_renewal": false,
+      "renewal_extension_months": 0,
+      "termination_convenience_days": 60,
+      "early_exit_fee_months": 0,
+      "payment_terms_days": 45,
+      "pricing_model": "Measured unit rates",
+      "annual_base_fee_usd_cents": 55000000,
+      "approved_2025_adjustment_usd_cents": 5000000,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 12,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-019",
+      "scope": "Collect sealed packages; record custody; deliver to authorized locations",
+      "out_of_scope": "Transport of cash or hazardous material",
+      "source_document_id": "V-019_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 3,
+          "section": "Unit-rate scope and acceptance"
+        },
+        "charges": {
+          "page": 2,
+          "section": "Unit-rate pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Unit-rate service order",
+      "billing_rule": "Invoice approved delivered units against the stated rate card. Forecast quantities are estimates, not minimum guarantees. Reject duplicate or unverified units.",
+      "format_outline": "Service catalog; unit rate card; delivery receipts; reconciliation and disputes",
+      "deliverables": [
+        {
+          "id": "SOW-019-D1",
+          "output": "Route service",
+          "acceptance_test": "Six approved routes meet daily collection windows",
+          "acceptance_owner_id": "OWN-019"
+        },
+        {
+          "id": "SOW-019-D2",
+          "output": "Custody evidence",
+          "acceptance_test": "Every sealed package has pickup and recipient scans",
+          "acceptance_owner_id": "OWN-019"
+        },
+        {
+          "id": "SOW-019-D3",
+          "output": "Exception handling",
+          "acceptance_test": "Unreceived parcels escalated within 30 minutes; no unattended delivery",
+          "acceptance_owner_id": "OWN-019"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly in arrears",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0",
+      "unit_rate_card": {
+        "unit": "delivery",
+        "forecast_annual_quantity": 50000,
+        "unit_price_usd_cents": 1100,
+        "remainder_usd_cents": 0,
+        "note": "Any indivisible-cent remainder is reconciled on the final annual invoice."
+      }
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-005",
+      "sow_id": "SOW-005",
+      "vendor_id": "V-005",
+      "framework_id": "FA-005",
+      "order_id": "ORD-005",
+      "service_id": "SVC-005",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2026-10-13",
+      "days_to_expiry": 15,
+      "notice_days": 90,
+      "notice_deadline": "2026-07-15",
+      "automatic_renewal": false,
+      "renewal_extension_months": 0,
+      "termination_convenience_days": 90,
+      "early_exit_fee_months": 2,
+      "payment_terms_days": 60,
+      "pricing_model": "Capped time and materials",
+      "annual_base_fee_usd_cents": 330000000,
+      "approved_2025_adjustment_usd_cents": 30000000,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 12,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-005",
+      "scope": "Maintain identity integrations; remediate approved access defects; report review exceptions",
+      "out_of_scope": "Granting privileged access without customer approval",
+      "source_document_id": "V-005_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 3,
+          "section": "Capped scope and acceptance"
+        },
+        "charges": {
+          "page": 2,
+          "section": "Capped pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Capped T&M work order",
+      "billing_rule": "Only approved actual hours at the role rate card are payable. Alert at 80% of the annual ceiling; work beyond the ceiling needs prior written approval. Materials are excluded.",
+      "format_outline": "Labor authorization; role rate card; timesheet evidence; ceiling and stop-work control",
+      "deliverables": [
+        {
+          "id": "SOW-005-D1",
+          "output": "Federation adapters",
+          "acceptance_test": "Eight relying-party integrations pass signed SAML/OIDC test cases",
+          "acceptance_owner_id": "OWN-005"
+        },
+        {
+          "id": "SOW-005-D2",
+          "output": "Access remediation",
+          "acceptance_test": "All 40 approved exceptions closed with reviewer evidence",
+          "acceptance_owner_id": "OWN-005"
+        },
+        {
+          "id": "SOW-005-D3",
+          "output": "Privileged access tests",
+          "acceptance_test": "Negative tests deny all unauthorized roles; security owner signs results",
+          "acceptance_owner_id": "OWN-005"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly in arrears",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0",
+      "rate_card": [
+        {
+          "role": "IAM architect",
+          "hourly_rate_usd_cents": 22000
+        },
+        {
+          "role": "Integration engineer",
+          "hourly_rate_usd_cents": 17500
+        },
+        {
+          "role": "Access test analyst",
+          "hourly_rate_usd_cents": 14000
+        }
+      ],
+      "annual_ceiling_usd_cents": 360000000
+    }
+  ]
+}

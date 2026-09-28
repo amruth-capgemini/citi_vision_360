@@ -1,0 +1,91 @@
+{
+  "synthetic": true,
+  "snapshot_id": "SNAP-20260928",
+  "as_of": "2026-09-28",
+  "source_system": "SYN-CLM",
+  "records": [
+    {
+      "contract_id": "CTR-020",
+      "sow_id": "SOW-020",
+      "vendor_id": "V-020",
+      "framework_id": "FA-020",
+      "order_id": "ORD-020",
+      "service_id": "SVC-020",
+      "buyer": "Meridian Vale Financial Group",
+      "start_date": "2025-01-01",
+      "end_date": "2027-06-05",
+      "days_to_expiry": 250,
+      "notice_days": 90,
+      "notice_deadline": "2027-03-07",
+      "automatic_renewal": true,
+      "renewal_extension_months": 12,
+      "termination_convenience_days": 60,
+      "early_exit_fee_months": 0,
+      "payment_terms_days": 60,
+      "pricing_model": "Measured unit rates",
+      "annual_base_fee_usd_cents": 90000000,
+      "approved_2025_adjustment_usd_cents": 0,
+      "invoice_frequency": "Monthly",
+      "billing_currency": "USD",
+      "billable_assignments": 15,
+      "shadow_assignments": 0,
+      "owner_id": "OWN-020",
+      "scope": "Provide agreed meals; manage service windows; record hygiene checks",
+      "out_of_scope": "Medical dietary advice and offsite event services",
+      "source_document_id": "V-020_contract_sow",
+      "clause_refs": {
+        "term": {
+          "page": 1,
+          "section": "Term and identity"
+        },
+        "scope": {
+          "page": 3,
+          "section": "Unit-rate scope and acceptance"
+        },
+        "charges": {
+          "page": 2,
+          "section": "Unit-rate pricing and ordering"
+        },
+        "exit": {
+          "page": 4,
+          "section": "Commercial and control terms"
+        }
+      },
+      "synthetic": true,
+      "document_format": "Unit-rate service order",
+      "billing_rule": "Invoice approved delivered units against the stated rate card. Forecast quantities are estimates, not minimum guarantees. Reject duplicate or unverified units.",
+      "format_outline": "Service catalog; unit rate card; delivery receipts; reconciliation and disputes",
+      "deliverables": [
+        {
+          "id": "SOW-020-D1",
+          "output": "Meal service",
+          "acceptance_test": "3,000 meals per month served within agreed site windows",
+          "acceptance_owner_id": "OWN-020"
+        },
+        {
+          "id": "SOW-020-D2",
+          "output": "Allergen controls",
+          "acceptance_test": "Every menu and batch has signed allergen and cross-contact checks",
+          "acceptance_owner_id": "OWN-020"
+        },
+        {
+          "id": "SOW-020-D3",
+          "output": "Food safety records",
+          "acceptance_test": "All sampled temperature logs satisfy buyer-approved safety limits",
+          "acceptance_owner_id": "OWN-020"
+        }
+      ],
+      "delivery_cycle": "Annual work package under multi-year agreement; plan repeats only for approved subsequent scope",
+      "payment_schedule": "Monthly in arrears",
+      "budget_basis": "Annual baseline or quantity forecast, not necessarily a guaranteed fixed fee",
+      "version": "2.0",
+      "unit_rate_card": {
+        "unit": "meal",
+        "forecast_annual_quantity": 36000,
+        "unit_price_usd_cents": 2500,
+        "remainder_usd_cents": 0,
+        "note": "Any indivisible-cent remainder is reconciled on the final annual invoice."
+      }
+    }
+  ]
+}

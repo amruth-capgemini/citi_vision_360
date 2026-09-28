@@ -1,0 +1,110 @@
+# Structural contract for every ontology module file (ontology/*.yaml, except this one).
+# It is a JSON Schema (draft 2020-12) written as YAML. The registry validates each module
+# against it before running semantic checks (inheritance, endpoints, duplicates, enums).
+#
+# Supported property datatypes (must match citi_project.services.ontology.models.DATATYPES):
+#   string       short text, may carry `pattern` and/or `enum`
+#   text         long free text (scope statements, findings)
+#   identifier   stable enterprise/source key, may carry `pattern`
+#   integer      whole number
+#   decimal      real number
+#   boolean      true / false
+#   date         ISO 8601 calendar date (YYYY-MM-DD)
+#   year_month   reporting period (YYYY-MM)
+#   money_cents  integer amount in minor units (USD cents in this data pack); never a float
+#   percentage   number on a 0-100 scale
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "urn:citi-project:ontology-module"
+title: Ontology module
+type: object
+additionalProperties: false
+required: [module, description]
+properties:
+  module:
+    type: string
+    pattern: "^[a-z][a-z0-9_]*$"
+  description:
+    type: string
+    minLength: 1
+  classes:
+    type: array
+    items: {$ref: "#/$defs/class"}
+  relations:
+    type: array
+    items: {$ref: "#/$defs/relation"}
+$defs:
+  pascal_id:
+    type: string
+    pattern: "^[A-Z][A-Za-z0-9]*$"
+  snake_id:
+    type: string
+    pattern: "^[a-z][a-z0-9_]*$"
+  upper_id:
+    type: string
+    pattern: "^[A-Z][A-Z0-9_]*$"
+  synonyms:
+    type: array
+    items: {type: string, minLength: 1}
+  class_ref_list:
+    oneOf:
+      - {$ref: "#/$defs/pascal_id"}
+      - type: array
+        minItems: 1
+        items: {$ref: "#/$defs/pascal_id"}
+  property:
+    type: object
+    additionalProperties: false
+    required: [id, datatype, description]
+    properties:
+      id: {$ref: "#/$defs/snake_id"}
+      datatype:
+        enum: [string, text, identifier, integer, decimal, boolean, date, year_month, money_cents, percentage]
+      required: {type: boolean}
+      cardinality:
+        enum: [one, many]
+      description: {type: string, minLength: 1}
+      enum:
+        type: array
+        minItems: 1
+        items: {type: string, minLength: 1}
+      pattern: {type: string, minLength: 1}
+      pii: {type: boolean}
+      synonyms: {$ref: "#/$defs/synonyms"}
+  class:
+    type: object
+    additionalProperties: false
+    required: [id, label, definition]
+    properties:
+      id: {$ref: "#/$defs/pascal_id"}
+      label: {type: string, minLength: 1}
+      definition: {type: string, minLength: 1}
+      parent: {$ref: "#/$defs/pascal_id"}
+      kind:
+        enum: [entity, document, clause, fact]
+      abstract: {type: boolean}
+      key: {$ref: "#/$defs/snake_id"}
+      id_pattern: {type: string, minLength: 1}
+      fibo_uri: {type: string, pattern: "^https?://"}
+      synonyms: {$ref: "#/$defs/synonyms"}
+      properties:
+        type: array
+        items: {$ref: "#/$defs/property"}
+  relation:
+    type: object
+    additionalProperties: false
+    required: [id, label, source, target, cardinality, description]
+    properties:
+      id: {$ref: "#/$defs/upper_id"}
+      label: {type: string, minLength: 1}
+      source: {$ref: "#/$defs/class_ref_list"}
+      target: {$ref: "#/$defs/class_ref_list"}
+      cardinality:
+        enum: [one_to_one, one_to_many, many_to_one, many_to_many]
+      description: {type: string, minLength: 1}
+      synonyms: {$ref: "#/$defs/synonyms"}
+      disjoint_with:
+        type: array
+        items: {$ref: "#/$defs/upper_id"}
+      properties:
+        type: array
+        items: {$ref: "#/$defs/property"}
