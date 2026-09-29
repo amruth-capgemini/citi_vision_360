@@ -56,6 +56,13 @@ _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _YEAR_MONTH_RE = re.compile(r"^\d{4}-(0[1-9]|1[0-2])$")
 
 
+def validate_property_value(prop: PropertyDef, value: Any) -> None:
+    """Validate a standalone property definition (including relationship properties)."""
+    error = _check_value(prop, value)
+    if error:
+        raise InvalidValueError(f"{prop.id}: {error}")
+
+
 def default_ontology_dir() -> Path:
     env = os.environ.get(ONTOLOGY_DIR_ENV)
     if env:
