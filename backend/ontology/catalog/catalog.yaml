@@ -1,0 +1,329 @@
+module: catalog
+description: >
+  Metadata catalog ontology: source systems, the datasets they publish, dataset fields, the
+  business domains they belong to and thin record anchors that link datasets to canonical
+  vendors and contracts. Loaded as its own registry (its own ontology_version) so that
+  catalog changes never re-pin the business namespace. SourceSystem, Dataset and DataField
+  extend the definitions in ../data.yaml; tests keep them compatible. Catalog entries are
+  metadata, never business facts.
+
+classes:
+  - id: SourceSystem
+    label: Source system
+    key: source_system_id
+    id_pattern: "^(SYN|PG)-[A-Z-]+$"
+    definition: An operational system of record that exports source data (CLM, ERP, WFM, TPRM ...).
+    properties:
+      - id: source_system_id
+        datatype: identifier
+        required: true
+        description: Stable source system key.
+        synonyms: [source_system]
+      - id: source_class
+        datatype: string
+        enum:
+          - 01_vendor_ownership
+          - 02_contracts_sows
+          - 03_spend_forecast
+          - 04_workforce
+          - 05_service_dependencies
+          - 06_risk_sla_performance
+        description: Source class the system feeds.
+      - id: name
+        datatype: string
+        description: Display name of the source system (for example its database schema).
+      - id: description
+        datatype: text
+        description: What the system is and which enterprise product it stands for.
+
+  - id: Dataset
+    label: Dataset
+    key: dataset_id
+    definition: A structured export (file or table) published by a source system at a stated grain.
+    synonyms: [Table, Source file]
+    properties:
+      - id: dataset_id
+        datatype: identifier
+        required: true
+        description: Stable dataset key.
+      - id: grain
+        datatype: text
+        required: true
+        description: What one record represents.
+      - id: as_of
+        datatype: date
+        description: Snapshot date of the export.
+      - id: physical_name
+        datatype: string
+        description: Physical location of the dataset, such as schema.table.
+      - id: description
+        datatype: text
+        description: Catalog comment recorded with the dataset.
+      - id: summary
+        datatype: text
+        description: Business summary of what the dataset contains and answers.
+      - id: row_count
+        datatype: integer
+        description: Number of records when the catalog was harvested.
+      - id: primary_key
+        datatype: string
+        cardinality: many
+        description: Fields that together identify one record.
+      - id: review_state
+        datatype: string
+        enum: [auto, unreviewed, approved, rejected]
+        description: Review state of the generated summary, grain and domains.
+
+  - id: DataField
+    label: Data field
+    key: field_id
+    definition: A field (column / JSON path) within a dataset; the unit of structured binding.
+    synonyms: [Column, Attribute]
+    properties:
+      - id: field_id
+        datatype: identifier
+        required: true
+        description: Stable field key (dataset_id + field path).
+      - id: path
+        datatype: string
+        required: true
+        description: Column name or JSON path within the dataset.
+      - id: source_datatype
+        datatype: string
+        description: Datatype as declared by the source.
+      - id: position
+        datatype: integer
+        description: Ordinal position of the field within the dataset.
+      - id: business_name
+        datatype: string
+        description: Business name of the field, as a reader would say it (for example "Contract end date").
+      - id: description
+        datatype: text
+        description: Business description of the field.
+      - id: semantic_role
+        datatype: string
+        enum: [identifier, measure, date, dimension, text]
+        description: How the field is used; derived from its values and name.
+      - id: ontology_class
+        datatype: string
+        description: Ontology class whose property the field carries.
+      - id: ontology_property
+        datatype: string
+        description: Ontology property the field carries, within ontology_class.
+      - id: null_pct
+        datatype: percentage
+        description: Share of records with an empty value.
+      - id: distinct_count
+        datatype: integer
+        description: Number of distinct non-empty values.
+      - id: value_pattern
+        datatype: string
+        description: Regular expression every non-empty value matches, when one shape fits all.
+      - id: min_value
+        datatype: string
+        description: Earliest value of a date field. Not recorded for measures or text.
+      - id: max_value
+        datatype: string
+        description: Latest value of a date field. Not recorded for measures or text.
+      - id: value_set
+        datatype: string
+        cardinality: many
+        description: Allowed values of a small, non-sensitive category field (at most 20).
+      - id: name_collision
+        datatype: boolean
+        description: Another field in the dataset has the same name apart from letter case.
+      - id: masked
+        datatype: boolean
+        description: Values are treated as sensitive; they are never sampled or stored.
+      - id: confidence
+        datatype: decimal
+        description: Confidence of the ontology mapping, from 0 to 1.
+      - id: review_state
+        datatype: string
+        enum: [auto, unreviewed, approved, rejected]
+        description: Review state of the mapping and description.
+
+  - id: BusinessDomain
+    label: Business domain
+    key: domain_id
+    definition: >
+      A business area of vendor information, one per source class of the data pack. Datasets
+      are assigned to the domains whose information they carry.
+    synonyms: [Subject area, Data domain]
+    properties:
+      - id: domain_id
+        datatype: string
+        required: true
+        enum:
+          - vendor_ownership
+          - contracts_sows
+          - spend_forecast
+          - workforce
+          - service_dependencies
+          - risk_sla_performance
+        description: Stable domain key.
+      - id: name
+        datatype: string
+        required: true
+        description: Display name of the domain.
+      - id: description
+        datatype: text
+        description: What information belongs to the domain.
+
+  - id: Concept
+    label: Business concept
+    key: concept_id
+    definition: >
+      A business concept from the ontology (Class.property, for example Contract.end_date) that
+      fields in different systems carry. Fields link to it whatever their physical names are.
+    synonyms: [Business term]
+    properties:
+      - id: concept_id
+        datatype: string
+        required: true
+        description: Ontology class and property, as Class.property.
+      - id: business_name
+        datatype: string
+        required: true
+        description: Business name of the concept.
+      - id: definition
+        datatype: text
+        description: Definition from the ontology property.
+      - id: datatype
+        datatype: string
+        description: Ontology datatype of the property.
+      - id: is_key
+        datatype: boolean
+        description: The property is the class's identifying key.
+
+  - id: VendorAnchor
+    label: Vendor anchor
+    key: vendor_id
+    definition: >
+      A thin catalog reference to a canonical vendor (key and name only), so that datasets can
+      be linked to the vendors whose records they hold. Not the business Vendor entity.
+    properties:
+      - id: vendor_id
+        datatype: identifier
+        required: true
+        description: Canonical vendor key.
+      - id: name
+        datatype: string
+        description: Vendor name as recorded in the canonical master.
+
+  - id: ContractAnchor
+    label: Contract anchor
+    key: contract_id
+    definition: >
+      A thin catalog reference to a canonical contract (key and description only), so that
+      datasets can be linked to the contracts whose records they hold. Not the business
+      Contract entity.
+    properties:
+      - id: contract_id
+        datatype: identifier
+        required: true
+        description: Canonical contract key.
+      - id: description
+        datatype: string
+        description: Contract description as recorded in the canonical master.
+
+relations:
+  - id: PUBLISHES
+    label: Publishes
+    source: SourceSystem
+    target: Dataset
+    cardinality: one_to_many
+    description: The source system produces the dataset.
+
+  - id: HAS_FIELD
+    label: Has field
+    source: Dataset
+    target: DataField
+    cardinality: one_to_many
+    description: The field belongs to the dataset.
+
+  - id: IN_DOMAIN
+    label: In domain
+    source: Dataset
+    target: BusinessDomain
+    cardinality: many_to_many
+    description: The dataset carries information of the business domain.
+    properties:
+      - id: basis
+        datatype: string
+        enum: [source_system, fields, llm]
+        description: >
+          Why the dataset is in the domain: its source system, fields mapped to the domain's
+          ontology classes, or an unreviewed model proposal.
+
+  - id: MAPS_TO
+    label: Maps to
+    source: DataField
+    target: Concept
+    cardinality: many_to_one
+    description: The field carries the business concept, whatever the field is called.
+    properties:
+      - id: basis
+        datatype: string
+        enum: [classifier, llm]
+        description: Deterministic classifier match, or an unreviewed model proposal.
+
+  - id: REFERENCES
+    label: References
+    source: DataField
+    target: DataField
+    cardinality: many_to_one
+    description: >
+      The field is an inferred foreign key: every value it holds occurs in the target field,
+      which is unique in its dataset (the key's home). Discovered from values, not names.
+    properties:
+      - id: containment_pct
+        datatype: percentage
+        description: Share of the field's distinct values found in the target key.
+      - id: basis
+        datatype: string
+        enum: [declared, concept, pattern]
+        description: >
+          declared foreign key; value inclusion plus the same classifier concept; or value
+          inclusion plus the same value pattern only.
+      - id: confidence
+        datatype: decimal
+        description: Confidence that the reference is a true foreign key, from 0 to 1.
+      - id: review_state
+        datatype: string
+        enum: [auto, unreviewed, approved, rejected]
+        description: Review state of the inferred reference.
+
+  - id: JOINABLE_WITH
+    label: Joinable with
+    source: Dataset
+    target: Dataset
+    cardinality: many_to_many
+    description: >
+      Derived from REFERENCES: the source dataset can be joined to the target dataset on the
+      listed keys. For browsing and planning; the field-level references are authoritative.
+    properties:
+      - id: keys
+        datatype: string
+        cardinality: many
+        description: Joins as "child_field -> key_field".
+
+  - id: HAS_RECORDS_FOR
+    label: Has records for
+    source: Dataset
+    target: [VendorAnchor, ContractAnchor]
+    cardinality: many_to_many
+    description: >
+      The dataset holds at least one record for the vendor or contract, found in the named
+      identifier field.
+    properties:
+      - id: via_field
+        datatype: string
+        description: Identifier field in which the anchor's key occurs.
+
+  - id: ANCHOR_PARTY_TO
+    label: Anchor party to
+    source: VendorAnchor
+    target: ContractAnchor
+    cardinality: one_to_many
+    description: The anchored vendor is the counterparty of the anchored contract in the canonical master.
