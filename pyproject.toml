@@ -27,4 +27,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-markers = ["neo4j_integration: explicitly enabled isolated live Neo4j tests"]
+markers = [
+    "neo4j_integration: explicitly enabled isolated live Neo4j tests",
+    "openai_integration: explicitly enabled live OpenAI tests using synthetic fixtures",
+]
