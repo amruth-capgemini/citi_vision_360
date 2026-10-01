@@ -40,7 +40,7 @@ export function AppSidebar({ page }: { page: PageId }) {
               </div>
               <div className="grid flex-1 text-left leading-tight">
                 <span className="truncate font-heading font-semibold">Vendor Decision</span>
-                <span className="truncate text-xs text-sidebar-foreground/70">Intelligence · read-only</span>
+                <span className="truncate text-xs text-sidebar-foreground/70">Intelligence</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -65,7 +65,7 @@ export function AppSidebar({ page }: { page: PageId }) {
       </SidebarContent>
       <SidebarFooter>
         <HealthStatus />
-        <p className="px-2 text-xs text-sidebar-foreground/60 group-data-[collapsible=icon]:hidden">Synthetic 20-vendor pack · snapshot 2026-09-28</p>
+        <p className="px-2 text-xs text-sidebar-foreground/60 group-data-[collapsible=icon]:hidden"></p>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

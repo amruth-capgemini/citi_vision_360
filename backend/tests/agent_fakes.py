@@ -13,9 +13,14 @@ def narrative(*fact_ids, text="The returned records are summarised here.", summa
     return {"summary": summary, "paragraphs": [{"heading": "Findings", "text": text, "fact_ids": list(fact_ids)}]}
 
 
-def route(specialists, mention=None, focus="overview", active=False):
-    return {"status": "route", "specialists": specialists, "entity_mentions": [mention] if mention else [],
-            "use_active_entity": active, "focus": focus}
+def route(specialists, mention=None, focus="overview", active=False, *, entities=None, requested=(), standalone="",
+          assumption=None, clarifying=None, scope=None):
+    """A supervisor understanding: a vendor mention is typed Vendor; active means a follow-up on the focus."""
+    if entities is None:
+        entities = [{"type": "Vendor", "mention": mention}] if mention else []
+    return {"entities": entities, "scope": scope or ("focus" if active else "named" if mention else "portfolio"),
+            "requested": list(requested), "standalone_question": standalone, "assumption": assumption,
+            "clarifying_question": clarifying, "focus": focus, "specialists": specialists, "status": "route"}
 
 
 DEMOS = [
@@ -45,7 +50,7 @@ class ScriptedModel:
 
     def complete(self, stage, prompt, payload, schema):
         self.requests.append((stage, deepcopy(payload), deepcopy(schema)))
-        if stage == "supervisor_route":
+        if stage == "supervisor_understand":
             return deepcopy(self.route_result)
         if stage == "supervisor_synthesis":
             if self.synthesis is not None:

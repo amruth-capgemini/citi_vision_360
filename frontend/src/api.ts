@@ -107,9 +107,23 @@ export interface ChatResponse {
   sources_used: SourceUsed[];
   selected_fact_ids?: string[] | null;
   resolved_entities?: Record<string, unknown> | null;
+  understanding?: Understanding | null;
   trace: TraceEntry[];
   memory?: Memory;
   evidence_view: { agents: AgentView[]; tool_calls: ToolCallView[]; queries: QueryView[] };
+}
+
+/** How the supervisor read the question (backend graph.Orchestrator.understand), and why it stopped if it did. */
+export interface Understanding {
+  standalone_question: string;
+  scope: "focus" | "named" | "portfolio";
+  entities: { type: string; mention: string }[];
+  requested: { concept: string; type: string | null; attribute: string | null; recorded: boolean | null; restricted: boolean }[];
+  assumption: string | null;
+  clarifying_question: string | null;
+  notes: string[];
+  reason?: string;
+  explanation?: string | null;
 }
 
 /** What the session remembers after a turn (backend ConversationState.context). */

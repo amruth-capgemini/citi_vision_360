@@ -30,6 +30,7 @@ def wire_live(*, explore=True):
     from ..semantic_service import VendorSemanticService
     from ..structured_data import StructuredQueryService
     from ..structured_data.query_service import NAMESPACE
+    from .digest import DataDigest
     from .executors import CypherExecutor, SqlExecutor
     from .explorer import Explorer, graph_schema, pii_properties
     from .openai_model import select_model
@@ -53,7 +54,7 @@ def wire_live(*, explore=True):
     def close():
         model.close()
         client.close()
-    return {"supervisor": SupervisorAgent(decision, model, explorer=explorer), "close": close, "client": client,
+    return {"supervisor": SupervisorAgent(decision, model, explorer=explorer, digest=DataDigest(registry)), "close": close, "client": client,
             "catalog": catalog, "model": model}
 
 

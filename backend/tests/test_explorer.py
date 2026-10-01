@@ -157,7 +157,7 @@ def test_exploring_answer_keeps_certified_values_and_cites_source_rows(decision)
     assert any(n["code"] == "exploration_supplementary" for n in result["limitations"])
     assert not any(n["code"] in ("contradiction", "coverage_gap") for n in result["limitations"])
     nodes = [e["node"] for e in result["trace"]]
-    assert nodes == ["guard", "route", "resolve", "plan", "validate", "execute.tool", "execute", "explore", "verify", "ground", "synthesize"]
+    assert nodes == ["guard", "understand", "resolve", "plan", "validate", "execute.tool", "execute", "explore", "verify", "diagnose", "ground", "synthesize"]
     explore = next(e for e in result["trace"] if e["node"] == "explore")
     assert explore["agent"] == "vendor360" and [s["status"] for s in explore["steps"] if s["node"] == "explore.act"] == ["ok", "ok", "ok"]
     json.dumps(result)
@@ -248,7 +248,7 @@ def test_open_ended_risk_question_runs_the_risk_explorer_without_a_vendor(decisi
     m = ExplorerModel(routing, [], {"risk_dependency": [step("run_sql", risk), step("finish", keep=["Q1"])]})
     result = supervise(decision, m).ask("What contracts are at major risk?")
     assert result["status"] == "answered" and result["specialists_used"] == ["risk_dependency"]
-    assert [e["node"] for e in result["trace"]][:4] == ["guard", "route", "resolve", "validate"]
+    assert [e["node"] for e in result["trace"]][:4] == ["guard", "understand", "resolve", "validate"]
     assert "Source rows Q1 (clm.canonical_vendor_master)" in result["final_answer"]
     assert any(n["code"] == "portfolio_exploration" for n in result["limitations"])
     # Nothing found anywhere: an honest not-found, never an invented answer.
@@ -309,7 +309,7 @@ def test_graph_runs_from_a_question_alone_as_studio_does(decision):
     # Each specialist is its own node, and each explorer is a sub-graph Studio can expand.
     names = ("vendor360", "renewal", "risk_dependency", "rationalization", "spend_forecast", "what_if")
     nodes = set(graph.get_graph().nodes)
-    assert {"guard", "route", "resolve", "validate", "execute", "verify", "ground", "synthesize", "stop"} <= nodes
+    assert {"guard", "understand", "resolve", "validate", "execute", "verify", "diagnose", "ground", "synthesize", "stop"} <= nodes
     assert {f"plan_{n}" for n in names} | {f"explore_{n}" for n in names} <= nodes
     inner = set(graph.get_graph(xray=True).nodes)
     assert {"explore_renewal:discover", "explore_renewal:decide", "explore_renewal:act", "explore_renewal:report"} <= inner
@@ -319,7 +319,7 @@ def test_early_stops_skip_exploration(decision):
     m = ExplorerModel(route(["vendor360"], "V-999"), [])
     result = supervise(decision, m).ask("What about V-999?", state=ConversationState("V-001"))
     assert result["status"] == "not_found" and result["findings"] == []
-    assert [e["node"] for e in result["trace"]] == ["guard", "route", "stop"]
+    assert [e["node"] for e in result["trace"]] == ["guard", "understand", "stop"]
     assert not any(stage.startswith("explore_") for stage, *_ in m.requests)
 
 

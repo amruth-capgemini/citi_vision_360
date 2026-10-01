@@ -1,7 +1,7 @@
 import { ChevronDownIcon, CircleAlertIcon } from "lucide-react";
 import type { ChatResponse } from "../../api";
 import { flagText, noteText } from "../../api";
-import { stripCitations, stripNotes } from "../Answer";
+import { Interpretation, stripCitations, stripNotes } from "../Answer";
 import { StatusBadge } from "../common";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +20,18 @@ export const SPECIALIST: Record<string, string> = {
   spend_forecast: "Spend forecast specialist",
   what_if: "Scenario specialist",
 };
+
+// Standing caveats (synthetic data, POC sample, how rows were gathered) that would appear on every answer.
+// Period notes ("Actual is January-August") and missing-data notes are still shown.
+const BOILERPLATE = new Set([
+  "synthetic_data",
+  "representative_workforce",
+  "exploration_supplementary",
+  "exploration_rows",
+  "answer_examples",
+  "unreviewed_link",
+  "duplicate_spend_representation",
+]);
 
 export function specialistLabel(result: ChatResponse) {
   const names = result.specialists_used.map((a) => SPECIALIST[a] ?? a);
@@ -56,13 +68,13 @@ export function AnswerCard({ question, result, error }: { question: string; resu
   const narrative = result.status === "answered" ? result.narrative : null;
   const picked = new Set(result.selected_fact_ids ?? []);
   const facts = picked.size > 0 ? result.facts.filter((f) => picked.has(f.fact_id)) : result.facts;
-  const limitations = [...new Set(result.limitations.map(noteText))];
+  const limitations = [...new Set(result.limitations.filter((n) => typeof n === "string" || !BOILERPLATE.has(n.code ?? "")).map(noteText))];
 
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-xs font-semibold tracking-wide text-primary uppercase">{specialistLabel(result)}</CardDescription>
-        <CardTitle className="text-xl">Evidence-backed response</CardTitle>
+        <CardDescription className="text-2xl font-semibold tracking-wide text-primary uppercase">{specialistLabel(result)}</CardDescription>
+        <CardTitle className="text-x">Evidence-backed response</CardTitle>
         <CardDescription>“{question}”</CardDescription>
         <CardAction>{result.status === "answered" ? <Badge variant="outline">Draft</Badge> : <StatusBadge status={result.status} />}</CardAction>
       </CardHeader>
@@ -75,6 +87,7 @@ export function AnswerCard({ question, result, error }: { question: string; resu
           </Alert>
         )}
         <p className="font-heading text-lg leading-relaxed whitespace-pre-wrap">{answerSummary(result)}</p>
+        <Interpretation result={result} />
         {narrative && narrative.paragraphs.length > 0 && (
           <div className="flex flex-col gap-3">
             {narrative.paragraphs.map((p, i) => (

@@ -37,8 +37,8 @@ export function ContractDashboard({ dashboard, scanning, onRescan }: { dashboard
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-xs font-semibold tracking-wide text-primary uppercase">Contract dashboard</CardDescription>
-        <CardTitle className="text-2xl">Renewal decisions that need attention.</CardTitle>
+        <CardDescription className="text-2xl font-semibold tracking-wide text-primary uppercase">Contract dashboard</CardDescription>
+        <CardTitle className="text-x">Renewal decisions that need attention.</CardTitle>
         <CardAction className="flex divide-x">
           <Headline value={totals.past_notice} label="Past notice" className="text-destructive" />
           <Headline value={totals.decisions_due} label={`Due in ${dashboard.attention_days} days`} className="text-warning" />

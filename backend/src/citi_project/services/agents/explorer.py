@@ -173,7 +173,7 @@ class Explorer:
     def _discover(self, state):
         budget = self.budget_for(state["task"].get("query_budget", self.budget.queries))
         task = {**state["task"], "budget": asdict(budget)}
-        concepts = list(dict.fromkeys([*task.get("required_concepts", ()), *task.get("gaps", ())]))
+        concepts = list(dict.fromkeys([*task.get("requested", ()), *task.get("required_concepts", ()), *task.get("gaps", ())]))
         catalog = self.index.search(concepts=concepts, terms=task.get("terms", ()), limit=8)
         entry = {"node": "explore.discover", "agent": task["specialist"], "action": "search_catalog",
                  "concepts": concepts, "datasets": [d["dataset"] for d in catalog], "status": "ok"}
@@ -204,7 +204,8 @@ class Explorer:
         views = [dict(o["view"]) for o in state["observations"]]
         payload = {
             "prompt_version": prompts.EXPLORER_PROMPT_VERSION, "specialist": task["specialist"], "question": task["question"],
-            "task": {k: task.get(k) for k in ("objective", "scope", "as_of_date", "vendor_ids","contract_ids", "required_concepts", "gaps")},
+            "task": {k: task.get(k) for k in ("objective", "scope", "as_of_date", "vendor_ids", "contract_ids", "required_concepts", "gaps",
+                                              "requested", "paths", "anchors")},
             "certified_findings": task.get("certified", [])[:12],
             "catalog": state["catalog"], "business_graph": self.schema,
             "available_actions": [a for a, ok in (("search_catalog", True), ("run_sql", self.sql is not None),

@@ -46,7 +46,7 @@ export function Vendor360Page() {
   function ask(question: string) {
     const text = question.trim();
     if (!text || running) return;
-    setInput(text);
+    setInput("");
     setAsked({ question: text, result: null, error: null, stage: null });
     cancel.current = askStream(text, sessionId, {
       onNode: (entry) => setAsked((a) => a && { ...a, stage: String(entry.node) }),
@@ -98,18 +98,20 @@ export function Vendor360Page() {
             >
               <InputGroup className="h-11 bg-background">
                 <InputGroupAddon>
-                  <InputGroupText className="text-xs max-sm:hidden">Ask a vendor question</InputGroupText>
+                  <InputGroupText className="text-xs max-sm:hidden">{asked ? "Ask a follow-up" : "Ask a vendor question"}</InputGroupText>
                 </InputGroupAddon>
                 <InputGroupInput
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Should we renew, renegotiate, consolidate, or reduce dependency?"
+                  placeholder={
+                    asked ? "Ask a follow-up about this vendor or contract…" : "Should we renew, renegotiate, consolidate, or reduce dependency?"
+                  }
                   aria-label="Vendor question"
                   maxLength={2000}
                 />
                 <InputGroupAddon align="inline-end">
                   {asked && !running && (
-                    <InputGroupButton size="icon-xs" aria-label="Clear the question" onClick={clear}>
+                    <InputGroupButton size="icon-xs" aria-label="Start over" onClick={clear}>
                       <XIcon />
                     </InputGroupButton>
                   )}

@@ -30,8 +30,8 @@ export function HumanReview({ entries, draft, specialist }: { entries: ReviewEnt
   return (
     <Card>
       <CardHeader>
-        <CardDescription className="text-xs font-semibold tracking-wide text-primary uppercase">Human review</CardDescription>
-        <CardTitle className="text-2xl">
+        <CardDescription className="text-2xl font-semibold tracking-wide text-primary uppercase">Human review</CardDescription>
+        <CardTitle className="text-x">
           {draft ? "Agent draft for review." : `${drafts} draft decision${drafts === 1 ? "" : "s"} require${drafts === 1 ? "s" : ""} review.`}
         </CardTitle>
         <CardAction className="max-w-xs text-right text-xs text-muted-foreground">

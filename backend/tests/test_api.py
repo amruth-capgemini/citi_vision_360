@@ -101,7 +101,7 @@ def test_stream_sends_node_events_in_graph_order_then_the_result(decision):
         received = events(response.read().decode())
     assert received[0] == ("session", {"session_id": "s1"})
     nodes = [data["node"] for kind, data in received if kind == "node"]
-    assert nodes == ["guard", "route", "resolve", "plan", "validate", "execute.tool", "execute", "explore", "verify", "ground", "synthesize"]
+    assert nodes == ["guard", "understand", "resolve", "plan", "validate", "execute.tool", "execute", "explore", "verify", "diagnose", "ground", "synthesize"]
     steps = [(data["node"], data.get("action")) for kind, data in received if kind == "step"]
     assert steps == [("explore.discover", "search_catalog"), ("explore.act", "run_sql"), ("explore.act", "finish")]
     # Explorer steps arrive before the explorer's own node event.
