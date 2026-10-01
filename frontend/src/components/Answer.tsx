@@ -1,6 +1,10 @@
+import { CircleAlertIcon, InfoIcon } from "lucide-react";
 import type { ChatResponse } from "../api";
 import { flagText, noteText } from "../api";
-import { AgentPill } from "./common";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { badgeVariants } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { AgentBadge } from "./common";
 
 interface Props {
   result: ChatResponse;
@@ -13,35 +17,28 @@ export function Answer({ result, onFact }: Props) {
   const cited = new Set(narrative?.paragraphs.flatMap((p) => p.fact_ids) ?? []);
   const facts = new Map(result.facts.map((f) => [f.fact_id, f]));
   const keyFacts = narrative ? (result.selected_fact_ids ?? []).filter((id) => !cited.has(id) && facts.has(id)) : [];
+  const cite = (id: string) => <Cite key={id} id={id} text={facts.get(id)?.text} onClick={() => onFact(id)} />;
 
   return (
-    <div className="answer">
+    <div className="flex flex-col gap-3">
       {narrative ? (
         <>
-          <p className="summary">{stripCitations(narrative.summary)}</p>
+          <p className="text-[15px] leading-relaxed font-medium">{stripCitations(narrative.summary)}</p>
           {narrative.paragraphs.map((p, i) => (
-            <div className="paragraph" key={i}>
-              <h4>{p.heading}</h4>
-              <p>
-                {stripCitations(p.text)}{" "}
-                {p.fact_ids.map((id) => (
-                  <button key={id} className="cite" onClick={() => onFact(id)} title={facts.get(id)?.text}>
-                    {id}
-                  </button>
-                ))}
+            <div key={i} className="flex flex-col gap-1">
+              <h4 className="font-heading text-sm font-semibold">{p.heading}</h4>
+              <p className="leading-relaxed">
+                {stripCitations(p.text)} {p.fact_ids.map(cite)}
               </p>
             </div>
           ))}
           {keyFacts.length > 0 && (
-            <div className="paragraph">
-              <h4>Key facts</h4>
-              <ul className="keyfacts">
+            <div className="flex flex-col gap-1">
+              <h4 className="font-heading text-sm font-semibold">Key facts</h4>
+              <ul className="ml-4 list-disc leading-relaxed">
                 {keyFacts.map((id) => (
                   <li key={id}>
-                    {facts.get(id)!.text}{" "}
-                    <button className="cite" onClick={() => onFact(id)}>
-                      {id}
-                    </button>
+                    {facts.get(id)!.text} {cite(id)}
                   </li>
                 ))}
               </ul>
@@ -49,39 +46,61 @@ export function Answer({ result, onFact }: Props) {
           )}
         </>
       ) : (
-        <p className="plain">{result.status === "answered" ? stripNotes(result.final_answer) : result.final_answer}</p>
+        <p className="leading-relaxed whitespace-pre-wrap">{result.status === "answered" ? stripNotes(result.final_answer) : result.final_answer}</p>
       )}
 
       {result.specialists_used.length > 0 && (
-        <div className="used">
+        <div className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
           <span>Agents used</span>
-          <AgentPill agent="supervisor" />
+          <AgentBadge agent="supervisor" />
           {result.specialists_used.map((a) => (
-            <AgentPill key={a} agent={a} />
+            <AgentBadge key={a} agent={a} />
           ))}
         </div>
       )}
 
       {result.flags.length > 0 && (
-        <div className="callout flags">
-          <strong>Flags</strong>
-          <ul>
-            {result.flags.map((f, i) => (
-              <li key={i}>{flagText(f)}</li>
+        <Alert variant="destructive">
+          <CircleAlertIcon />
+          <AlertTitle>Flags</AlertTitle>
+          <AlertDescription>
+            <ul className="ml-4 list-disc">
+              {result.flags.map((f, i) => (
+                <li key={i}>{flagText(f)}</li>
+              ))}
+            </ul>
+          </AlertDescription>
+        </Alert>
+      )}
+      <Alert>
+        <InfoIcon />
+        <AlertTitle>Limitations</AlertTitle>
+        <AlertDescription>
+          <ul className="ml-4 list-disc">
+            <li>Decision context only; no final renewal, consolidation or staffing recommendation.</li>
+            {[...new Set(result.limitations.filter((n) => typeof n === "string" || !INTERNAL.has(n.code ?? "")).map(noteText))].map((text, i) => (
+              <li key={i}>{text}</li>
             ))}
           </ul>
-        </div>
-      )}
-      <div className="callout limits">
-        <strong>Limitations</strong>
-        <ul>
-          <li>Decision context only; no final renewal, consolidation or staffing recommendation.</li>
-          {[...new Set(result.limitations.filter((n) => typeof n === "string" || !INTERNAL.has(n.code ?? "")).map(noteText))].map((text, i) => (
-            <li key={i}>{text}</li>
-          ))}
-        </ul>
-      </div>
+        </AlertDescription>
+      </Alert>
     </div>
+  );
+}
+
+/** A fact citation chip: hover shows the fact, click opens it in the Evidence tab. */
+function Cite({ id, text, onClick }: { id: string; text?: string; onClick: () => void }) {
+  const chip = (
+    <button type="button" className={badgeVariants({ variant: "outline", className: "mx-0.5 h-4 cursor-pointer px-1.5 font-mono text-[10.5px] hover:bg-muted" })} onClick={onClick}>
+      {id}
+    </button>
+  );
+  if (!text) return chip;
+  return (
+    <Tooltip>
+      <TooltipTrigger render={chip} />
+      <TooltipContent>{text}</TooltipContent>
+    </Tooltip>
   );
 }
 
