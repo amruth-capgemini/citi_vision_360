@@ -1,0 +1,5 @@
+Graph_Namespace,Organization_ID,Organization_Name,OU_ID,Mapping_Status
+synthetic-pack-20260928,ORG-01,Payments,OU3101,Synthetic crosswalk; not an identity equivalence
+synthetic-pack-20260928,ORG-02,Technology Operations,OU3102,Synthetic crosswalk; not an identity equivalence
+synthetic-pack-20260928,ORG-03,Corporate Services,OU3103,Synthetic crosswalk; not an identity equivalence
+synthetic-pack-20260928,ORG-04,Transformation,OU3104,Synthetic crosswalk; not an identity equivalence

@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "vendor_decision_agents": "./src/citi_project/services/agents/studio.py:graph"
+  },
+  "env": ".env"
+}

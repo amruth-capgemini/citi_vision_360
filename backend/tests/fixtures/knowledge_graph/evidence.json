@@ -1,0 +1,1322 @@
+{
+  "synthetic:V-001_contract_sow:c1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1",
+    "chunk_id": "c1",
+    "assertion": {
+      "contract_id": "CTR-001",
+      "start_date": "2025-01-01",
+      "end_date": "2026-12-31",
+      "pricing_model": "Fixed managed service fee"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:sow1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "sow1",
+    "chunk_id": "sow1",
+    "assertion": {
+      "sow_id": "SOW-001"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:renew1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "renew1",
+    "chunk_id": "renew1",
+    "assertion": {
+      "automatic_renewal": true,
+      "notice_days": 30
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:c1-HAS_CLAUSE-renew1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1-HAS_CLAUSE-renew1",
+    "chunk_id": "c1-HAS_CLAUSE-renew1",
+    "assertion": {
+      "type": "HAS_CLAUSE",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      },
+      "target": {
+        "class_id": "RenewalClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "renew1"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:renew1-EVIDENCED_BY-V-001_contract_sow": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "renew1-EVIDENCED_BY-V-001_contract_sow",
+    "chunk_id": "renew1-EVIDENCED_BY-V-001_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "RenewalClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "renew1"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-001_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:term1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "term1",
+    "chunk_id": "term1",
+    "assertion": {
+      "termination_convenience_days": 30
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:c1-HAS_CLAUSE-term1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1-HAS_CLAUSE-term1",
+    "chunk_id": "c1-HAS_CLAUSE-term1",
+    "assertion": {
+      "type": "HAS_CLAUSE",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      },
+      "target": {
+        "class_id": "TerminationClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "term1"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:term1-EVIDENCED_BY-V-001_contract_sow": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "term1-EVIDENCED_BY-V-001_contract_sow",
+    "chunk_id": "term1-EVIDENCED_BY-V-001_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "TerminationClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "term1"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-001_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:pay1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "pay1",
+    "chunk_id": "pay1",
+    "assertion": {
+      "payment_terms_days": 30,
+      "billing_currency": "USD"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:c1-HAS_CLAUSE-pay1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1-HAS_CLAUSE-pay1",
+    "chunk_id": "c1-HAS_CLAUSE-pay1",
+    "assertion": {
+      "type": "HAS_CLAUSE",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      },
+      "target": {
+        "class_id": "PaymentTermsClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "pay1"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:pay1-EVIDENCED_BY-V-001_contract_sow": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "pay1-EVIDENCED_BY-V-001_contract_sow",
+    "chunk_id": "pay1-EVIDENCED_BY-V-001_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "PaymentTermsClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "pay1"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-001_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:svc1": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "svc1",
+    "chunk_id": "svc1",
+    "assertion": {
+      "service_id": "SVC-001",
+      "service_name": "Application support"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:app1": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "app1",
+    "chunk_id": "app1",
+    "assertion": {
+      "application_id": "APP-001",
+      "name": "Retail ledger",
+      "criticality": "Critical"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:ci1": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "ci1",
+    "chunk_id": "ci1",
+    "assertion": {
+      "ci_id": "CI-001-1",
+      "ci_type": "Monitoring endpoint"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:sla1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "sla1",
+    "chunk_id": "sla1",
+    "assertion": {
+      "sla_id": "SLA-001",
+      "metric": "Monthly attainment",
+      "target_percent": 99.5
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:m1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "m1",
+    "chunk_id": "m1",
+    "assertion": {
+      "metric_record_id": "MET-001-01",
+      "period": "2026-08",
+      "metric_name": "Monthly attainment",
+      "target": 99.5,
+      "actual": 99.0,
+      "eligible_units": 1000,
+      "failed_units": 10,
+      "breach": true
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:ra1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "ra1",
+    "chunk_id": "ra1",
+    "assertion": {
+      "assessment_id": "RA-001",
+      "status": "Current",
+      "assessment_date": "2026-08-01",
+      "risk_tier": "Medium",
+      "validity_days": 365
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:v1-PARTY_TO-c1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "v1-PARTY_TO-c1",
+    "chunk_id": "v1-PARTY_TO-c1",
+    "assertion": {
+      "type": "PARTY_TO",
+      "source": {
+        "class_id": "Vendor",
+        "identity": "V-001"
+      },
+      "target": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:buyer-PARTY_TO-c1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "buyer-PARTY_TO-c1",
+    "chunk_id": "buyer-PARTY_TO-c1",
+    "assertion": {
+      "type": "PARTY_TO",
+      "source": {
+        "class_id": "Buyer",
+        "identity": "Example Regional Bank"
+      },
+      "target": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:c1-HAS_SOW-sow1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1-HAS_SOW-sow1",
+    "chunk_id": "c1-HAS_SOW-sow1",
+    "assertion": {
+      "type": "HAS_SOW",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      },
+      "target": {
+        "class_id": "StatementOfWork",
+        "identity": "SOW-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:sow1-FUNDS-svc1": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "sow1-FUNDS-svc1",
+    "chunk_id": "sow1-FUNDS-svc1",
+    "assertion": {
+      "type": "FUNDS",
+      "source": {
+        "class_id": "StatementOfWork",
+        "identity": "SOW-001"
+      },
+      "target": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:c1-OWNED_BY-owner": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1-OWNED_BY-owner",
+    "chunk_id": "c1-OWNED_BY-owner",
+    "assertion": {
+      "type": "OWNED_BY",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      },
+      "target": {
+        "class_id": "Owner",
+        "identity": "OWN-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:v1-PROVIDES-svc1": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "v1-PROVIDES-svc1",
+    "chunk_id": "v1-PROVIDES-svc1",
+    "assertion": {
+      "type": "PROVIDES",
+      "source": {
+        "class_id": "Vendor",
+        "identity": "V-001"
+      },
+      "target": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:svc1-DEPENDS_ON-ci1": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "svc1-DEPENDS_ON-ci1",
+    "chunk_id": "svc1-DEPENDS_ON-ci1",
+    "assertion": {
+      "type": "DEPENDS_ON",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      },
+      "target": {
+        "class_id": "ConfigurationItem",
+        "identity": "CI-001-1"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:app1-ENABLES-product": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "app1-ENABLES-product",
+    "chunk_id": "app1-ENABLES-product",
+    "assertion": {
+      "type": "ENABLES",
+      "source": {
+        "class_id": "Application",
+        "identity": "APP-001"
+      },
+      "target": {
+        "class_id": "Product",
+        "identity": "PROD-01"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:svc1-HAS_SLA-sla1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "svc1-HAS_SLA-sla1",
+    "chunk_id": "svc1-HAS_SLA-sla1",
+    "assertion": {
+      "type": "HAS_SLA",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      },
+      "target": {
+        "class_id": "ServiceLevelAgreement",
+        "identity": "SLA-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:m1-MEASURED_AGAINST-sla1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "m1-MEASURED_AGAINST-sla1",
+    "chunk_id": "m1-MEASURED_AGAINST-sla1",
+    "assertion": {
+      "type": "MEASURED_AGAINST",
+      "source": {
+        "class_id": "PerformanceMeasurement",
+        "identity": "MET-001-01"
+      },
+      "target": {
+        "class_id": "ServiceLevelAgreement",
+        "identity": "SLA-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:ra1-ASSESSES-v1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "ra1-ASSESSES-v1",
+    "chunk_id": "ra1-ASSESSES-v1",
+    "assertion": {
+      "type": "ASSESSES",
+      "source": {
+        "class_id": "RiskAssessment",
+        "identity": "RA-001"
+      },
+      "target": {
+        "class_id": "Vendor",
+        "identity": "V-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:c1-EVIDENCED_BY-V-001_contract_sow": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1-EVIDENCED_BY-V-001_contract_sow",
+    "chunk_id": "c1-EVIDENCED_BY-V-001_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-001_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:svc1-EVIDENCED_BY-V-001_dependency_register": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "svc1-EVIDENCED_BY-V-001_dependency_register",
+    "chunk_id": "svc1-EVIDENCED_BY-V-001_dependency_register",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      },
+      "target": {
+        "class_id": "DependencyRegisterDocument",
+        "identity": "V-001_dependency_register"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:sla1-EVIDENCED_BY-V-001_sla_risk_pack": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "sla1-EVIDENCED_BY-V-001_sla_risk_pack",
+    "chunk_id": "sla1-EVIDENCED_BY-V-001_sla_risk_pack",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "ServiceLevelAgreement",
+        "identity": "SLA-001"
+      },
+      "target": {
+        "class_id": "SlaRiskPackDocument",
+        "identity": "V-001_sla_risk_pack"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:m1-EVIDENCED_BY-V-001_sla_risk_pack": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "m1-EVIDENCED_BY-V-001_sla_risk_pack",
+    "chunk_id": "m1-EVIDENCED_BY-V-001_sla_risk_pack",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "PerformanceMeasurement",
+        "identity": "MET-001-01"
+      },
+      "target": {
+        "class_id": "SlaRiskPackDocument",
+        "identity": "V-001_sla_risk_pack"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:ra1-EVIDENCED_BY-V-001_sla_risk_pack": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "ra1-EVIDENCED_BY-V-001_sla_risk_pack",
+    "chunk_id": "ra1-EVIDENCED_BY-V-001_sla_risk_pack",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "RiskAssessment",
+        "identity": "RA-001"
+      },
+      "target": {
+        "class_id": "SlaRiskPackDocument",
+        "identity": "V-001_sla_risk_pack"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:c2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "c2",
+    "chunk_id": "c2",
+    "assertion": {
+      "contract_id": "CTR-002",
+      "start_date": "2025-01-01",
+      "end_date": "2026-12-31",
+      "pricing_model": "Fixed managed service fee"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:sow2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "sow2",
+    "chunk_id": "sow2",
+    "assertion": {
+      "sow_id": "SOW-002"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:renew2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "renew2",
+    "chunk_id": "renew2",
+    "assertion": {
+      "automatic_renewal": false,
+      "notice_days": 60
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:c2-HAS_CLAUSE-renew2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "c2-HAS_CLAUSE-renew2",
+    "chunk_id": "c2-HAS_CLAUSE-renew2",
+    "assertion": {
+      "type": "HAS_CLAUSE",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      },
+      "target": {
+        "class_id": "RenewalClause",
+        "contract_identity": "CTR-002",
+        "occurrence_id": "renew2"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:renew2-EVIDENCED_BY-V-002_contract_sow": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "renew2-EVIDENCED_BY-V-002_contract_sow",
+    "chunk_id": "renew2-EVIDENCED_BY-V-002_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "RenewalClause",
+        "contract_identity": "CTR-002",
+        "occurrence_id": "renew2"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-002_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:term2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "term2",
+    "chunk_id": "term2",
+    "assertion": {
+      "termination_convenience_days": 30
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:c2-HAS_CLAUSE-term2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "c2-HAS_CLAUSE-term2",
+    "chunk_id": "c2-HAS_CLAUSE-term2",
+    "assertion": {
+      "type": "HAS_CLAUSE",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      },
+      "target": {
+        "class_id": "TerminationClause",
+        "contract_identity": "CTR-002",
+        "occurrence_id": "term2"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:term2-EVIDENCED_BY-V-002_contract_sow": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "term2-EVIDENCED_BY-V-002_contract_sow",
+    "chunk_id": "term2-EVIDENCED_BY-V-002_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "TerminationClause",
+        "contract_identity": "CTR-002",
+        "occurrence_id": "term2"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-002_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:pay2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "pay2",
+    "chunk_id": "pay2",
+    "assertion": {
+      "payment_terms_days": 30,
+      "billing_currency": "USD"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:c2-HAS_CLAUSE-pay2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "c2-HAS_CLAUSE-pay2",
+    "chunk_id": "c2-HAS_CLAUSE-pay2",
+    "assertion": {
+      "type": "HAS_CLAUSE",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      },
+      "target": {
+        "class_id": "PaymentTermsClause",
+        "contract_identity": "CTR-002",
+        "occurrence_id": "pay2"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:pay2-EVIDENCED_BY-V-002_contract_sow": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "pay2-EVIDENCED_BY-V-002_contract_sow",
+    "chunk_id": "pay2-EVIDENCED_BY-V-002_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "PaymentTermsClause",
+        "contract_identity": "CTR-002",
+        "occurrence_id": "pay2"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-002_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:svc2": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "svc2",
+    "chunk_id": "svc2",
+    "assertion": {
+      "service_id": "SVC-002",
+      "service_name": "Facilities maintenance"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:app2": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "app2",
+    "chunk_id": "app2",
+    "assertion": {
+      "application_id": "APP-002",
+      "name": "Service portal",
+      "criticality": "Standard"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:ci2": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "ci2",
+    "chunk_id": "ci2",
+    "assertion": {
+      "ci_id": "CI-002-1",
+      "ci_type": "Monitoring endpoint"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:sla2": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "sla2",
+    "chunk_id": "sla2",
+    "assertion": {
+      "sla_id": "SLA-002",
+      "metric": "Monthly attainment",
+      "target_percent": 99.5
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:m2": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "m2",
+    "chunk_id": "m2",
+    "assertion": {
+      "metric_record_id": "MET-002-01",
+      "period": "2026-08",
+      "metric_name": "Monthly attainment",
+      "target": 99.5,
+      "actual": 99.9,
+      "eligible_units": 1000,
+      "failed_units": 1,
+      "breach": false
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:ra2": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "ra2",
+    "chunk_id": "ra2",
+    "assertion": {
+      "assessment_id": "RA-002",
+      "status": "Missing"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:v2-PARTY_TO-c2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "v2-PARTY_TO-c2",
+    "chunk_id": "v2-PARTY_TO-c2",
+    "assertion": {
+      "type": "PARTY_TO",
+      "source": {
+        "class_id": "Vendor",
+        "identity": "V-002"
+      },
+      "target": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:buyer-PARTY_TO-c2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "buyer-PARTY_TO-c2",
+    "chunk_id": "buyer-PARTY_TO-c2",
+    "assertion": {
+      "type": "PARTY_TO",
+      "source": {
+        "class_id": "Buyer",
+        "identity": "Example Regional Bank"
+      },
+      "target": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:c2-HAS_SOW-sow2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "c2-HAS_SOW-sow2",
+    "chunk_id": "c2-HAS_SOW-sow2",
+    "assertion": {
+      "type": "HAS_SOW",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      },
+      "target": {
+        "class_id": "StatementOfWork",
+        "identity": "SOW-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:sow2-FUNDS-svc2": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "sow2-FUNDS-svc2",
+    "chunk_id": "sow2-FUNDS-svc2",
+    "assertion": {
+      "type": "FUNDS",
+      "source": {
+        "class_id": "StatementOfWork",
+        "identity": "SOW-002"
+      },
+      "target": {
+        "class_id": "Service",
+        "identity": "SVC-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:c2-OWNED_BY-owner": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "c2-OWNED_BY-owner",
+    "chunk_id": "c2-OWNED_BY-owner",
+    "assertion": {
+      "type": "OWNED_BY",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      },
+      "target": {
+        "class_id": "Owner",
+        "identity": "OWN-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:v2-PROVIDES-svc2": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "v2-PROVIDES-svc2",
+    "chunk_id": "v2-PROVIDES-svc2",
+    "assertion": {
+      "type": "PROVIDES",
+      "source": {
+        "class_id": "Vendor",
+        "identity": "V-002"
+      },
+      "target": {
+        "class_id": "Service",
+        "identity": "SVC-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:svc2-DEPENDS_ON-ci2": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "svc2-DEPENDS_ON-ci2",
+    "chunk_id": "svc2-DEPENDS_ON-ci2",
+    "assertion": {
+      "type": "DEPENDS_ON",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-002"
+      },
+      "target": {
+        "class_id": "ConfigurationItem",
+        "identity": "CI-002-1"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:app2-ENABLES-product": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "app2-ENABLES-product",
+    "chunk_id": "app2-ENABLES-product",
+    "assertion": {
+      "type": "ENABLES",
+      "source": {
+        "class_id": "Application",
+        "identity": "APP-002"
+      },
+      "target": {
+        "class_id": "Product",
+        "identity": "PROD-01"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:svc2-HAS_SLA-sla2": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "svc2-HAS_SLA-sla2",
+    "chunk_id": "svc2-HAS_SLA-sla2",
+    "assertion": {
+      "type": "HAS_SLA",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-002"
+      },
+      "target": {
+        "class_id": "ServiceLevelAgreement",
+        "identity": "SLA-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:m2-MEASURED_AGAINST-sla2": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "m2-MEASURED_AGAINST-sla2",
+    "chunk_id": "m2-MEASURED_AGAINST-sla2",
+    "assertion": {
+      "type": "MEASURED_AGAINST",
+      "source": {
+        "class_id": "PerformanceMeasurement",
+        "identity": "MET-002-01"
+      },
+      "target": {
+        "class_id": "ServiceLevelAgreement",
+        "identity": "SLA-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:ra2-ASSESSES-v2": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "ra2-ASSESSES-v2",
+    "chunk_id": "ra2-ASSESSES-v2",
+    "assertion": {
+      "type": "ASSESSES",
+      "source": {
+        "class_id": "RiskAssessment",
+        "identity": "RA-002"
+      },
+      "target": {
+        "class_id": "Vendor",
+        "identity": "V-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_contract_sow:c2-EVIDENCED_BY-V-002_contract_sow": {
+    "document_id": "V-002_contract_sow",
+    "page": 1,
+    "section": "c2-EVIDENCED_BY-V-002_contract_sow",
+    "chunk_id": "c2-EVIDENCED_BY-V-002_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-002"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-002_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:svc2-EVIDENCED_BY-V-002_dependency_register": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "svc2-EVIDENCED_BY-V-002_dependency_register",
+    "chunk_id": "svc2-EVIDENCED_BY-V-002_dependency_register",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-002"
+      },
+      "target": {
+        "class_id": "DependencyRegisterDocument",
+        "identity": "V-002_dependency_register"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:sla2-EVIDENCED_BY-V-002_sla_risk_pack": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "sla2-EVIDENCED_BY-V-002_sla_risk_pack",
+    "chunk_id": "sla2-EVIDENCED_BY-V-002_sla_risk_pack",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "ServiceLevelAgreement",
+        "identity": "SLA-002"
+      },
+      "target": {
+        "class_id": "SlaRiskPackDocument",
+        "identity": "V-002_sla_risk_pack"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:m2-EVIDENCED_BY-V-002_sla_risk_pack": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "m2-EVIDENCED_BY-V-002_sla_risk_pack",
+    "chunk_id": "m2-EVIDENCED_BY-V-002_sla_risk_pack",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "PerformanceMeasurement",
+        "identity": "MET-002-01"
+      },
+      "target": {
+        "class_id": "SlaRiskPackDocument",
+        "identity": "V-002_sla_risk_pack"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_sla_risk_pack:ra2-EVIDENCED_BY-V-002_sla_risk_pack": {
+    "document_id": "V-002_sla_risk_pack",
+    "page": 1,
+    "section": "ra2-EVIDENCED_BY-V-002_sla_risk_pack",
+    "chunk_id": "ra2-EVIDENCED_BY-V-002_sla_risk_pack",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "RiskAssessment",
+        "identity": "RA-002"
+      },
+      "target": {
+        "class_id": "SlaRiskPackDocument",
+        "identity": "V-002_sla_risk_pack"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:renew-extra": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "renew-extra",
+    "chunk_id": "renew-extra",
+    "assertion": {
+      "automatic_renewal": true,
+      "notice_days": 90,
+      "section_title": "Optional support extension"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:delivery": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "delivery",
+    "chunk_id": "delivery",
+    "assertion": {
+      "deliverable_id": "SOW-001-D1",
+      "output": "Recovery exercise",
+      "acceptance_test": "Demonstrate recovery within the agreed target"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:issue": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "issue",
+    "chunk_id": "issue",
+    "assertion": {
+      "issue_id": "ISSUE-001",
+      "finding": "Recovery exercise overdue",
+      "status": "Open",
+      "severity": "High"
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:c1-HAS_CLAUSE-renew-extra": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "c1-HAS_CLAUSE-renew-extra",
+    "chunk_id": "c1-HAS_CLAUSE-renew-extra",
+    "assertion": {
+      "type": "HAS_CLAUSE",
+      "source": {
+        "class_id": "Contract",
+        "identity": "CTR-001"
+      },
+      "target": {
+        "class_id": "RenewalClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "renew-support-extension"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:renew-extra-EVIDENCED_BY-V-001_contract_sow": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "renew-extra-EVIDENCED_BY-V-001_contract_sow",
+    "chunk_id": "renew-extra-EVIDENCED_BY-V-001_contract_sow",
+    "assertion": {
+      "type": "EVIDENCED_BY",
+      "source": {
+        "class_id": "RenewalClause",
+        "contract_identity": "CTR-001",
+        "occurrence_id": "renew-support-extension"
+      },
+      "target": {
+        "class_id": "ContractDocument",
+        "identity": "V-001_contract_sow"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:sow1-HAS_DELIVERABLE-delivery": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "sow1-HAS_DELIVERABLE-delivery",
+    "chunk_id": "sow1-HAS_DELIVERABLE-delivery",
+    "assertion": {
+      "type": "HAS_DELIVERABLE",
+      "source": {
+        "class_id": "StatementOfWork",
+        "identity": "SOW-001"
+      },
+      "target": {
+        "class_id": "Deliverable",
+        "identity": "SOW-001-D1"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_contract_sow:delivery-ACCEPTED_BY-owner": {
+    "document_id": "V-001_contract_sow",
+    "page": 1,
+    "section": "delivery-ACCEPTED_BY-owner",
+    "chunk_id": "delivery-ACCEPTED_BY-owner",
+    "assertion": {
+      "type": "ACCEPTED_BY",
+      "source": {
+        "class_id": "Deliverable",
+        "identity": "SOW-001-D1"
+      },
+      "target": {
+        "class_id": "Owner",
+        "identity": "OWN-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:svc1-SUPPORTS-app1": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "svc1-SUPPORTS-app1",
+    "chunk_id": "svc1-SUPPORTS-app1",
+    "assertion": {
+      "type": "SUPPORTS",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      },
+      "target": {
+        "class_id": "Application",
+        "identity": "APP-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_dependency_register:svc1-SUPPORTS-app2": {
+    "document_id": "V-001_dependency_register",
+    "page": 1,
+    "section": "svc1-SUPPORTS-app2",
+    "chunk_id": "svc1-SUPPORTS-app2",
+    "assertion": {
+      "type": "SUPPORTS",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      },
+      "target": {
+        "class_id": "Application",
+        "identity": "APP-002"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:svc2-USES_PORTAL-app1": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "svc2-USES_PORTAL-app1",
+    "chunk_id": "svc2-USES_PORTAL-app1",
+    "assertion": {
+      "type": "USES_PORTAL",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-002"
+      },
+      "target": {
+        "class_id": "Application",
+        "identity": "APP-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-002_dependency_register:svc2-SUPPORTS_PROCESS-process": {
+    "document_id": "V-002_dependency_register",
+    "page": 1,
+    "section": "svc2-SUPPORTS_PROCESS-process",
+    "chunk_id": "svc2-SUPPORTS_PROCESS-process",
+    "assertion": {
+      "type": "SUPPORTS_PROCESS",
+      "source": {
+        "class_id": "Service",
+        "identity": "SVC-002"
+      },
+      "target": {
+        "class_id": "BusinessProcess",
+        "identity": "PROC-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:issue-RAISED_IN-ra1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "issue-RAISED_IN-ra1",
+    "chunk_id": "issue-RAISED_IN-ra1",
+    "assertion": {
+      "type": "RAISED_IN",
+      "source": {
+        "class_id": "RiskIssue",
+        "identity": "ISSUE-001"
+      },
+      "target": {
+        "class_id": "RiskAssessment",
+        "identity": "RA-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:issue-AFFECTS-svc1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "issue-AFFECTS-svc1",
+    "chunk_id": "issue-AFFECTS-svc1",
+    "assertion": {
+      "type": "AFFECTS",
+      "source": {
+        "class_id": "RiskIssue",
+        "identity": "ISSUE-001"
+      },
+      "target": {
+        "class_id": "Service",
+        "identity": "SVC-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:issue-AFFECTS-app1": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "issue-AFFECTS-app1",
+    "chunk_id": "issue-AFFECTS-app1",
+    "assertion": {
+      "type": "AFFECTS",
+      "source": {
+        "class_id": "RiskIssue",
+        "identity": "ISSUE-001"
+      },
+      "target": {
+        "class_id": "Application",
+        "identity": "APP-001"
+      }
+    },
+    "synthetic": true
+  },
+  "synthetic:V-001_sla_risk_pack:issue-OWNED_BY-owner": {
+    "document_id": "V-001_sla_risk_pack",
+    "page": 1,
+    "section": "issue-OWNED_BY-owner",
+    "chunk_id": "issue-OWNED_BY-owner",
+    "assertion": {
+      "type": "OWNED_BY",
+      "source": {
+        "class_id": "RiskIssue",
+        "identity": "ISSUE-001"
+      },
+      "target": {
+        "class_id": "Owner",
+        "identity": "OWN-001"
+      }
+    },
+    "synthetic": true
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "namespace": "kg-hardening-phase1",
+  "as_of": "2026-09-29",
+  "node_count": 47,
+  "relationship_count": 70,
+  "nodes_by_class": {
+    "Vendor": 2, "Buyer": 1, "Owner": 1, "Product": 1, "BusinessProcess": 1,
+    "Contract": 2, "StatementOfWork": 2, "Deliverable": 1,
+    "RenewalClause": 3, "TerminationClause": 2, "PaymentTermsClause": 2,
+    "ContractDocument": 2, "DependencyRegisterDocument": 2, "SlaRiskPackDocument": 2,
+    "Service": 2, "Application": 2, "ConfigurationItem": 2,
+    "ServiceLevelAgreement": 2, "PerformanceMeasurement": 2, "RiskAssessment": 2, "RiskIssue": 1,
+    "Invoice": 2, "InvoiceLine": 4, "CostCenter": 2, "PurchaseCommitment": 2
+  },
+  "relationships_by_type": {
+    "PARTY_TO": 4, "HAS_SOW": 2, "HAS_CLAUSE": 7, "HAS_DELIVERABLE": 1,
+    "ACCEPTED_BY": 1, "FUNDS": 2, "OWNED_BY": 3, "EVIDENCED_BY": 17,
+    "PROVIDES": 2, "SUPPORTS": 2, "USES_PORTAL": 1, "DEPENDS_ON": 2,
+    "SUPPORTS_PROCESS": 1, "ENABLES": 2,
+    "HAS_SLA": 2, "MEASURED_AGAINST": 2, "ASSESSES": 2, "RAISED_IN": 1, "AFFECTS": 2,
+    "ISSUED_BY": 2, "BILLED_UNDER": 2, "HAS_LINE": 4, "CHARGED_TO": 4, "COMMITTED_UNDER": 2
+  },
+  "paths": [
+    {
+      "name": "vendor_contract_clauses",
+      "start": {"class_id": "Vendor", "identity": "V-001"},
+      "steps": [["PARTY_TO", "out"], ["HAS_CLAUSE", "out"]],
+      "expected": [
+        {"class_id": "RenewalClause", "contract_identity": "CTR-001", "occurrence_id": "renew1"},
+        {"class_id": "RenewalClause", "contract_identity": "CTR-001", "occurrence_id": "renew-support-extension"},
+        {"class_id": "TerminationClause", "contract_identity": "CTR-001", "occurrence_id": "term1"},
+        {"class_id": "PaymentTermsClause", "contract_identity": "CTR-001", "occurrence_id": "pay1"}
+      ]
+    },
+    {
+      "name": "contract_clause_evidence",
+      "start": {"class_id": "Contract", "identity": "CTR-001"},
+      "steps": [["HAS_CLAUSE", "out"], ["EVIDENCED_BY", "out"]],
+      "expected": [{"class_id": "ContractDocument", "identity": "V-001_contract_sow"}]
+    },
+    {
+      "name": "operational_support",
+      "start": {"class_id": "Vendor", "identity": "V-001"},
+      "steps": [["PROVIDES", "out"], ["SUPPORTS", "out"]],
+      "expected": [{"class_id": "Application", "identity": "APP-001"}, {"class_id": "Application", "identity": "APP-002"}]
+    },
+    {
+      "name": "portal_use_is_not_support",
+      "start": {"class_id": "Vendor", "identity": "V-002"},
+      "steps": [["PROVIDES", "out"], ["SUPPORTS", "out"]],
+      "expected": []
+    },
+    {
+      "name": "portal_use",
+      "start": {"class_id": "Vendor", "identity": "V-002"},
+      "steps": [["PROVIDES", "out"], ["USES_PORTAL", "out"]],
+      "expected": [{"class_id": "Application", "identity": "APP-001"}]
+    },
+    {
+      "name": "contract_invoice_cost_center",
+      "start": {"class_id": "Contract", "identity": "CTR-001"},
+      "steps": [["BILLED_UNDER", "in"], ["HAS_LINE", "out"], ["CHARGED_TO", "out"]],
+      "expected": [{"class_id": "CostCenter", "identity": "CC-01"}]
+    },
+    {
+      "name": "funded_service_performance",
+      "start": {"class_id": "Contract", "identity": "CTR-001"},
+      "steps": [["HAS_SOW", "out"], ["FUNDS", "out"], ["HAS_SLA", "out"], ["MEASURED_AGAINST", "in"]],
+      "expected": [{"class_id": "PerformanceMeasurement", "identity": "MET-001-01"}]
+    },
+    {
+      "name": "vendor_risk_issue_affected_entities",
+      "start": {"class_id": "Vendor", "identity": "V-001"},
+      "steps": [["ASSESSES", "in"], ["RAISED_IN", "in"], ["AFFECTS", "out"]],
+      "expected": [{"class_id": "Service", "identity": "SVC-001"}, {"class_id": "Application", "identity": "APP-001"}]
+    },
+    {
+      "name": "vendor_business_product",
+      "start": {"class_id": "Vendor", "identity": "V-001"},
+      "steps": [["PROVIDES", "out"], ["SUPPORTS", "out"], ["ENABLES", "out"]],
+      "expected": [{"class_id": "Product", "identity": "PROD-01"}]
+    }
+  ],
+  "business_totals": {"posted_actual_usd_cents": 400000, "forecast_usd_cents": 360000,
+                      "variance_usd_cents": 40000, "forward_commitment_usd_cents": 1000000}
+}

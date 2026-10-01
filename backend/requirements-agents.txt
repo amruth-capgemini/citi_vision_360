@@ -1,0 +1,2 @@
+# Optional LLM transport for the agent layer; the base uv environment stays offline.
+openai==3.22.1
