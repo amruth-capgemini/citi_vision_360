@@ -201,8 +201,14 @@ export interface Dashboard {
   limitations: Note[];
 }
 
+const apiBase = (import.meta.env.VITE_API_URL ?? "").trim().replace(/\/+$/, "");
+
+function apiUrl(path: string): string {
+  return `${apiBase}${path}`;
+}
+
 export async function getJson<T>(path: string): Promise<T> {
-  const response = await fetch(path);
+  const response = await fetch(apiUrl(path));
   if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
   return (await response.json()) as T;
 }
@@ -217,7 +223,7 @@ export interface StreamHandlers {
 /** Ask one question over SSE; returns a function that cancels the stream. */
 export function askStream(question: string, sessionId: string, handlers: StreamHandlers): () => void {
   const params = new URLSearchParams({ question, session_id: sessionId });
-  const source = new EventSource(`/api/chat/stream?${params}`);
+  const source = new EventSource(apiUrl(`/api/chat/stream?${params}`));
   let finished = false;
   const done = () => {
     finished = true;

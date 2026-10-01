@@ -1,0 +1,16 @@
+# Only package metadata, source and runtime ontology enter the build context.
+*
+!Dockerfile
+!pyproject.toml
+!uv.lock
+!README.md
+!src/
+!src/**
+!ontology/
+!ontology/**
+**/.env
+**/.env.*
+**/__pycache__/
+**/*.pyc
+**/*.pem
+**/*.key

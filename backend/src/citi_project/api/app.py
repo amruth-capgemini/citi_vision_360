@@ -132,13 +132,19 @@ def _sse(event, data):
     return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False, default=str)}\n\n"
 
 
-def create_app(runtime=None, *, sessions=None, origins=DEV_ORIGINS):
+def create_app(runtime=None, *, sessions=None, origins=None):
     from contextlib import asynccontextmanager
 
     from fastapi import FastAPI, HTTPException, Query
     from fastapi.middleware.cors import CORSMiddleware
     from fastapi.responses import StreamingResponse
     from pydantic import BaseModel, Field
+
+    if origins is None:
+        configured = os.environ.get("CITI_CORS_ORIGINS")
+        origins = DEV_ORIGINS if configured is None else [origin.strip() for origin in configured.split(",") if origin.strip()]
+    if "*" in origins:
+        raise ValueError("CITI_CORS_ORIGINS must contain explicit origins, not '*'")
 
     runtime = runtime or LiveRuntime()
     sessions = sessions or SessionStore()
@@ -246,16 +252,18 @@ def create_app(runtime=None, *, sessions=None, origins=DEV_ORIGINS):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="citi-api", description=__doc__.splitlines()[0])
-    parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--host")
+    parser.add_argument("--port", type=int)
     parser.add_argument("--no-explore", action="store_true", help="certified tools only")
     args = parser.parse_args(argv)
     from ..env import load_env
     load_env()
+    host = args.host if args.host is not None else os.environ.get("CITI_API_HOST", "127.0.0.1")
+    port = args.port if args.port is not None else int(os.environ.get("PORT", "8000"))
     logging.basicConfig(level=logging.INFO)
     logging.getLogger("neo4j").setLevel(logging.ERROR)
     import uvicorn
-    uvicorn.run(create_app(LiveRuntime(explore=not args.no_explore)), host=args.host, port=args.port)
+    uvicorn.run(create_app(LiveRuntime(explore=not args.no_explore)), host=host, port=port)
     return 0
 
 
