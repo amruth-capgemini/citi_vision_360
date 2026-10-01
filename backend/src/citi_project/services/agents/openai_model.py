@@ -2,10 +2,17 @@
 
 from dataclasses import dataclass, replace
 import json
+import logging
 import os
 import re
 
-from .contracts import ModelError, validate
+from .contracts import ModelError, SPECIALISTS, validate
+
+log = logging.getLogger(__name__)
+# Only known API codes are safe to emit; arbitrary error fields may contain user data.
+SAFE_ERROR_CODES = frozenset({"invalid_api_key", "insufficient_quota", "rate_limit_exceeded",
+    "model_not_found", "invalid_json_schema", "unsupported_parameter", "invalid_parameter",
+    "context_length_exceeded", "account_deactivated", "permission_denied", "server_error"})
 
 AZURE_API_VERSION = "2024-10-21"
 # Strict json_schema response formats require this Azure API version or later.
@@ -82,10 +89,26 @@ class OpenAIJsonModel:
         return self._client
 
     def complete(self, stage, prompt, payload, schema):
+        stage_name = stage if stage in SPECIALISTS or stage in {"supervisor_route", "supervisor_synthesis", "catalog_enrich"} or stage in {f"explore_{name}" for name in SPECIALISTS} else "unknown"
+        failing_stage = {"supervisor_route": "routing", "supervisor_synthesis": "synthesis"}.get(
+            stage_name, "planning" if stage_name in SPECIALISTS else "exploration" if stage_name.startswith("explore_") else "other")
+        diagnostic = {"phase": "input", "category": "request-boundary"}
+        try:
+            return self._complete(stage, prompt, payload, schema, diagnostic)
+        except Exception as exc:
+            log.warning("model_failure stage=%s operation=%s provider=%s phase=%s category=%s exception=%s status=%s code=%s finish_reason=%s",
+                        failing_stage, stage_name, self.provider, diagnostic["phase"], diagnostic["category"],
+                        diagnostic.get("exception", type(exc).__name__), diagnostic.get("status"),
+                        diagnostic.get("code"), diagnostic.get("finish_reason"))
+            raise
+
+    def _complete(self, stage, prompt, payload, schema, diagnostic):
         content = json.dumps(payload, ensure_ascii=False)
         if len(content) + len(prompt) + len(json.dumps(schema)) > self.config.max_input_chars:
             raise ModelError("Model context exceeds the configured bound")
+        diagnostic.update(phase="client", category="configuration")
         client = self._get_client()
+        diagnostic.update(phase="request", category="transport")
         try:
             response = client.chat.completions.create(
                 model=self.config.model,
@@ -96,13 +119,24 @@ class OpenAIJsonModel:
         except Exception as exc:
             status = getattr(exc, "status_code", None)
             category = {401: "authentication", 403: "permission", 429: "rate_or_quota", 400: "request_or_model", 404: "model_not_found"}.get(status, "connection_or_service")
+            code = getattr(exc, "code", None)
+            diagnostic.update(exception=type(exc).__name__, status=status if type(status) is int else None,
+                              code=code if isinstance(code, str) and code in SAFE_ERROR_CODES else None,
+                              category={401: "auth", 403: "auth", 429: "rate-limit", 400: "request/model/schema", 404: "model-response"}.get(status, "service" if type(status) is int and status >= 500 else "transport"))
             raise ModelError(f"{self.provider} request failed: {category}") from None
+        diagnostic.update(phase="response", category="model-response")
+        if response.choices:
+            finish = response.choices[0].finish_reason
+            diagnostic["finish_reason"] = finish if finish in {"stop", "length", "content_filter", "tool_calls", "function_call"} else "unknown"
         if not response.choices or response.choices[0].finish_reason != "stop" or response.choices[0].message.refusal:
             raise ModelError(f"{self.provider} response refused or incomplete")
+        diagnostic.update(phase="json", category="model-response")
         try:
             result = json.loads(response.choices[0].message.content)
-        except (TypeError, ValueError):
+        except (TypeError, ValueError) as exc:
+            diagnostic["exception"] = type(exc).__name__
             raise ModelError(f"{self.provider} response was not valid JSON") from None
+        diagnostic.update(phase="validation", category="schema-validation")
         return validate(result, schema)
 
     def close(self):

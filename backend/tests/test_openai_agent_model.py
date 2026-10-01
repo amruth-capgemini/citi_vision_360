@@ -7,7 +7,7 @@ import pytest
 
 from citi_project.services.agents import (AzureOpenAIJsonModel, AzureOpenAIModelConfig, ModelError,
                                           OpenAIJsonModel, OpenAIModelConfig, select_model)
-from citi_project.services.agents.contracts import obj
+from citi_project.services.agents.contracts import AgentError, obj
 
 
 SCHEMA = obj({"ok": {"type": "boolean"}})
@@ -167,3 +167,68 @@ def test_select_model_bound_overrides_are_validated(azure_env):
         select_model(max_output_tokens=100000)
     with pytest.raises(ModelError, match="Unsupported"):
         select_model(model="another-deployment")
+
+
+@pytest.mark.parametrize("stage,label", [("supervisor_route", "routing"), ("vendor360", "planning"),
+    ("explore_renewal", "exploration"), ("supervisor_synthesis", "synthesis")])
+@pytest.mark.parametrize("status,category,code", [(401, "auth", "invalid_api_key"),
+    (429, "rate-limit", "insufficient_quota"), (400, "request/model/schema", "invalid_json_schema"),
+    (503, "service", "server_error"), (None, "transport", "private-secret-placeholder")])
+def test_safe_request_diagnostics(caplog, stage, label, status, category, code):
+    client = Mock()
+    error = RuntimeError("private-secret-placeholder")
+    error.status_code, error.code = status, code
+    client.chat.completions.create.side_effect = error
+    with pytest.raises(ModelError):
+        OpenAIJsonModel(client=client).complete(stage, "private-prompt", {"dsn": "private-dsn"}, SCHEMA)
+    assert len(caplog.records) == 1
+    message = caplog.records[0].getMessage()
+    assert f"stage={label}" in message
+    assert f"category={category}" in message
+    assert "exception=RuntimeError" in message
+    assert f"status={status}" in message
+    assert f"code={code if status is not None else None}" in message
+    assert caplog.records[0].exc_info is None
+    assert all(secret not in caplog.text for secret in ("private-secret-placeholder", "private-prompt", "private-dsn"))
+
+
+@pytest.mark.parametrize("response,error,phase,category,exception", [
+    (completion(finish="length"), ModelError, "response", "model-response", "ModelError"),
+    (completion(refusal="private-refusal"), ModelError, "response", "model-response", "ModelError"),
+    (SimpleNamespace(choices=[]), ModelError, "response", "model-response", "ModelError"),
+    (completion(content="private-response"), ModelError, "json", "model-response", "JSONDecodeError"),
+    (completion(content=None), ModelError, "json", "model-response", "TypeError"),
+    (completion(content='{"ok":"private-response"}'), AgentError, "validation", "schema-validation", "AgentError"),
+])
+def test_safe_response_diagnostics(caplog, response, error, phase, category, exception):
+    client = Mock()
+    client.chat.completions.create.return_value = response
+    with pytest.raises(error):
+        OpenAIJsonModel(client=client).complete("supervisor_route", "private-prompt", {}, SCHEMA)
+    assert len(caplog.records) == 1
+    assert f"phase={phase} category={category} exception={exception}" in caplog.text
+    assert "private-" not in caplog.text
+
+
+def test_safe_configuration_and_bound_diagnostics(caplog, monkeypatch):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    with pytest.raises(ModelError):
+        OpenAIJsonModel().complete("supervisor_route", "prompt", {}, SCHEMA)
+    assert "phase=client category=configuration exception=ModelError" in caplog.text
+    caplog.clear()
+    with pytest.raises(ModelError):
+        OpenAIJsonModel(OpenAIModelConfig(max_input_chars=1000)).complete("supervisor_route", "x" * 2000, {}, SCHEMA)
+    assert "phase=input category=request-boundary exception=ModelError" in caplog.text
+
+
+def test_success_does_not_log_and_unknown_stage_is_redacted(caplog):
+    client = Mock()
+    client.chat.completions.create.return_value = completion()
+    model = OpenAIJsonModel(client=client)
+    model.complete("private-stage", "prompt", {}, SCHEMA)
+    assert not caplog.records
+    client.chat.completions.create.side_effect = RuntimeError("private-error")
+    with pytest.raises(ModelError):
+        model.complete("private-stage", "prompt", {}, SCHEMA)
+    assert "operation=unknown" in caplog.text
+    assert "private-" not in caplog.text
