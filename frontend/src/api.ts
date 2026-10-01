@@ -130,6 +130,77 @@ export interface CatalogSummary {
   domains: { domain: string; datasets: string[] }[];
 }
 
+/** Mirrors backend/src/citi_project/api/dashboard.py. Money fields are exact USD decimal strings. */
+export type Attention = "expired" | "past_notice" | "notice_due" | "expiring" | "on_track";
+
+export interface Variance {
+  amount: string;
+  percent: string | null;
+}
+
+export interface DashboardContract {
+  vendor_id: string;
+  vendor_name: string | null;
+  contract_id: string;
+  description: string | null;
+  organization: string | null;
+  end_date: string | null;
+  days_to_expiry: number | null;
+  renewal_decision_date: string | null;
+  days_to_decision: number | null;
+  notice_days: number | null;
+  automatic_renewal: boolean | null;
+  attention: Attention;
+  risk_tier: string | null;
+  risk_assessment_status: string | null;
+  risk_assessment_date: string | null;
+  vrm_status: string | null;
+  sla: { period: string | null; actual_percent: string | null; target_percent: string | null; breach: boolean };
+  budget_2026: string | null;
+  forecast_2026: string | null;
+  actual_ytd_2026: string | null;
+  forecast_variance: Variance | null;
+  warning: string | null;
+  source: { dataset: string; record_id: string | null; renewal_terms: string | null };
+}
+
+export interface ReviewItem {
+  vendor_id: string;
+  vendor_name: string | null;
+  contract_id: string;
+  priority: "high" | "medium";
+  status: "draft";
+  reasons: string[];
+  actions: string[];
+  headline: string;
+}
+
+export interface Dashboard {
+  as_of_date: string;
+  scanned_at: string;
+  attention_days: number;
+  totals: {
+    vendors: number;
+    contracts: number;
+    budget_2026: string;
+    forecast_2026: string;
+    actual_ytd_2026: string;
+    forecast_variance: Variance | null;
+    past_notice: number;
+    decisions_due: number;
+    expiring: number;
+    high_risk: number;
+    missing_assessment: number;
+    sla_breaches: number;
+    over_budget: number;
+    in_review: number;
+  };
+  contracts: DashboardContract[];
+  review: ReviewItem[];
+  sources: string[];
+  limitations: Note[];
+}
+
 export async function getJson<T>(path: string): Promise<T> {
   const response = await fetch(path);
   if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);

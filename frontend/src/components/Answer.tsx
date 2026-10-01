@@ -108,12 +108,12 @@ function Cite({ id, text, onClick }: { id: string; text?: string; onClick: () =>
 const INTERNAL = new Set(["exploration_rows", "answer_examples"]);
 
 // Citations are the host's: any the model wrote into its text are replaced by the checked chips.
-function stripCitations(text: string) {
+export function stripCitations(text: string) {
   return text.replace(/\s*\[(?:[FET]\d+(?:,\s*)?)+\]/g, "").trim();
 }
 
 // The host-rendered answer appends limitations as text; they are shown in their own callout instead.
-function stripNotes(text: string) {
+export function stripNotes(text: string) {
   const cut = text.search(/\nNotes:/);
   return cut > 0 ? text.slice(0, cut) : text;
 }

@@ -3,6 +3,7 @@
     POST /api/chat            {session_id?, question} -> answer, facts, evidence, flags, limitations, agents, trace
     GET  /api/chat/stream     ?session_id&question    -> Server-Sent Events: node, step, result (or error)
     GET  /api/sources         catalog summary (systems, datasets, domains)
+    GET  /api/dashboard       ?refresh: portfolio scan (renewal notice, spend, risk, SLA, review items), cached for a day
     GET  /api/health          Postgres, Neo4j and model configuration, without secrets
 
 Everything is read-only; sessions live in memory with a TTL and a size cap.
@@ -14,8 +15,10 @@ import logging
 import os
 import queue
 import threading
+import time
 
 from ..services.agents.contracts import MAX_HISTORY
+from .dashboard import build_dashboard, read_renewal_terms
 from .response import chat_response
 from .sessions import SessionStore
 
@@ -36,10 +39,14 @@ log = logging.getLogger("citi_project.api")
 class LiveRuntime:
     """The live supervisor and its collaborators, built from the environment on first use."""
 
+    DASHBOARD_TTL_SECONDS = 24 * 60 * 60
+
     def __init__(self, *, explore=True):
         self.explore = explore
         self._live, self._sources = None, None
+        self._dashboard, self._dashboard_at = None, 0.0
         self._lock = threading.Lock()
+        self._dashboard_lock = threading.Lock()
 
     @property
     def live(self):
@@ -70,6 +77,19 @@ class LiveRuntime:
                                     for r in rows), key=lambda d: d["dataset"]),
                 "domains": [{"domain": d, "datasets": sorted(v)} for d, v in sorted(domains.items())]}
         return self._sources
+
+    def dashboard(self, *, refresh=False):
+        """The portfolio scan, re-read from PostgreSQL and the graph once a day or on request."""
+        with self._dashboard_lock:
+            if refresh or self._dashboard is None or time.monotonic() - self._dashboard_at > self.DASHBOARD_TTL_SECONDS:
+                from ..services.structured_data import StructuredQueryService
+                from ..services.structured_data.query_service import NAMESPACE
+                structured = StructuredQueryService.from_postgres()
+                self._dashboard = build_dashboard(structured.list_forecast_records(),
+                                                  read_renewal_terms(self.live["client"], NAMESPACE),
+                                                  as_of=structured.as_of_date)
+                self._dashboard_at = time.monotonic()
+            return self._dashboard
 
     def health(self):
         checks = {"postgres": self._check_postgres(), "neo4j": self._check_neo4j(), "model": self._check_model()}
@@ -204,6 +224,14 @@ def create_app(runtime=None, *, sessions=None, origins=DEV_ORIGINS):
         except Exception:
             log.exception("sources failed")
             raise HTTPException(status_code=503, detail="The metadata catalog is unavailable.") from None
+
+    @app.get("/api/dashboard")
+    def dashboard(refresh: bool = False):
+        try:
+            return runtime.dashboard(refresh=refresh)
+        except Exception:
+            log.exception("dashboard failed")
+            raise HTTPException(status_code=503, detail="The dashboard sources are unavailable.") from None
 
     @app.get("/api/examples")
     def examples():
