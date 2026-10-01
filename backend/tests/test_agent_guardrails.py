@@ -12,12 +12,18 @@ from citi_project.services.agents.tools import ApprovedTools, CanonicalResolver,
 @pytest.mark.parametrize("mode,category", [
     ("context", None), ("decline", "all_specialists_declined"),
     ("portfolio", "vendor_scope_missing"), ("wrong_vendor", "vendor_not_resolved"),
-    ("guessed_mention", "entity_not_mentioned"), ("invented_date", "invented_scope"),
+    ("canonical_id", None), ("unresolved_id", "entity_not_mentioned"),
+    ("invented_id", "entity_not_mentioned"), ("unmentioned_name", "entity_not_mentioned"),
+    ("invented_date", "invented_scope"),
 ])
 def test_aurelix_renewal_diagnostics(decision, caplog, mode, category):
     import logging
 
     question = "Should we renew Aurelix Codeworks?"
+    resolver = CanonicalResolver(decision.structured)
+    assert resolver.explicit(question) == ["V-001"]
+    assert resolver.resolve("V-002") == "V-002"
+    assert "V-999" not in {v["vendor_id"] for v in resolver.catalog}
     routing = route(["renewal"], "Aurelix Codeworks", "renewal")
     calls = [call("get_renewal_context", vendor_id="V-001")]
     if mode == "decline":
@@ -26,13 +32,20 @@ def test_aurelix_renewal_diagnostics(decision, caplog, mode, category):
         calls = [call("get_renewal_priorities", days=90)]
     elif mode == "wrong_vendor":
         calls[0]["arguments"]["vendor_id"] = "V-002"
-    elif mode == "guessed_mention":
+    elif mode == "canonical_id":
         routing["entity_mentions"] = ["V-001"]
+    elif mode == "unresolved_id":
+        routing["entity_mentions"] = ["V-002"]
+    elif mode == "invented_id":
+        routing["entity_mentions"] = ["V-999"]
+    elif mode == "unmentioned_name":
+        routing["entity_mentions"] = ["Velmora Cloud Operations"]
     elif mode == "invented_date":
         calls[0]["arguments"]["as_of_date"] = "2030-01-01"
     with caplog.at_level(logging.INFO, logger="citi_project.services.agents"):
         result = SupervisorAgent(decision, ScriptedModel(routing, calls)).ask(question)
     assert result["status"] == ("answered" if category is None else "clarification")
+    assert result["route"] == routing
     assert "specialists=['renewal']" in caplog.text
     assert "status=resolved vendor_id=V-001" in caplog.text
     if category:

@@ -216,6 +216,10 @@ class Orchestrator:
         session = state["session"]
         active = session.active_vendor_id
         for mention in route["entity_mentions"]:
+            # A router may echo the canonical ID instead of the name in the question.
+            # Trust only IDs resolved from the question, never model-added entities.
+            if mention in state["explicit"]:
+                continue
             if not _mentioned(mention, question):
                 # The router often echoes the session's vendor for a follow-up ('this vendor'); that is the
                 # active entity, not an invented one. Any other unmentioned vendor is still rejected.
