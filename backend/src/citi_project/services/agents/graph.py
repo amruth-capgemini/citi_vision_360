@@ -20,6 +20,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Send
 
 from . import prompts
+from .diagnostics import failure as log_failure, log
 from .contracts import (AgentError, ConversationState, ModelError, ROUTE_SCHEMA, SPECIALISTS, SPECIALIST_CONCEPTS, SPECIALIST_OBJECTIVES,
                         SpecialistDeclined, synthesis_schema, validate)
 from .grounding import build_grounding, model_context, render, render_narrative, verify_narrative
@@ -55,6 +56,7 @@ def _stop(code, status=None, **extra):
 
 
 def _failure(exc):
+    log_failure(exc)
     if isinstance(exc, EntityResolutionError):
         return _stop("vendor_resolution", exc.status, candidates=exc.candidates)
     if isinstance(exc, AgentError):
@@ -200,6 +202,7 @@ class Orchestrator:
             ROUTE_SCHEMA), ROUTE_SCHEMA)
         # The validated route is kept for diagnosis of routing decisions.
         result["intent"], result["route"] = route["focus"], deepcopy(route)
+        log.info("agent_route specialists=%s status=%s", route["specialists"], route["status"])
         detail = {"trace_detail": {"agent": "supervisor", "specialists": route["specialists"], "focus": route["focus"],
                                    "route_status": route["status"]}}
         if route["status"] != "route":
@@ -308,6 +311,7 @@ class Orchestrator:
             prepared = [agent.tools.prepare(name, call, task["question"], task["ids"]) for call in calls]
             entry, detail = (task["index"], prepared, None), {"tools": [c["name"] for c in prepared]}
         except SpecialistDeclined:
+            log.warning("agent_plan specialist=%s category=specialist_declined", name)
             entry, detail = (task["index"], None, {"declined": name}), {"status": "declined"}
         except Exception as exc:
             entry, detail = (task["index"], None, _failure(exc)), {"status": "rejected"}
@@ -323,6 +327,7 @@ class Orchestrator:
                 return {"stop": failure}
         declined = [failure["declined"] for _, _, failure in plans if failure]
         if len(declined) == len(plans) and not state.get("explore_only"):
+            log.warning("agent_validation_failure category=all_specialists_declined")
             return {"stop": _stop("invalid_plan")}
         notes = list(state.get("notes") or [])
         if declined:

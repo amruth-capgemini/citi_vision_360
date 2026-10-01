@@ -5,6 +5,7 @@ from decimal import Decimal
 import re
 
 from .contracts import AgentError, SPECIALISTS, TOOL_SCHEMAS, validate
+from .diagnostics import log
 from ..structured_data.query_service import NAMESPACE
 
 
@@ -42,8 +43,11 @@ class CanonicalResolver:
         value = mention.strip().casefold()
         exact = [r for r in self.catalog if value in (r["vendor_id"].casefold(), r["vendor_name"].casefold())]
         if len(exact) == 1:
+            log.info("agent_vendor_resolution status=resolved vendor_id=%s", exact[0]["vendor_id"])
             return exact[0]["vendor_id"]
         candidates = exact or [r for r in self.catalog if value and value in r["vendor_name"].casefold()]
+        log.warning("agent_vendor_resolution status=%s candidate_count=%s",
+                    "clarification" if candidates else "not_found", len(candidates))
         raise EntityResolutionError("clarification" if candidates else "not_found", candidates)
 
     def explicit(self, question):
@@ -70,7 +74,13 @@ class ApprovedTools:
     def prepare(self, specialist, call, question, vendor_ids):
         name = call["name"]
         if name not in SPECIALISTS[specialist]:
+            log.warning("agent_tool specialist=%s tool=unapproved category=tool_permission", specialist)
             raise AgentError("Tool is not permitted for this specialist")
+        # Only schema keys are printed; arbitrary model-supplied keys may contain data.
+        keys = call["arguments"] if isinstance(call["arguments"], dict) else {}
+        log.info("agent_tool specialist=%s tool=%s parameter_keys=%s unknown_key_count=%s",
+                 specialist, name, sorted(set(keys) & set(TOOL_SCHEMAS[name]["properties"])),
+                 len(set(keys) - set(TOOL_SCHEMAS[name]["properties"])))
         args = deepcopy(validate(call["arguments"], TOOL_SCHEMAS[name]))
         organizations = set(re.findall(r"\bORG-\d{2}\b", question, re.I))
         if "organization_id" in args and organizations and organizations != {args.get("organization_id")}:

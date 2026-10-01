@@ -9,6 +9,52 @@ from citi_project.services.agents import AgentError, ConversationState, ModelErr
 from citi_project.services.agents.tools import ApprovedTools, CanonicalResolver, EntityResolutionError
 
 
+@pytest.mark.parametrize("mode,category", [
+    ("context", None), ("decline", "all_specialists_declined"),
+    ("portfolio", "vendor_scope_missing"), ("wrong_vendor", "vendor_not_resolved"),
+    ("guessed_mention", "entity_not_mentioned"), ("invented_date", "invented_scope"),
+])
+def test_aurelix_renewal_diagnostics(decision, caplog, mode, category):
+    import logging
+
+    question = "Should we renew Aurelix Codeworks?"
+    routing = route(["renewal"], "Aurelix Codeworks", "renewal")
+    calls = [call("get_renewal_context", vendor_id="V-001")]
+    if mode == "decline":
+        calls = []
+    elif mode == "portfolio":
+        calls = [call("get_renewal_priorities", days=90)]
+    elif mode == "wrong_vendor":
+        calls[0]["arguments"]["vendor_id"] = "V-002"
+    elif mode == "guessed_mention":
+        routing["entity_mentions"] = ["V-001"]
+    elif mode == "invented_date":
+        calls[0]["arguments"]["as_of_date"] = "2030-01-01"
+    with caplog.at_level(logging.INFO, logger="citi_project.services.agents"):
+        result = SupervisorAgent(decision, ScriptedModel(routing, calls)).ask(question)
+    assert result["status"] == ("answered" if category is None else "clarification")
+    assert "specialists=['renewal']" in caplog.text
+    assert "status=resolved vendor_id=V-001" in caplog.text
+    if category:
+        assert f"category={category}" in caplog.text
+        assert not result["tool_results"]
+    else:
+        assert result["resolved_entities"]["vendor_ids"] == ["V-001"]
+        assert "tool=get_renewal_context" in caplog.text
+        assert "parameter_keys=['as_of_date', 'days', 'vendor_id']" in caplog.text
+    assert question not in caplog.text
+    assert "Aurelix Codeworks" not in caplog.text
+    assert "2030-01-01" not in caplog.text
+
+
+def test_diagnostic_exception_payload_is_not_logged(caplog):
+    from citi_project.services.agents.graph import _failure
+
+    _failure(AgentError("private-secret-placeholder"))
+    assert "category=other_boundary_failure" in caplog.text
+    assert "private-secret-placeholder" not in caplog.text
+
+
 @pytest.mark.parametrize("question", ["Delete V-001", "Update the Neo4j data", "Execute Python", "Run Cypher against the graph", "Commit and push", "Overwrite the CSVs"])
 def test_write_and_code_requests_rejected_without_llm(decision, question):
     model = Mock()
