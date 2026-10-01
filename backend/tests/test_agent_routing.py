@@ -16,6 +16,27 @@ from citi_project.services.structured_data import StructuredQueryService
 DATA = Path(__file__).resolve().parents[2] / "initial_plan"
 
 
+@pytest.mark.parametrize("question,vendor,tool", [
+    ("Should we renew Aurelix Codeworks?", "V-001", "get_renewal_context"),
+    ("Which contracts expire in the next 90 days?", None, "get_renewal_priorities"),
+    ("What renewals should we prioritize?", None, "get_renewal_priorities"),
+])
+def test_renewal_planning_tools_follow_resolved_scope(decision, question, vendor, tool):
+    from citi_project.services.agents.contracts import validate
+
+    args = {"vendor_id": vendor} if vendor else {"days": 90}
+    model = ScriptedModel(route(["renewal"], vendor, "renewal"), [call(tool, **args)])
+    result = SupervisorAgent(decision, model).ask(question)
+    assert result["status"] == "answered"
+    assert [r["tool"] for r in result["tool_results"]] == [tool]
+    if vendor:
+        assert result["tool_results"][0]["arguments"]["vendor_id"] == "V-001"
+    _, payload, schema = next(r for r in model.requests if r[0] == "renewal")
+    assert payload["resolved_vendor_ids"] == ([vendor] if vendor else [])
+    assert payload["allowed_tools"] == (["get_renewal_context"] if vendor else list(SPECIALISTS["renewal"]))
+    assert validate({"status": "ready", "calls": [call(tool, **args)]}, schema)
+
+
 @pytest.fixture
 def decision():
     structured = StructuredQueryService(DATA)

@@ -11,7 +11,7 @@ from citi_project.services.agents.tools import ApprovedTools, CanonicalResolver,
 
 @pytest.mark.parametrize("mode,category", [
     ("context", None), ("decline", "all_specialists_declined"),
-    ("portfolio", "vendor_scope_missing"), ("wrong_vendor", "vendor_not_resolved"),
+    ("portfolio", "all_specialists_declined"), ("wrong_vendor", "vendor_not_resolved"),
     ("canonical_id", None), ("unresolved_id", "entity_not_mentioned"),
     ("invented_id", "entity_not_mentioned"), ("unmentioned_name", "entity_not_mentioned"),
     ("invented_date", "invented_scope"),
@@ -66,6 +66,21 @@ def test_diagnostic_exception_payload_is_not_logged(caplog):
     _failure(AgentError("private-secret-placeholder"))
     assert "category=other_boundary_failure" in caplog.text
     assert "private-secret-placeholder" not in caplog.text
+
+
+def test_vendor_scope_still_rejects_portfolio_renewal_tool(decision):
+    with pytest.raises(AgentError, match="cannot silently expand to a portfolio"):
+        ApprovedTools(decision).prepare("renewal", call("get_renewal_priorities", days=90),
+                                        "Should we renew Aurelix Codeworks?", ["V-001"])
+
+
+def test_renewal_planner_rejects_model_ignoring_scoped_tools():
+    from citi_project.services.agents.supervisor import SpecialistAgent
+
+    model = Mock()
+    model.complete.return_value = {"status": "ready", "calls": [call("get_renewal_priorities", days=90)]}
+    with pytest.raises(AgentError, match="approved schema"):
+        SpecialistAgent("renewal", model).plan("Should we renew Aurelix Codeworks?", ["V-001"], "renewal")
 
 
 @pytest.mark.parametrize("question", ["Delete V-001", "Update the Neo4j data", "Execute Python", "Run Cypher against the graph", "Commit and push", "Overwrite the CSVs"])

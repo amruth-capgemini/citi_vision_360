@@ -115,11 +115,11 @@ TOOL_SCHEMAS = {
 }
 
 
-def plan_schema(specialist):
+def plan_schema(specialist, *, allowed_tools=None):
     return obj({"status": {"type": "string", "enum": ["ready", "clarification"]},
                 "calls": {"type": "array", "maxItems": 4, "items": {"anyOf": [
                     obj({"name": {"type": "string", "enum": [name]}, "arguments": TOOL_SCHEMAS[name]})
-                    for name in SPECIALISTS[specialist]]}}})
+                    for name in (SPECIALISTS[specialist] if allowed_tools is None else allowed_tools)]}}})
 
 
 def synthesis_schema(card_ids):

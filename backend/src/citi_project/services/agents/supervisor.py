@@ -21,11 +21,16 @@ class SpecialistAgent:
         self.name, self.model = name, model
 
     def plan(self, question, vendor_ids, focus):
-        schema = plan_schema(self.name)
+        allowed_tools = SPECIALISTS[self.name]
+        # A single resolved vendor needs context, never a portfolio priority list.
+        # Constrain structured output as well as the advertised tool choices.
+        if self.name == "renewal" and len(vendor_ids) == 1:
+            allowed_tools = ("get_renewal_context",)
+        schema = plan_schema(self.name, allowed_tools=allowed_tools)
         result = validate(self.model.complete(
             self.name, prompts.SPECIALIST,
             {"prompt_version": prompts.PROMPT_VERSION, "specialist": self.name, "question": question,
-             "resolved_vendor_ids": vendor_ids, "focus": focus, "allowed_tools": list(SPECIALISTS[self.name])}, schema), schema)
+             "resolved_vendor_ids": vendor_ids, "focus": focus, "allowed_tools": list(allowed_tools)}, schema), schema)
         if result["status"] != "ready" or not result["calls"]:
             raise SpecialistDeclined("Specialist requires clearer scope or scenario parameters")
         return result["calls"]
