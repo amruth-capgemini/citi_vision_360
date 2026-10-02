@@ -47,7 +47,7 @@ export function fromTrace(trace: TraceEntry[]): TimelineItem[] {
 
 const LABELS: Record<string, string> = {
   guard: "Input guard",
-  route: "Supervisor routes the question",
+  understand: "Supervisor understands the question",
   resolve: "Resolve vendors",
   plan: "Plan tool calls",
   validate: "Validate plans",
@@ -55,6 +55,7 @@ const LABELS: Record<string, string> = {
   execute: "Certified tools done",
   explore: "Source explorer",
   verify: "Verify coverage",
+  diagnose: "Check what was asked against what was found",
   ground: "Ground facts & evidence",
   synthesize: "Write the answer",
   stop: "Stopped",
@@ -68,8 +69,15 @@ export function label(item: TimelineItem): string {
 export function detail(item: TimelineItem): string {
   const e = item.entry ?? ({} as TraceEntry);
   switch (item.node) {
-    case "route":
-      return `${(e.specialists as string[] | undefined)?.join(", ") ?? ""} · focus ${e.focus ?? "-"} · ${e.route_status ?? ""}`;
+    case "understand": {
+      const asked = (e.requested as string[] | undefined) ?? [];
+      return `${(e.specialists as string[] | undefined)?.join(", ") ?? ""} · ${e.scope ?? "-"} · focus ${e.focus ?? "-"}` +
+        `${asked.length ? ` · asks ${asked.join(", ")}` : ""} · ${e.route_status ?? ""}`;
+    }
+    case "diagnose": {
+      const missing = (e.missing as string[] | undefined) ?? [];
+      return e.reason ? `nothing found (${e.reason})` : missing.length ? `not found: ${missing.join(", ")}` : "requested data covered";
+    }
     case "resolve": {
       const ids = (e.vendor_ids as string[] | undefined) ?? [];
       const only = e.explore_only as string[] | undefined;

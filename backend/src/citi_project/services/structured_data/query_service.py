@@ -377,6 +377,13 @@ class StructuredQueryService:
         return self._response(vendor_id, "vendor_forecast", {"records": [{k: v for k, v in self._public(r).items() if k != "Scenario_Note"} for r in rows]}, [("forecast", r) for r in rows],
             notes)
 
+    def list_forecast_records(self):
+        """Every vendor's forecast record (spend, risk, SLA, VRM), for portfolio views."""
+        rows = sorted(self._tables["forecast"], key=lambda r: (r["Vendor_ID"], r["Contract_ID"]))
+        return self._response(None, "portfolio_forecast", {"records": [{k: v for k, v in self._public(r).items() if k != "Scenario_Note"} for r in rows]},
+            [("forecast", r) for r in rows],
+            [{"code": "duplicate_spend_representation", "message": "Forecast CSV and financial Forecast represent the same modeled spend; do not add them."}])
+
     def get_vendor_application_bridge(self, vendor_id):
         rows = self._rows("applications", vendor_id)
         return self._response(vendor_id, "vendor_application_bridge", {"applications": [self._public(r) for r in rows]}, [("applications", r) for r in rows])

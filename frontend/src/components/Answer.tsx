@@ -1,4 +1,4 @@
-import { CircleAlertIcon, InfoIcon } from "lucide-react";
+import { CircleAlertIcon, InfoIcon, SearchCheckIcon } from "lucide-react";
 import type { ChatResponse } from "../api";
 import { flagText, noteText } from "../api";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -49,6 +49,8 @@ export function Answer({ result, onFact }: Props) {
         <p className="leading-relaxed whitespace-pre-wrap">{result.status === "answered" ? stripNotes(result.final_answer) : result.final_answer}</p>
       )}
 
+      <Interpretation result={result} />
+
       {result.specialists_used.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
           <span>Agents used</span>
@@ -88,6 +90,30 @@ export function Answer({ result, onFact }: Props) {
   );
 }
 
+/** How the supervisor read an answered question: its interpretation, any assumption, and requested data it could not find.
+ *  A stopped question already explains itself in its message, so nothing is repeated here. */
+export function Interpretation({ result }: { result: ChatResponse }) {
+  const u = result.status === "answered" ? result.understanding : null;
+  if (!u) return null;
+  const restated = u.standalone_question && u.standalone_question.trim().toLowerCase() !== result.question.trim().toLowerCase();
+  if (!restated && !u.assumption && u.notes.length === 0) return null;
+  return (
+    <Alert>
+      <SearchCheckIcon />
+      <AlertTitle>How the question was read</AlertTitle>
+      <AlertDescription>
+        <ul className="ml-4 list-disc">
+          {restated && <li>Understood as: “{u.standalone_question}”</li>}
+          {u.assumption && <li>{u.assumption}</li>}
+          {u.notes.map((n, i) => (
+            <li key={i}>{n}</li>
+          ))}
+        </ul>
+      </AlertDescription>
+    </Alert>
+  );
+}
+
 /** A fact citation chip: hover shows the fact, click opens it in the Evidence tab. */
 function Cite({ id, text, onClick }: { id: string; text?: string; onClick: () => void }) {
   const chip = (
@@ -108,12 +134,12 @@ function Cite({ id, text, onClick }: { id: string; text?: string; onClick: () =>
 const INTERNAL = new Set(["exploration_rows", "answer_examples"]);
 
 // Citations are the host's: any the model wrote into its text are replaced by the checked chips.
-function stripCitations(text: string) {
+export function stripCitations(text: string) {
   return text.replace(/\s*\[(?:[FET]\d+(?:,\s*)?)+\]/g, "").trim();
 }
 
 // The host-rendered answer appends limitations as text; they are shown in their own callout instead.
-function stripNotes(text: string) {
+export function stripNotes(text: string) {
   const cut = text.search(/\nNotes:/);
   return cut > 0 ? text.slice(0, cut) : text;
 }

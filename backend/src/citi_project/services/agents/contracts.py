@@ -7,7 +7,14 @@ from jsonschema import Draft202012Validator
 
 
 class AgentError(ValueError):
-    """Sanitized agent boundary error; never contains model/backend payloads."""
+    """Sanitized agent boundary error; never contains model/backend payloads.
+
+    reason is a short code for why the request could not proceed (shown to the user with an
+    explanation); detail is host-generated text, never model or backend output."""
+
+    def __init__(self, message, *, reason=None, detail=None):
+        super().__init__(message)
+        self.reason, self.detail = reason, detail
 
 
 class ModelError(RuntimeError):
@@ -80,13 +87,20 @@ SPECIALIST_OBJECTIVES = {
     "what_if": "Find workforce context: assignments by country, worker type, role and the contracts they are under.",
 }
 
-# Strict structured output generates properties in order: status is last so the
-# model commits to focus, specialists and mentions before deciding actionability.
-ROUTE_SCHEMA = obj({
-    "focus": {"type": "string", "enum": ["overview", "workforce", "renewal", "risk", "dependencies", "spend", "scenario", "rationalization"]},
+# Strict structured output generates properties in order: the model first states what it
+# understood (entities, scope, what is asked for, a standalone rewrite), then routes, and
+# decides actionability (status) last.
+FOCUSES = ["overview", "workforce", "renewal", "risk", "dependencies", "spend", "scenario", "rationalization"]
+INTENT_SCHEMA = obj({
+    "entities": {"type": "array", "maxItems": 6, "items": obj({
+        "type": {"type": "string", "maxLength": 60}, "mention": {"type": "string", "maxLength": 160}})},
+    "scope": {"type": "string", "enum": ["focus", "named", "portfolio"]},
+    "requested": {"type": "array", "items": {"type": "string", "maxLength": 80}, "maxItems": 6},
+    "standalone_question": {"type": "string", "maxLength": 600},
+    "assumption": nullable("string", maxLength=300),
+    "clarifying_question": nullable("string", maxLength=300),
+    "focus": {"type": "string", "enum": FOCUSES},
     "specialists": {"type": "array", "items": {"type": "string", "enum": list(SPECIALISTS)}, "maxItems": 6},
-    "entity_mentions": {"type": "array", "items": {"type": "string", "maxLength": 160}, "maxItems": 4},
-    "use_active_entity": {"type": "boolean"},
     "status": {"type": "string", "enum": ["route", "clarification", "unsupported"]},
 })
 

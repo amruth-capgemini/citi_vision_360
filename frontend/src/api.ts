@@ -107,9 +107,23 @@ export interface ChatResponse {
   sources_used: SourceUsed[];
   selected_fact_ids?: string[] | null;
   resolved_entities?: Record<string, unknown> | null;
+  understanding?: Understanding | null;
   trace: TraceEntry[];
   memory?: Memory;
   evidence_view: { agents: AgentView[]; tool_calls: ToolCallView[]; queries: QueryView[] };
+}
+
+/** How the supervisor read the question (backend graph.Orchestrator.understand), and why it stopped if it did. */
+export interface Understanding {
+  standalone_question: string;
+  scope: "focus" | "named" | "portfolio";
+  entities: { type: string; mention: string }[];
+  requested: { concept: string; type: string | null; attribute: string | null; recorded: boolean | null; restricted: boolean }[];
+  assumption: string | null;
+  clarifying_question: string | null;
+  notes: string[];
+  reason?: string;
+  explanation?: string | null;
 }
 
 /** What the session remembers after a turn (backend ConversationState.context). */
@@ -128,6 +142,77 @@ export interface CatalogSummary {
   systems: { system: string; datasets: number; rows: number }[];
   datasets: { dataset: string; system: string; rows: number | null; grain: string | null; fields: number; domains: string[] }[];
   domains: { domain: string; datasets: string[] }[];
+}
+
+/** Mirrors backend/src/citi_project/api/dashboard.py. Money fields are exact USD decimal strings. */
+export type Attention = "expired" | "past_notice" | "notice_due" | "expiring" | "on_track";
+
+export interface Variance {
+  amount: string;
+  percent: string | null;
+}
+
+export interface DashboardContract {
+  vendor_id: string;
+  vendor_name: string | null;
+  contract_id: string;
+  description: string | null;
+  organization: string | null;
+  end_date: string | null;
+  days_to_expiry: number | null;
+  renewal_decision_date: string | null;
+  days_to_decision: number | null;
+  notice_days: number | null;
+  automatic_renewal: boolean | null;
+  attention: Attention;
+  risk_tier: string | null;
+  risk_assessment_status: string | null;
+  risk_assessment_date: string | null;
+  vrm_status: string | null;
+  sla: { period: string | null; actual_percent: string | null; target_percent: string | null; breach: boolean };
+  budget_2026: string | null;
+  forecast_2026: string | null;
+  actual_ytd_2026: string | null;
+  forecast_variance: Variance | null;
+  warning: string | null;
+  source: { dataset: string; record_id: string | null; renewal_terms: string | null };
+}
+
+export interface ReviewItem {
+  vendor_id: string;
+  vendor_name: string | null;
+  contract_id: string;
+  priority: "high" | "medium";
+  status: "draft";
+  reasons: string[];
+  actions: string[];
+  headline: string;
+}
+
+export interface Dashboard {
+  as_of_date: string;
+  scanned_at: string;
+  attention_days: number;
+  totals: {
+    vendors: number;
+    contracts: number;
+    budget_2026: string;
+    forecast_2026: string;
+    actual_ytd_2026: string;
+    forecast_variance: Variance | null;
+    past_notice: number;
+    decisions_due: number;
+    expiring: number;
+    high_risk: number;
+    missing_assessment: number;
+    sla_breaches: number;
+    over_budget: number;
+    in_review: number;
+  };
+  contracts: DashboardContract[];
+  review: ReviewItem[];
+  sources: string[];
+  limitations: Note[];
 }
 
 export async function getJson<T>(path: string): Promise<T> {

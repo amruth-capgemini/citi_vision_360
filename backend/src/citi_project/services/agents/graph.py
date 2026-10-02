@@ -1,12 +1,18 @@
 """LangGraph orchestration of the supervisor, specialists, certified tools and explorers.
 
-    guard -> route -> resolve -> plan (one node per specialist, in parallel) -> validate
+    guard -> understand -> resolve -> plan (one node per specialist, in parallel) -> validate
           -> execute (certified tools) -> explore (one explorer per specialist, in parallel)
-          -> verify (re-delegates concept gaps once) -> ground -> synthesize -> render
+          -> verify (re-delegates concept gaps once) -> diagnose -> ground -> synthesize
 
-Early stops go to a single ``stop`` node with the same statuses and messages as the
-original sequential supervisor. Without an explorer the explore and verify stages are
-skipped, so behaviour is exactly the certified path.
+``understand`` reads the question against the data model (the ontology digest) and the
+conversation: typed entities, the scope, what is asked for and a standalone rewrite.
+``diagnose`` checks what was asked for against what came back and the data model: data
+the model does not record is reported, not invented; when nothing came back at all the
+question is clarified, with the reason, before any deeper search.
+
+Early stops go to a single ``stop`` node, which explains what was understood, why the
+question could not proceed and what is missing. Without an explorer the explore and
+verify stages are skipped, so behaviour is exactly the certified path.
 """
 
 from copy import deepcopy
@@ -20,7 +26,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Send
 
 from . import prompts
-from .contracts import (AgentError, ConversationState, ModelError, ROUTE_SCHEMA, SPECIALISTS, SPECIALIST_CONCEPTS, SPECIALIST_OBJECTIVES,
+from .contracts import (AgentError, ConversationState, INTENT_SCHEMA, ModelError, SPECIALISTS, SPECIALIST_CONCEPTS, SPECIALIST_OBJECTIVES,
                         SpecialistDeclined, synthesis_schema, validate)
 from .grounding import build_grounding, model_context, render, render_narrative, verify_narrative
 from .tools import EntityResolutionError, _mentioned, unsupported_action
@@ -32,7 +38,7 @@ MESSAGES = {
     "unsupported_action": ("unsupported", "This POC supports read-only business context and hypothetical scenarios, not writes or code execution."),
     "route_not_actionable": (None, "Please specify a supported business question and the required vendor or scenario scope."),
     "vendor_resolution": (None, "Provide a canonical Vendor_ID or Contract_ID, or an exact, unambiguous vendor name."),
-    "invalid_plan": ("clarification", "The requested entities or tool parameters could not be validated. Specify the vendor and any scenario percentage/count and target explicitly."),
+    "invalid_plan": ("clarification", "I could not turn this question into a valid lookup."),
     "vendor_required": ("clarification", "This question needs a named vendor when source exploration is off. Name a vendor (e.g. V-001), "
                         "or ask a portfolio question such as contract expiries."),
     "no_evidence": ("not_found", "No certified or source rows were found for this question; nothing is inferred."),
@@ -46,7 +52,52 @@ CONTEXT_QUESTION = re.compile(r"\b(which|what|who)\b[^?]{0,40}\b(vendor|supplier
 # An explicit reference to the entity already in focus. 'their' is left to the router: "which vendors
 # breached their SLAs?" is a portfolio question, not a follow-up.
 FOLLOW_UP = re.compile(r"\b(this|that|the same|same)\s+(vendor|supplier|contract|agreement|company)\b|\bits\b", re.I)
+# A mention that only points back at the focus ('this vendor', 'it', 'them') is a reference, not a vendor name.
+REFERENCE = re.compile(r"^(?:(?:this|that|the|same|the same|our|current|active)\s+)?(?:vendor|supplier|company|contract|agreement|one)s?$"
+                       r"|^(?:it|its|they|them|their|this|that)$", re.I)
 VENDOR_SCOPED = ("vendor360", "risk_dependency", "spend_forecast")
+# Why a question could not proceed, in words; detail is host-generated (an ID, a parameter, specialist names).
+REASONS = {
+    "mention_not_in_question": "I took it to be about {detail}, but that vendor is not named in the question and is not the vendor in focus.",
+    "specialists_declined": "{detail} found nothing to look up for it with the certified tools.",
+    "parameter_not_given": "Answering it needs {detail}, which the question does not state.",
+    "scope_not_preserved": "The plan did not keep the scope you gave ({detail}).",
+    "tool_not_permitted": "The plan asked a specialist to use a tool it is not permitted to use.",
+    "plan_incomplete": "The plan did not cover every vendor in the question.",
+    "too_broad": "Answering it would take more tool calls than one question is allowed.",
+    "unknown_vendor": "'{detail}' does not match a vendor ID, contract ID or exact vendor name in the canonical catalog.",
+    "ambiguous_vendor": "'{detail}' matches more than one vendor.",
+    "unknown_contract": "{detail} is not a contract in the canonical master.",
+    "no_rows": "No certified tool or source query returned anything for it.",
+}
+
+
+SPECIALIST_LABELS = {"vendor360": "The vendor 360 specialist", "renewal": "The renewal specialist",
+                     "risk_dependency": "The risk and dependency specialist", "rationalization": "The rationalization specialist",
+                     "spend_forecast": "The spend and forecast specialist", "what_if": "The scenario specialist"}
+
+
+def _names(specialists):
+    labels = [SPECIALIST_LABELS.get(n, n) for n in specialists]
+    if len(labels) > 1:
+        labels = [labels[0]] + [label[0].lower() + label[1:] for label in labels[1:]]
+    return labels[0] if len(labels) == 1 else ", ".join(labels[:-1]) + " and " + labels[-1]
+
+
+# Field names too generic to say whose attribute they are.
+GENERIC_FIELDS = frozenset({"name", "status", "id", "type", "role", "period", "date", "value"})
+
+
+def _keys(value, into):
+    """Every dict key in a nested fact structure, case-folded."""
+    if isinstance(value, dict):
+        for key, item in value.items():
+            into.add(str(key).casefold())
+            _keys(item, into)
+    elif isinstance(value, list):
+        for item in value:
+            _keys(item, into)
+    return into
 
 
 def _stop(code, status=None, **extra):
@@ -56,9 +107,9 @@ def _stop(code, status=None, **extra):
 
 def _failure(exc):
     if isinstance(exc, EntityResolutionError):
-        return _stop("vendor_resolution", exc.status, candidates=exc.candidates)
+        return _stop("vendor_resolution", exc.status, candidates=exc.candidates, reason=exc.reason, detail=exc.detail)
     if isinstance(exc, AgentError):
-        return _stop("invalid_plan")
+        return _stop("invalid_plan", reason=exc.reason, detail=exc.detail)
     if isinstance(exc, ModelError):
         # ModelError messages are defined by the adapter, not raw API errors.
         return _stop("model_unavailable")
@@ -86,6 +137,7 @@ class RunState(TypedDict, total=False):
     result: dict
     final_answer: str
     explicit: list
+    understanding: dict
     ids: list
     contracts: list
     specialists: list
@@ -120,8 +172,8 @@ class Orchestrator:
     def __init__(self, agent):
         self.agent = agent
         g = StateGraph(RunState, input_schema=AskInput, output_schema=AskOutput)
-        for name, fn in (("guard", self.guard), ("route", self.route), ("resolve", self.resolve), ("validate", self.validate),
-                         ("execute", self.execute), ("verify", self.verify), ("ground", self.ground),
+        for name, fn in (("guard", self.guard), ("understand", self.understand), ("resolve", self.resolve), ("validate", self.validate),
+                         ("execute", self.execute), ("verify", self.verify), ("diagnose", self.diagnose), ("ground", self.ground),
                          ("synthesize", self.synthesize), ("stop", self.stop)):
             g.add_node(name, _node(name, fn))
         # One planning node and one explorer sub-graph per specialist, so each sub-agent is its own
@@ -135,12 +187,13 @@ class Orchestrator:
             g.add_node(node, agent.explorer.graph)
             g.add_edge(node, "verify")
         g.add_edge(START, "guard")
-        g.add_conditional_edges("guard", self._next("route"), ["route", "stop"])
-        g.add_conditional_edges("route", self._next("resolve"), ["resolve", "stop"])
+        g.add_conditional_edges("guard", self._next("understand"), ["understand", "stop"])
+        g.add_conditional_edges("understand", self._next("resolve"), ["resolve", "stop"])
         g.add_conditional_edges("resolve", self.dispatch_plans, [*plans, "validate", "stop"])
         g.add_conditional_edges("validate", self._next("execute"), ["execute", "stop"])
-        g.add_conditional_edges("execute", self.dispatch_explorers, [*explorers, "ground", "stop"])
-        g.add_conditional_edges("verify", self.dispatch_gaps, [*explorers, "ground"])
+        g.add_conditional_edges("execute", self.dispatch_explorers, [*explorers, "diagnose", "stop"])
+        g.add_conditional_edges("verify", self.dispatch_gaps, [*explorers, "diagnose"])
+        g.add_conditional_edges("diagnose", self._next("ground"), ["ground", "stop"])
         g.add_conditional_edges("ground", self._next("synthesize"), ["synthesize", "stop"])
         g.add_conditional_edges("synthesize", lambda state: "stop" if state.get("stop") else END, ["stop", END])
         g.add_edge("stop", END)
@@ -191,38 +244,72 @@ class Orchestrator:
             return {**start, "stop": _stop("unsupported_action")}
         return start
 
-    def route(self, state):
-        agent, question, result = self.agent, state["question"], state["result"]
+    def understand(self, state):
+        agent, question, result, session = self.agent, state["question"], state["result"], state["session"]
         explicit = agent.resolver.explicit(question)
-        route = validate(agent.model.complete("supervisor_route", prompts.SUPERVISOR,
+        intent = validate(agent.model.complete("supervisor_understand", prompts.UNDERSTAND,
             {"prompt_version": prompts.PROMPT_VERSION, "question": question, "canonical_vendors": agent.resolver.catalog,
-             "active_vendor_id": state["session"].active_vendor_id, "conversation": state["session"].context()},
-            ROUTE_SCHEMA), ROUTE_SCHEMA)
-        # The validated route is kept for diagnosis of routing decisions.
-        result["intent"], result["route"] = route["focus"], deepcopy(route)
-        detail = {"trace_detail": {"agent": "supervisor", "specialists": route["specialists"], "focus": route["focus"],
-                                   "route_status": route["status"]}}
-        if route["status"] != "route":
-            return {"stop": _stop("route_not_actionable", route["status"]), **detail}
-        return {"explicit": explicit, **detail}
+             "data_model": agent.digest.summary(), "ids_in_question": agent.digest.identifiers(question),
+             "conversation": session.context()},
+            INTENT_SCHEMA), INTENT_SCHEMA)
+        # The validated intent is kept for diagnosis of routing decisions.
+        result["intent"], result["route"] = intent["focus"], deepcopy(intent)
+        understanding = self._understanding(question, intent)
+        result["understanding"] = understanding
+        detail = {"trace_detail": {"agent": "supervisor", "specialists": intent["specialists"], "focus": intent["focus"],
+                                   "route_status": intent["status"], "scope": intent["scope"],
+                                   "understood": understanding["standalone_question"],
+                                   "requested": [r["concept"] for r in understanding["requested"]],
+                                   "entities": [f"{e['type']}:{e['mention']}" for e in understanding["entities"]]}}
+        if intent["status"] != "route":
+            return {"stop": _stop("route_not_actionable", intent["status"]), "understanding": understanding, **detail}
+        return {"explicit": explicit, "understanding": understanding, **detail}
+
+    def _understanding(self, question, intent):
+        """The model's reading, with every entity typed against the data model: an ID's format decides its
+        type over the model's label, and IDs the model left out are added from the question."""
+        digest, entities, seen = self.agent.digest, [], set()
+        for entity in intent["entities"]:
+            mention = " ".join(entity["mention"].split())
+            by_format = digest.classify(mention)
+            kind = by_format[0] if by_format else digest.entity_type(entity["type"]) or entity["type"]
+            if mention and mention.casefold() not in seen:
+                seen.add(mention.casefold())
+                entities.append({"type": kind, "mention": mention})
+        for item in digest.identifiers(question):
+            if item["id"].casefold() not in seen:
+                seen.add(item["id"].casefold())
+                entities.append({"type": item["type"], "mention": item["id"]})
+        requested = list({r["concept"]: r for r in map(digest.concept, intent["requested"])}.values())
+        return {"standalone_question": " ".join(intent["standalone_question"].split()) or question, "scope": intent["scope"],
+                "entities": entities, "requested": requested, "assumption": intent["assumption"],
+                "clarifying_question": intent["clarifying_question"], "notes": []}
 
     def resolve(self, state):
         agent, question, result = self.agent, state["question"], state["result"]
-        route = result["route"]
+        understanding = state["understanding"]
         ids = set(state["explicit"])
         session = state["session"]
         active = session.active_vendor_id
-        for mention in route["entity_mentions"]:
+        # Only vendors resolve against the vendor catalog; contracts resolve through the master below, and
+        # every other entity (organization, application, product ...) is a lookup hint, never a vendor.
+        echoed = False
+        for mention in [e["mention"] for e in understanding["entities"] if e["type"] == "Vendor"]:
+            if REFERENCE.match(mention.strip()):
+                echoed = True
+                continue
             if not _mentioned(mention, question):
-                # The router often echoes the session's vendor for a follow-up ('this vendor'); that is the
-                # active entity, not an invented one. Any other unmentioned vendor is still rejected.
-                if route["use_active_entity"] and active and self._same_vendor(mention, active):
+                # The model often echoes the vendor in focus for a follow-up ('are there any application
+                # names?'); that is the active entity, not an invented one. Any other unmentioned vendor is rejected.
+                if active and self._same_vendor(mention, active):
+                    echoed = True
                     continue
-                raise AgentError("Model entity mention was not present in the question")
+                raise AgentError("Model entity mention was not present in the question", reason="mention_not_in_question",
+                                 detail=self._vendor_label(mention))
             ids.add(agent.resolver.resolve(mention))
-        # A follow-up ('this contract', 'its') falls back to the session's focus when nothing new is named;
-        # a new vendor or contract always overrides history.
-        follow_up = not ids and bool(active) and (route["use_active_entity"] or bool(FOLLOW_UP.search(question)))
+        # A follow-up ('this contract', 'its', or an elliptical question about the same vendor) falls back to
+        # the session's focus when nothing new is named; a new vendor or contract always overrides history.
+        follow_up = not ids and bool(active) and (understanding["scope"] == "focus" or echoed or bool(FOLLOW_UP.search(question)))
         if follow_up:
             ids.add(agent.resolver.resolve(active))
         ids = sorted(ids)
@@ -230,10 +317,11 @@ class Orchestrator:
         if not contracts and follow_up and session.active_contract_id:
             contracts = [session.active_contract_id]
         result["resolved_entities"] = {"vendor_ids": ids, "contract_ids": contracts,
-                                       "resolution": "session follow-up" if follow_up else "canonical exact match (vendor or contract ID)"}
-        names = route["specialists"]
+                                       "resolution": "session follow-up" if follow_up else "canonical exact match (vendor or contract ID)",
+                                       "references": [e for e in understanding["entities"] if e["type"] not in ("Vendor", "Contract")]}
+        names = result["route"]["specialists"]
         if not names or len(names) != len(set(names)):
-            raise AgentError("Invalid specialist selection")
+            raise AgentError("Invalid specialist selection", reason="specialists_declined", detail="No specialist")
         notes, explore_only = [], []
         vendor_scoped = [n for n in names if n in VENDOR_SCOPED]
         if not ids and vendor_scoped:
@@ -297,14 +385,16 @@ class Orchestrator:
         if state.get("stop"):
             return "stop"
         route, skip = state["result"]["route"], set(state.get("explore_only") or ())
-        sends = [Send(f"plan_{name}", {"question": state["question"], "ids": state["ids"], "focus": route["focus"],
+        interpreted = state["understanding"]["standalone_question"]
+        sends = [Send(f"plan_{name}", {"question": state["question"], "interpreted": interpreted, "ids": state["ids"], "focus": route["focus"],
                                "name": name, "index": index}) for index, name in enumerate(state["specialists"]) if name not in skip]
         return sends or "validate"
 
     def plan(self, task):
         agent, name = self.agent, task["name"]
         try:
-            calls = agent.specialists[name].plan(task["question"], task["ids"], task["focus"])
+            calls = agent.specialists[name].plan(task["question"], task["ids"], task["focus"], interpreted=task.get("interpreted"))
+            # Parameters are checked against the user's own words, never the model's rewrite.
             prepared = [agent.tools.prepare(name, call, task["question"], task["ids"]) for call in calls]
             entry, detail = (task["index"], prepared, None), {"tools": [c["name"] for c in prepared]}
         except SpecialistDeclined:
@@ -323,7 +413,7 @@ class Orchestrator:
                 return {"stop": failure}
         declined = [failure["declined"] for _, _, failure in plans if failure]
         if len(declined) == len(plans) and not state.get("explore_only"):
-            return {"stop": _stop("invalid_plan")}
+            return {"stop": _stop("invalid_plan", reason="specialists_declined", detail=_names(declined))}
         notes = list(state.get("notes") or [])
         if declined:
             notes.append({"code": "specialist_declined", "message": f"{', '.join(declined)} found nothing to look up for this "
@@ -332,9 +422,9 @@ class Orchestrator:
         prepared = [call for _, calls, _ in plans if calls for call in calls]
         ids = state["ids"]
         if len(prepared) > agent.max_tool_calls or sum(agent.tools.cost(c) for c in prepared) > agent.max_service_calls:
-            raise AgentError("Request exceeds the tool-call bound")
+            raise AgentError("Request exceeds the tool-call bound", reason="too_broad")
         if ids and {c["arguments"].get("vendor_id") for c in prepared} != set(ids):
-            raise AgentError("Planned tools do not cover all resolved vendors")
+            raise AgentError("Planned tools do not cover all resolved vendors", reason="plan_incomplete")
         signatures = [json.dumps(c, sort_keys=True) for c in prepared]
         if len(signatures) != len(set(signatures)):
             raise AgentError("Duplicate tool calls are not permitted")
@@ -365,19 +455,30 @@ class Orchestrator:
         # Contracts the user named (or the session's contract on a follow-up) come first.
         contracts = list(dict.fromkeys([*(state.get("contracts") or []), *sorted(set(found))]))
         names = state["specialists"]
+        understanding = state["understanding"]
+        requested = self._lookups(understanding)
         return {"task_id": f"{name}-r{round_}", "specialist": name, "index": index, "round": round_,
-                "question": state["question"], "objective": SPECIALIST_OBJECTIVES[name], "vendor_ids": state["ids"],
+                # Explorers read the standalone question, so a follow-up keeps its subject.
+                "question": understanding["standalone_question"], "objective": SPECIALIST_OBJECTIVES[name], "vendor_ids": state["ids"],
                 "scope": "vendor" if state["ids"] else "portfolio",
                 # Date arithmetic is anchored on the data snapshot, never the wall clock.
                 "as_of_date": agent.tools.decision.structured.as_of_date.isoformat(),
                 "contract_ids": contracts[:20], "required_concepts": list(SPECIALIST_CONCEPTS[name]), "gaps": list(gaps),
+                "requested": [r["concept"] for r in requested],
+                "paths": [p for p in (agent.digest.path("Vendor", r["type"]) for r in requested) if p and p != "Vendor"],
+                "anchors": [e["mention"] for e in understanding["entities"] if e["type"] not in ("Vendor", "Contract")][:10],
                 "certified": certified, "query_budget": max(1, agent.max_explore_queries // len(names))}
+
+    @staticmethod
+    def _lookups(understanding):
+        """Requested data a source can hold: declared in the data model and not restricted."""
+        return [r for r in understanding["requested"] if r["recorded"] and not r["restricted"]]
 
     def dispatch_explorers(self, state):
         if state.get("stop"):
             return "stop"
         if self.agent.explorer is None:
-            return "ground"
+            return "diagnose"
         names = state["specialists"]
         return [Send(f"explore_{name}", {"task": self._task(state, name, index, 0)}) for index, name in enumerate(names)]
 
@@ -392,16 +493,94 @@ class Orchestrator:
             covered.setdefault(findings["specialist"], set()).update(findings["concepts_found"])
         gaps = {name: [c for c in SPECIALIST_CONCEPTS[name] if c not in covered.get(name, set())]
                 for name in state["specialists"]}
+        # What the user asked for is a gap until some row holds it; the first specialist looks again.
+        asked = self._missing_requested(state)
+        if asked:
+            first = state["specialists"][0]
+            gaps[first] = list(dict.fromkeys([*gaps.get(first, []), *asked]))
         gaps = {name: missing for name, missing in gaps.items() if missing}
         return {"gaps": gaps, "trace_detail": {"gaps": gaps}}
 
     def dispatch_gaps(self, state):
         rounds = max((f["round"] for f in state.get("findings", [])), default=0)
-        if not state.get("gaps") or rounds >= 1:
-            return "ground"
+        if not state.get("gaps") or rounds >= 1 or not self._anything_found(state):
+            # Nothing found at all is clarified before any deeper search.
+            return "diagnose"
         names = state["specialists"]
         return [Send(f"explore_{name}", {"task": self._task(state, name, names.index(name), 1, missing)})
                 for name, missing in state["gaps"].items()]
+
+    @staticmethod
+    def _anything_found(state):
+        return bool(state["result"]["tool_results"]) or any(f["observations"] for f in state.get("findings", []))
+
+    def _missing_requested(self, state):
+        """Requested attributes (e.g. Application.name) that no certified fact or kept source row holds."""
+        understanding = state.get("understanding") or {}
+        wanted = [r for r in self._lookups(understanding) if r["attribute"]] if understanding else []
+        if not wanted:
+            return []
+        concepts, columns = set(), set()
+        for findings in state.get("findings", []):
+            concepts.update(findings["concepts_found"])
+            for o in findings["observations"]:
+                concepts.update(o.get("concepts", ()))
+                columns.update(str(c).split(".")[-1].casefold() for c in o.get("columns", ()))
+        keys = set()
+        for tool in state["result"]["tool_results"]:
+            if tool["tool"] not in ("run_sql", "run_cypher"):
+                _keys(tool["result"]["facts"], keys)
+        missing = []
+        for r in wanted:
+            names = self._field_names(r)
+            held = any(c.split(".")[0] == r["type"] and c.split(".")[-1].casefold() in names | {r["attribute"].casefold()}
+                       for c in concepts)
+            # A column or fact key only counts when its name says whose attribute it is (application_name, not name).
+            qualified = names - GENERIC_FIELDS
+            if not (held or qualified & columns or qualified & keys):
+                missing.append(r["concept"])
+        return missing
+
+    def _field_names(self, requested):
+        """Source field names that would carry a requested attribute: 'name', 'application_name', 'Application_Name' ..."""
+        kind, attribute = requested["type"], requested["attribute"].casefold()
+        label = self.agent.digest.label(kind).casefold()
+        owners = {re.sub(r"(?<!^)(?=[A-Z])", "_", kind).casefold(), kind.casefold(), label.split()[0], label.replace(" ", "_")}
+        attributes = {attribute} | ({"name"} if attribute.endswith("name") else set())
+        return {f"{o}_{a}" for o in owners for a in attributes} | attributes
+
+    def diagnose(self, state):
+        """Compare what was asked for with the data model and with what came back.
+
+        Data the model does not record is said plainly, never inferred; requested data that exists but
+        was not returned is named with where the data model keeps it; when nothing came back at all
+        the question stops for clarification (with the reason) instead of searching deeper."""
+        result, understanding, digest = state["result"], state["understanding"], self.agent.digest
+        notes = []
+        for r in understanding["requested"]:
+            if r["recorded"] is False:
+                kind = digest.label(r["type"]).lower()
+                held = [p for p, d in digest.registry.properties_for_class(r["type"]).items() if not d.pii]
+                notes.append({"code": "not_recorded", "message": f"The data model records no '{r['attribute']}' for a {kind}, so no source "
+                              f"holds it and nothing is inferred. What is recorded for a {kind}: {', '.join(held)}."})
+            elif r["restricted"]:
+                notes.append({"code": "restricted", "message": f"{digest.label(r['type'])} {r['attribute']} is restricted personal data "
+                              "and is never returned."})
+        missing = self._missing_requested(state)
+        if not self._anything_found(state):
+            return {"stop": _stop("no_evidence", reason="no_rows"), "notes": [*(state.get("notes") or []), *notes],
+                    "trace_detail": {"reason": "no_rows", "missing": missing}}
+        scope = ", ".join(state.get("ids") or []) or "the portfolio"
+        for concept in missing:
+            r = next(x for x in understanding["requested"] if x["concept"] == concept)
+            path = digest.path("Vendor", r["type"])
+            where = f" In the data model, {path}." if path and path != "Vendor" else ""
+            notes.append({"code": "requested_not_found", "message": f"No certified fact or source row returned the {r['attribute'].replace('_', ' ')} "
+                          f"of the {digest.label(r['type']).lower()} for {scope}; nothing is inferred.{where}"})
+        understanding["notes"] = [n["message"] for n in notes]
+        result["understanding"] = understanding
+        return {"notes": [*(state.get("notes") or []), *notes], "understanding": understanding,
+                "trace_detail": {"missing": missing, "notes": [n["code"] for n in notes]}}
 
     # Answer -------------------------------------------------------------------
 
@@ -425,6 +604,9 @@ class Orchestrator:
                     result["specialists_used"].append(findings["specialist"])
         result.update(build_grounding(result["tool_results"]))
         extra[:0] = state.get("notes") or []
+        assumption = (state.get("understanding") or {}).get("assumption")
+        if assumption:
+            extra.insert(0, {"code": "assumption", "message": f"Interpretation: {assumption}"})
         extra.extend(self._contradictions(result["tool_results"]))
         for name, missing in (state.get("gaps") or {}).items():
             extra.append({"code": "coverage_gap", "specialist": name,
@@ -560,7 +742,11 @@ class Orchestrator:
         cards = {c["fact_id"]: c for c in grounding["facts"]}
         required = self._required(result, route, grounding)
         schema = synthesis_schema(list(cards))
+        understanding = state.get("understanding") or {}
         payload = {"prompt_version": prompts.PROMPT_VERSION, "question": question, "focus": route["focus"],
+                   "understanding": {"interpreted_question": understanding.get("standalone_question", question),
+                                     "requested": [r["concept"] for r in understanding.get("requested", ())],
+                                     "not_answered": understanding.get("notes", [])},
                    "required_fact_ids": required, **model_context(grounding)}
         narrative, problems, attempts = None, [], 0
         # The model writes the answer; code checks every value in it against the cited cards,
@@ -619,8 +805,91 @@ class Orchestrator:
                 result.update(build_grounding(result["tool_results"]))
             except Exception:
                 pass  # the stop status and message below still apply; returned tool results are kept as-is
-        result["status"], result["final_answer"] = stop["status"], stop["message"]
+        explanation = self._explain(state, stop) if stop["code"] != "session_context" else None
+        message = stop["message"] if not explanation else f"{stop['message']} {explanation['text']}"
+        result["status"], result["final_answer"] = stop["status"], message
+        if explanation:
+            understanding = result.get("understanding") or {}
+            result["understanding"] = {**understanding, "reason": stop.get("reason") or stop["code"],
+                                       "explanation": explanation["why"], "clarifying_question": explanation["question"]}
         if stop["code"] != "session_context":  # that message is the answer itself, not a limitation
             result["limitations"].append({"code": stop["code"], "message": stop["message"]})
+            for note in state.get("notes") or []:
+                if note not in result["limitations"]:
+                    result["limitations"].append(note)
         self._remember(state, result, stop["code"])
-        return {"final_answer": stop["message"], "trace_detail": {"status": stop["status"], "code": stop["code"]}}
+        return {"final_answer": message, "trace_detail": {"status": stop["status"], "code": stop["code"],
+                                                          **({"reason": stop["reason"]} if stop.get("reason") else {})}}
+
+    def _explain(self, state, stop):
+        """What was understood, why it could not proceed, and the one question that would let it proceed.
+
+        Built by the host from the reason code, the understanding and the data model; the model's own
+        clarifying question is used only when the model itself declined to route."""
+        understanding = state.get("understanding") or {}
+        session, digest = state["session"], self.agent.digest
+        understood = understanding.get("standalone_question")
+        reason, detail = stop.get("reason"), stop.get("detail")
+        if stop["code"] == "vendor_resolution" and not reason:
+            unknown = [c for c in re.findall(r"\bCTR-\d+\b", state.get("question") or "", re.I)
+                       if c.upper() not in self.agent.resolver.contract_vendor]
+            reason, detail = ("unknown_contract", ", ".join(unknown)) if unknown else (
+                "ambiguous_vendor" if stop["status"] == "clarification" else "unknown_vendor", self._unresolved(state))
+        why = REASONS[reason].format(detail=detail or "it") if reason in REASONS else None
+        question = None
+        if stop["code"] == "route_not_actionable":
+            question = understanding.get("clarifying_question")
+        elif stop["code"] == "vendor_resolution":
+            names = [f"{c['vendor_id']} ({c['vendor_name']})" for c in stop.get("candidates", [])[:5]]
+            question = f"Did you mean {', '.join(names[:-1])} or {names[-1]}?" if len(names) > 1 else (
+                f"Did you mean {names[0]}?" if names else "Which vendor did you mean? Give its ID (for example V-001) or exact name.")
+        elif stop["code"] in ("invalid_plan", "no_evidence", "vendor_required"):
+            question = self._what_is_missing(state, understanding, session, digest)
+        if stop["code"] in ("model_unavailable", "tool_unavailable", "invalid_question", "unsupported_action"):
+            return None
+        if not (why or question):
+            return None
+        lead = f"I understood the question as: \"{understood}\"" if understood else ""
+        text = " ".join(part for part in (f"{lead}." if lead else "", why or "", question or "") if part)
+        return {"text": text, "why": why, "question": question}
+
+    def _what_is_missing(self, state, understanding, session, digest):
+        """One precise question from the data model: which entity, and where the data it asks for lives."""
+        requested = [r for r in understanding.get("requested", ()) if r.get("type")]
+        anchors = [e for e in understanding.get("entities", ()) if e["type"] not in ("Vendor", "Contract")]
+        ids = state.get("ids") or []
+        if anchors:
+            anchor = anchors[0]
+            kind = digest.label(anchor["type"]).lower()
+            return (f"I read {anchor['mention']} as {'an' if kind[0] in 'aeiou' else 'a'} {kind}. Is that right, and do you want it on "
+                    f"its own or as it relates to {self._vendor_label(ids[0]) if ids else 'a particular vendor'}?")
+        target = requested[0] if requested else None
+        if target and target["recorded"] is False:
+            return None  # the not-recorded note already says what exists instead
+        what = (f"the {target['attribute'].replace('_', ' ')} of the {digest.label(target['type']).lower()}s"
+                if target and target.get("attribute") else f"the {digest.label(target['type']).lower()}s" if target else "this")
+        path = digest.path("Vendor", target["type"]) if target else None
+        where = f" (in the data model: {path})" if path and path != "Vendor" else ""
+        if ids:
+            return f"Do you want {what} for {self._vendor_label(ids[0])}{where}, or for a specific contract or entity? Name it and I will look again."
+        if session.active_vendor_id:
+            return f"Do you want {what} for {self._vendor_label(session.active_vendor_id)}, the vendor in focus{where}, or across all vendors?"
+        return f"Which vendor or contract should I look at for {what}{where}? Give its ID (for example V-001) or exact name."
+
+    def _vendor_label(self, value):
+        """'V-001 (Aurelix Codeworks)' for a vendor ID or exact name; the value itself otherwise."""
+        value = str(value)
+        row = next((v for v in self.agent.resolver.catalog
+                    if value.casefold() in (v["vendor_id"].casefold(), v["vendor_name"].casefold())), None)
+        return f"{row['vendor_id']} ({row['vendor_name']})" if row else value
+
+    def _unresolved(self, state):
+        """The vendor mention that failed to resolve, for the explanation."""
+        for entity in (state.get("understanding") or {}).get("entities", ()):
+            if entity["type"] == "Vendor":
+                try:
+                    self.agent.resolver.resolve(entity["mention"])
+                except Exception:
+                    return entity["mention"]
+        found = re.findall(r"\bV-\d+\b", state.get("question") or "", re.I)
+        return found[0].upper() if found else None

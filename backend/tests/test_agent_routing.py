@@ -7,7 +7,7 @@ from agent_fakes import DEMOS, ScriptedModel, call, route
 from test_semantic_service import canonical_graph
 from citi_project.services.agents import ConversationState, SupervisorAgent
 from citi_project.services.agents import prompts
-from citi_project.services.agents.contracts import ROUTE_SCHEMA, SPECIALISTS
+from citi_project.services.agents.contracts import INTENT_SCHEMA, SPECIALISTS
 from citi_project.services.agents.openai_model import OpenAIModelConfig
 from citi_project.services.decision_intelligence import DecisionIntelligenceService
 from citi_project.services.semantic_service import VendorSemanticService
@@ -84,22 +84,25 @@ def test_vendor_scoped_rationalization_keeps_only_that_vendors_overlaps(decision
     assert SupervisorAgent(decision, ScriptedModel(routing, loose)).ask("Can we simplify the vendor footprint for V-001?")["status"] == "clarification"
 
 
-def test_route_status_is_decided_last():
-    assert ROUTE_SCHEMA["required"][-1] == "status"
-    assert list(ROUTE_SCHEMA["properties"])[-1] == "status"
+def test_route_status_is_decided_last_after_the_understanding():
+    assert INTENT_SCHEMA["required"][-1] == "status"
+    assert list(INTENT_SCHEMA["properties"])[-1] == "status"
+    order = list(INTENT_SCHEMA["properties"])
+    assert order.index("standalone_question") < order.index("specialists")
 
 
-def test_supervisor_prompt_defines_route_and_examples():
-    assert prompts.PROMPT_VERSION == "decision-agents-v6"
-    assert "What contracts are at major risk?" in prompts.SUPERVISOR
+def test_supervisor_prompt_defines_understanding_route_and_examples():
+    assert prompts.PROMPT_VERSION == "decision-agents-v7"
+    assert "What contracts are at major risk?" in prompts.UNDERSTAND
     assert "copy every number, amount, percentage, date and ID exactly" in prompts.SYNTHESIS
     assert "never\nreturn clarification for a missing vendor" in prompts.SPECIALIST
-    assert "Default to status route" in prompts.SUPERVISOR
+    assert "Default to status route" in prompts.UNDERSTAND
     for question in ("Why is V-005 above budget?", "What if India contractors are reduced by 20%?",
-                     "What do we know about Aurelix Codeworks?"):
-        assert question.split("?")[0] in prompts.SUPERVISOR
+                     "What do we know about Aurelix Codeworks?", "What are the application names under this vendor?"):
+        assert question.split("?")[0] in prompts.UNDERSTAND
     for name in SPECIALISTS:
-        assert f"- {name}:" in prompts.SUPERVISOR
+        assert f"- {name}:" in prompts.UNDERSTAND
+    assert "an ORG-, PROD-, APP-, SVC- or SOW- ID is never a vendor" in prompts.UNDERSTAND
     assert "yourself" in prompts.BOUNDARY
 
 
@@ -180,7 +183,7 @@ def test_session_memory_resolves_contracts_and_follow_ups(decision):
     model.route_result, model.calls = route(["vendor360"], focus="workforce"), [call("get_vendor_360", vendor_id="V-005")]
     follow = supervisor.ask("What are the resources working on this contract?", state=state)
     assert follow["resolved_entities"]["vendor_ids"] == ["V-005"] and follow["resolved_entities"]["contract_ids"] == ["CTR-005"]
-    sent = [p for stage, p, _ in model.requests if stage == "supervisor_route"][-1]["conversation"]
+    sent = [p for stage, p, _ in model.requests if stage == "supervisor_understand"][-1]["conversation"]
     assert sent["active_contract_id"] == "CTR-005" and sent["recent_turns"][0]["question"] == "Is it worth renewing contract CTR-005?"
     # A portfolio question keeps the focus; 'their' in a portfolio question is not a follow-up.
     model.route_result, model.calls = route(["renewal"], focus="renewal"), [call("get_renewal_priorities", days=90)]

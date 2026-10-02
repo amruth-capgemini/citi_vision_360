@@ -9,7 +9,8 @@ import json
 
 EXPLORATION = ("run_sql", "run_cypher")
 CONTRACT = ("status", "final_answer", "facts", "evidence", "flags", "limitations", "specialists_used", "sources_used", "trace")
-EXTRA = ("narrative", "route", "intent", "resolved_entities", "selected_fact_ids", "assumptions", "calculations", "prompt_version")
+EXTRA = ("narrative", "route", "intent", "understanding", "resolved_entities", "selected_fact_ids", "assumptions", "calculations",
+         "prompt_version")
 
 
 def _plain(value):

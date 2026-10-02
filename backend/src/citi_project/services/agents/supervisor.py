@@ -1,4 +1,4 @@
-"""Bounded supervisor -> specialists -> certified tools (+ optional explorers) -> grounded synthesis.
+"""Bounded supervisor (understands, then routes) -> specialists -> certified tools (+ optional explorers) -> grounded synthesis.
 
 The stages run as a LangGraph graph (``graph.Orchestrator``); this class holds the
 bounds and collaborators and keeps the original ``ask`` contract.
@@ -7,6 +7,7 @@ bounds and collaborators and keeps the original ``ask`` contract.
 from copy import deepcopy
 
 from .contracts import AgentError, ConversationState, SPECIALISTS, SpecialistDeclined, plan_schema, validate
+from .digest import DataDigest
 from .graph import Orchestrator
 from . import prompts
 from .tools import ApprovedTools, CanonicalResolver
@@ -20,19 +21,20 @@ class SpecialistAgent:
             raise AgentError("Unknown specialist")
         self.name, self.model = name, model
 
-    def plan(self, question, vendor_ids, focus):
+    def plan(self, question, vendor_ids, focus, *, interpreted=None):
         schema = plan_schema(self.name)
         result = validate(self.model.complete(
             self.name, prompts.SPECIALIST,
             {"prompt_version": prompts.PROMPT_VERSION, "specialist": self.name, "question": question,
+             "interpreted_question": interpreted or question,
              "resolved_vendor_ids": vendor_ids, "focus": focus, "allowed_tools": list(SPECIALISTS[self.name])}, schema), schema)
         if result["status"] != "ready" or not result["calls"]:
-            raise SpecialistDeclined("Specialist requires clearer scope or scenario parameters")
+            raise SpecialistDeclined("Specialist requires clearer scope or scenario parameters", reason="specialists_declined")
         return result["calls"]
 
 
 class SupervisorAgent:
-    def __init__(self, decision_service, model, *, explorer=None, max_tool_calls=8, max_service_calls=12,
+    def __init__(self, decision_service, model, *, explorer=None, digest=None, max_tool_calls=8, max_service_calls=12,
                  max_question_chars=2000, max_explore_queries=15):
         for value, ceiling in ((max_tool_calls, 8), (max_service_calls, 16), (max_question_chars, 4000), (max_explore_queries, 30)):
             if type(value) is not int or not 1 <= value <= ceiling:
@@ -42,13 +44,15 @@ class SupervisorAgent:
         self.resolver = CanonicalResolver(decision_service.structured)
         self.specialists = {name: SpecialistAgent(name, model) for name in SPECIALISTS}
         self.explorer = explorer
+        # What kinds of data exist (from the ontology): how questions are understood and gaps explained.
+        self.digest = digest or DataDigest()
         self.max_tool_calls, self.max_service_calls = max_tool_calls, max_service_calls
         self.max_question_chars, self.max_explore_queries = max_question_chars, max_explore_queries
         self.orchestrator = Orchestrator(self)
 
     @staticmethod
     def _empty():
-        return {"namespace": NAMESPACE, "status": "answered", "intent": None, "route": None,
+        return {"namespace": NAMESPACE, "status": "answered", "intent": None, "route": None, "understanding": None,
                 "resolved_entities": {}, "specialists_used": [], "tool_results": [],
                 "facts": [], "calculations": [], "flags": [], "evidence": [], "interpretation": [],
                 "assumptions": [], "limitations": [], "final_answer": "", "prompt_version": prompts.PROMPT_VERSION,
